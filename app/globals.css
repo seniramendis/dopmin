@@ -1,14 +1,38 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* ─── CSS VARIABLES ─────────────────────────────────────────────────────────── */
+/* ─── TAILWIND v4: THEME TOKENS ──────────────────────────────────────────────
+   In Tailwind v4, theme customisation lives here in CSS — no tailwind.config.js
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Fonts — matches the variables set in layout.tsx */
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand colours — usable as Tailwind utilities e.g. bg-brand-orange */
+  --color-brand-yellow:  #F0E080;
+  --color-brand-red:     #D94030;
+  --color-brand-green:   #90E060;
+  --color-brand-orange:  #F26A10;
+  --color-brand-gold:    #FFD700;
+  --color-brand-black:   #0D0D0D;
+
+  /* Marquee keyframes registered as a Tailwind animation */
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+/* ─── CSS CUSTOM PROPERTIES ──────────────────────────────────────────────────
+   Available everywhere via var() — not Tailwind utilities
+   ─────────────────────────────────────────────────────────────────────────── */
 :root {
-  --bg-primary: #ffffff;
-  --text-main: #0D0D0D;
-  --text-muted: #747474;
+  --bg-primary:    #ffffff;
+  --text-main:     #0D0D0D;
+  --text-muted:    #747474;
 
-  /* Brand palette */
   --color-yellow:  #F0E080;
   --color-red:     #D94030;
   --color-green:   #90E060;
@@ -17,7 +41,7 @@
   --color-black:   #0D0D0D;
 }
 
-/* ─── BASE ───────────────────────────────────────────────────────────────────── */
+/* ─── BASE RESET ─────────────────────────────────────────────────────────────*/
 *,
 *::before,
 *::after {
@@ -38,100 +62,71 @@ body {
   padding: 0;
 }
 
-/* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────────── */
+/* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────────*/
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-main);
   letter-spacing: -0.03em;
   margin: 0;
 }
 
-/* ─── AMBIENT MESH GLOW ──────────────────────────────────────────────────────── */
-/*
-  Drop <div className="mesh-glow" /> inside any section
-  to add a subtle branded ambient background.
-*/
-.mesh-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(255, 215,   0, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 85% 10%, rgba(217,  64,  48, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 20% 80%, rgba(144, 224,  96, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(242, 106,  16, 0.07) 0%, transparent 40%);
-  filter: blur(60px);
-  pointer-events: none;
-}
-
-/* ─── MARQUEE ────────────────────────────────────────────────────────────────── */
-@keyframes marquee {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-  /* prevent layout shift during animation */
-  will-change: transform;
-  display: flex;
-  gap: 4rem; /* 64px — matches gap-16 in JSX */
-  align-items: center;
-  white-space: nowrap;
-}
-
-/* pause on hover — optional nice touch */
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-/* ─── SELECTION ──────────────────────────────────────────────────────────────── */
+/* ─── SELECTION ──────────────────────────────────────────────────────────────*/
 ::selection {
   background-color: rgba(242, 106, 16, 0.2);
   color: #F26A10;
 }
 
-/* ─── FOCUS VISIBLE ──────────────────────────────────────────────────────────── */
+/* ─── FOCUS VISIBLE ──────────────────────────────────────────────────────────*/
 :focus-visible {
   outline: 2px solid var(--color-orange);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* ─── SCROLLBAR (Webkit) ─────────────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #f5f5f5;
-}
-::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #a2a2a2;
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────────*/
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: #f5f5f5; }
+::-webkit-scrollbar-thumb  { background: #d4d4d4; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #a2a2a2; }
+
+/* ─── AMBIENT MESH GLOW ──────────────────────────────────────────────────────
+   Usage: <div className="mesh-glow" /> inside a position:relative parent
+   ─────────────────────────────────────────────────────────────────────────── */
+.mesh-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 215,  0, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(217,  64, 48, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(144, 224, 96, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(242, 106, 16, 0.07) 0%, transparent 40%);
+  filter: blur(60px);
+  pointer-events: none;
 }
 
-/* ─── NEXT/IMAGE FIX ─────────────────────────────────────────────────────────── */
-/*
-  Next.js <Image fill> requires the parent to be position:relative
-  with explicit dimensions. These helpers make that easy.
-*/
-.img-fill-parent {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* ─── MARQUEE ────────────────────────────────────────────────────────────────
+   The @theme block above registers the keyframes + --animate-marquee token.
+   This class wires everything together with the right display props.
+   ─────────────────────────────────────────────────────────────────────────── */
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+  display: flex;
+  gap: 4rem;          /* 64px — mirrors gap-16 in JSX */
+  align-items: center;
+  white-space: nowrap;
+  min-width: max-content;
 }
 
-/* ─── REDUCED MOTION ─────────────────────────────────────────────────────────── */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────────────────────────────────*/
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
   }
-
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

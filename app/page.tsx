@@ -10,13 +10,19 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-// Brand palette: Yellow #F0E080 · Red #D94030 · Green #90E060 · Orange #F26A10 · Gold #FFD700 · Black #0D0D0D
-
+// ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  },
 };
-const stagger: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
 function useScrollInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -24,9 +30,10 @@ function useScrollInView(threshold = 0.15) {
   return { ref, inView };
 }
 
-// ─── NAV ─────────────────────────────────────────────────────────────────────
+// ─── NAV ──────────────────────────────────────────────────────────────────────
 function Nav() {
   const [open, setOpen] = useState(false);
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -12 }}
@@ -35,14 +42,24 @@ function Nav() {
       className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-100"
     >
       <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-24 h-20 flex items-center justify-between">
+
+        {/* Logo */}
         <a href="#" aria-label="DopMin home" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 overflow-hidden rounded-full transition-transform duration-700 group-hover:rotate-180 ring-1 ring-black/5 bg-gray-200">
-            {/* Replace with your actual image or keep as placeholder */}
-            <Image src="/assets/images/dopmin.jpg" alt="Dopmin" fill className="object-cover" priority unoptimized />
+          <div className="relative w-10 h-10 shrink-0 overflow-hidden rounded-full ring-1 ring-black/5 bg-stone-100 transition-transform duration-700 group-hover:rotate-180">
+            <Image
+              src="/assets/images/dopmin.jpg"
+              alt="Dopmin logo"
+              fill
+              sizes="40px"
+              className="object-cover"
+              priority
+              unoptimized
+            />
           </div>
-          <span className="font-bold text-xl tracking-tight text-[#0D0D0D] hidden sm:block">DOPMIN</span>
+          <span className="font-bold text-xl tracking-tight text-[#0D0D0D]">DOPMIN</span>
         </a>
 
+        {/* Desktop nav links */}
         <nav className="hidden md:flex items-center gap-10" aria-label="Main navigation">
           {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
             <a
@@ -55,23 +72,28 @@ function Nav() {
           ))}
         </nav>
 
+        {/* Desktop CTA */}
         <a
           href="#contact"
-          className="hidden md:inline-flex items-center gap-1.5 text-[15px] font-semibold bg-[#0D0D0D] text-white px-6 py-2.5 rounded-lg hover:bg-[#D94030] transition-colors focus-visible:ring-2 focus-visible:ring-[#D94030] focus-visible:ring-offset-2 outline-none shadow-md hover:-translate-y-0.5"
+          className="hidden md:inline-flex items-center gap-1.5 text-[15px] font-semibold bg-[#0D0D0D] text-white px-6 py-2.5 rounded-lg hover:bg-[#D94030] transition-colors outline-none shadow-md hover:-translate-y-0.5"
         >
           Book a Free Audit <ChevronRight className="w-4 h-4" />
         </a>
 
+        {/* Mobile hamburger */}
         <button
           className="md:hidden text-stone-400 hover:text-stone-700 transition-colors p-1 rounded"
           onClick={() => setOpen(!open)}
           aria-label="Toggle navigation menu"
           aria-expanded={open}
         >
-          {open ? <X className="w-6 h-6 text-[#0D0D0D]" /> : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
+          {open
+            ? <X className="w-6 h-6 text-[#0D0D0D]" />
+            : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
         </button>
       </div>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -109,17 +131,26 @@ function Nav() {
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="relative pt-40 pb-20 md:pt-52 md:pb-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto flex flex-col justify-end min-h-[85vh]">
-      <div className="absolute top-0 right-0 w-2/3 h-[70vh] bg-gradient-to-bl from-[#F26A10]/15 via-[#FFD700]/10 to-transparent -z-10 blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden pt-40 pb-20 md:pt-52 md:pb-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto flex flex-col justify-end min-h-[85vh]">
+      {/* Ambient gradient */}
+      <div
+        aria-hidden
+        className="absolute top-0 right-0 w-2/3 h-[70vh] -z-10 blur-3xl pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at top right, rgba(242,106,16,0.15), rgba(255,215,0,0.10) 50%, transparent 80%)",
+        }}
+      />
 
       <div className="max-w-[1150px] relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="text-[50px] sm:text-[70px] md:text-[96px] font-semibold text-[#0D0D0D] leading-[1.05] tracking-tight mb-8"
+          className="text-[clamp(40px,8vw,96px)] font-semibold text-[#0D0D0D] leading-[1.05] tracking-tight mb-8"
         >
-          Engineering digital <br className="hidden md:block" />
+          Engineering digital{" "}
+          <br className="hidden md:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D94030] via-[#F26A10] to-[#FFD700]">
             luxury &amp; scale.
           </span>
@@ -131,8 +162,8 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="text-xl md:text-2xl text-[#747474] font-light max-w-2xl leading-relaxed mb-12"
         >
-          DopMin fuses enterprise full-stack engineering with autonomous AI workflows &mdash;
-          so your operations run leaner, faster, and smarter.
+          DopMin fuses enterprise full-stack engineering with autonomous AI workflows &mdash; so
+          your operations run leaner, faster, and smarter.
         </motion.p>
 
         <motion.div
@@ -143,7 +174,7 @@ function Hero() {
         >
           <a
             href="#solutions"
-            className="group inline-flex items-center gap-2 bg-[#F26A10] hover:bg-[#D94030] text-white font-semibold px-8 py-4 rounded-lg transition-all text-sm md:text-base shadow-sm focus-visible:ring-2 focus-visible:ring-[#F26A10] outline-none"
+            className="group inline-flex items-center gap-2 bg-[#F26A10] hover:bg-[#D94030] text-white font-semibold px-8 py-4 rounded-lg transition-all text-sm md:text-base shadow-sm outline-none"
           >
             Explore Our Solutions
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -160,7 +191,7 @@ function Hero() {
   );
 }
 
-// ─── TICKER ───────────────────────────────────────────────────────────────────
+// ─── LOGO TICKER ──────────────────────────────────────────────────────────────
 const BRANDS = [
   "Softlogic", "Brandix", "Dialog Axiata", "MAS Holdings",
   "PickMe", "Hemas", "Sampath Bank", "Cargills", "Virtusa",
@@ -168,20 +199,29 @@ const BRANDS = [
 
 function LogoTicker() {
   return (
-    <section className="py-12 border-y border-[#e4e4e4] bg-[#fafafa] overflow-hidden" aria-label="Client brands">
+    <section
+      className="py-12 border-y border-[#e4e4e4] bg-[#fafafa] overflow-hidden"
+      aria-label="Client brands"
+    >
       <p className="text-center text-[10px] font-bold text-stone-400 uppercase tracking-[0.18em] mb-7">
         Trusted by innovative brands across logistics, healthcare &amp; retail
       </p>
       <div
+        aria-hidden
         className="relative flex overflow-hidden"
-        aria-hidden="true"
-        style={{ maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)" }}
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        }}
       >
-        <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
+        {/* animate-marquee defined in globals.css */}
+        <div className="animate-marquee">
           {[...BRANDS, ...BRANDS].map((b, i) => (
             <span
               key={i}
-              className="text-[#d4d4d4] hover:text-[#a2a2a2] transition-colors font-bold text-xl md:text-2xl tracking-wide select-none cursor-default"
+              className="text-[#d4d4d4] hover:text-[#a2a2a2] transition-colors font-bold text-xl md:text-2xl tracking-wide select-none cursor-default shrink-0"
             >
               {b}
             </span>
@@ -228,7 +268,7 @@ function Expertise() {
   const { ref, inView } = useScrollInView(0.1);
   return (
     <section id="expertise" className="py-24 md:py-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto bg-white">
-      <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="mb-16 md:mb-24">
         <motion.div
           ref={ref}
           variants={stagger}
@@ -239,7 +279,10 @@ function Expertise() {
           <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
             Core Expertise
           </motion.p>
-          <motion.h2 variants={fadeUp} className="text-[40px] md:text-[64px] font-semibold leading-[1.1] mb-6 text-[#0D0D0D]">
+          <motion.h2
+            variants={fadeUp}
+            className="text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6 text-[#0D0D0D]"
+          >
             Expansive areas of expertise
           </motion.h2>
           <motion.p variants={fadeUp} className="text-xl text-[#747474]">
@@ -262,11 +305,14 @@ function Expertise() {
               variants={fadeUp}
               className="group relative h-[400px] md:h-[500px] w-full bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
             >
+              {/* Colour glow */}
               <div
+                aria-hidden
                 className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"
                 style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }}
               />
 
+              {/* Tags */}
               <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
                 {item.tags.map((tag) => (
                   <span
@@ -278,11 +324,15 @@ function Expertise() {
                 ))}
               </div>
 
+              {/* Content */}
               <div className="absolute bottom-0 left-0 w-full p-8 z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-black via-black/80 to-transparent">
                 <div
                   className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
                   style={{ backgroundColor: item.color }}
                 />
+                <div className="mb-3 opacity-60">
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
                 <h3 className="text-2xl font-semibold text-white mb-3 leading-tight">{item.title}</h3>
                 <p className="text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-sm">
                   {item.desc}
@@ -296,13 +346,13 @@ function Expertise() {
   );
 }
 
-// ─── COMPARE ─────────────────────────────────────────────────────────────────
+// ─── COMPARE ──────────────────────────────────────────────────────────────────
 const compareRows = [
-  { label: "Responsiveness", before: "Manual triaging by staff", after: "AI agent responds in < 2 sec" },
-  { label: "Uptime model", before: "Restart after failure", after: "Self-healing, auto-recovery" },
-  { label: "Reporting", before: "Weekly CSV exports", after: "Real-time dashboards & alerts" },
-  { label: "Scalability", before: "Provisioned for peak, idle 80%", after: "Auto-scales to demand" },
-  { label: "Connectivity", before: "Requires stable internet", after: "Works offline, syncs on reconnect" },
+  { label: "Responsiveness", before: "Manual triaging by staff",       after: "AI agent responds in < 2 sec" },
+  { label: "Uptime model",   before: "Restart after failure",          after: "Self-healing, auto-recovery" },
+  { label: "Reporting",      before: "Weekly CSV exports",             after: "Real-time dashboards & alerts" },
+  { label: "Scalability",    before: "Provisioned for peak, idle 80%", after: "Auto-scales to demand" },
+  { label: "Connectivity",   before: "Requires stable internet",       after: "Works offline, syncs on reconnect" },
 ];
 
 function Compare() {
@@ -321,7 +371,10 @@ function Compare() {
             <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
               The DopMin Difference
             </motion.p>
-            <motion.h2 variants={fadeUp} className="text-[40px] md:text-[64px] font-semibold text-[#0D0D0D] leading-[1.1]">
+            <motion.h2
+              variants={fadeUp}
+              className="text-[clamp(32px,5vw,64px)] font-semibold text-[#0D0D0D] leading-[1.1]"
+            >
               Standard vs. Intelligent
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#747474] mt-6 text-xl max-w-2xl mx-auto leading-relaxed">
@@ -335,9 +388,12 @@ function Compare() {
             animate={inView ? "visible" : "hidden"}
             className="rounded-2xl overflow-hidden border border-[#e4e4e4] bg-white shadow-sm"
           >
+            {/* Header row */}
             <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f5f5f5] border-b border-[#e4e4e4]">
               <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider">Dimension</div>
-              <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">Standard App</div>
+              <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">
+                Standard App
+              </div>
               <div className="px-6 py-5 text-xs font-bold text-white uppercase tracking-wider border-l border-[#e91d27] bg-[#e91d27]">
                 DopMin Systems
               </div>
@@ -347,7 +403,7 @@ function Compare() {
               <motion.div
                 key={label}
                 variants={fadeUp}
-                className={`grid grid-cols-[1.2fr_1fr_1fr] ${i < compareRows.length - 1 ? "border-b border-[#e4e4e4]" : ""}`}
+                className={`grid grid-cols-[1.2fr_1fr_1fr]${i < compareRows.length - 1 ? " border-b border-[#e4e4e4]" : ""}`}
               >
                 <div className="px-6 py-5 text-base font-semibold text-[#0D0D0D]">{label}</div>
                 <div className="px-6 py-5 border-l border-[#e4e4e4] flex items-center gap-3">
@@ -367,15 +423,15 @@ function Compare() {
   );
 }
 
-// ─── WORK / CASE STUDIES ─────────────────────────────────────────────────────
+// ─── WORK / CASE STUDIES ──────────────────────────────────────────────────────
 const caseStudies = [
   {
     tag: "Healthcare · PWA",
     title: "Hospital Ward Management System",
     outcome: "Reduced nurse response time by 60% in low-connectivity wards.",
     metrics: [
-      { icon: TrendingUp, value: "60%", label: "Faster response" },
-      { icon: WifiOff, value: "100%", label: "Offline capable" },
+      { icon: TrendingUp, value: "60%",  label: "Faster response" },
+      { icon: WifiOff,    value: "100%", label: "Offline capable" },
     ],
     accent: "#D94030",
   },
@@ -384,7 +440,7 @@ const caseStudies = [
     title: "AI Dispatch & Routing Agent",
     outcome: "Automated 85% of manual dispatch decisions for a regional courier network.",
     metrics: [
-      { icon: Bot, value: "85%", label: "Automation rate" },
+      { icon: Bot,   value: "85%",   label: "Automation rate" },
       { icon: Clock, value: "4 hrs", label: "Daily hours saved" },
     ],
     accent: "#F26A10",
@@ -394,8 +450,8 @@ const caseStudies = [
     title: "Omnichannel Commerce Platform",
     outcome: "Migrated 12-year-old monolith to cloud, cutting infrastructure cost by 40%.",
     metrics: [
-      { icon: CloudUpload, value: "40%", label: "Cost reduction" },
-      { icon: Shield, value: "99.9%", label: "Uptime achieved" },
+      { icon: CloudUpload, value: "40%",   label: "Cost reduction" },
+      { icon: Shield,      value: "99.9%", label: "Uptime achieved" },
     ],
     accent: "#90E060",
   },
@@ -416,8 +472,13 @@ function Work() {
           <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
             Selected Work
           </motion.p>
-          <motion.h2 variants={fadeUp} className="text-[40px] md:text-[64px] font-semibold text-[#0D0D0D] leading-[1.1] max-w-lg">
-            Results we&apos;ve<br />delivered.
+          <motion.h2
+            variants={fadeUp}
+            className="text-[clamp(32px,5vw,64px)] font-semibold text-[#0D0D0D] leading-[1.1] max-w-lg"
+          >
+            Results we&apos;ve
+            <br />
+            delivered.
           </motion.h2>
         </motion.div>
 
@@ -431,7 +492,7 @@ function Work() {
             <motion.div
               key={title}
               variants={fadeUp}
-              className="rounded-2xl border border-[#e4e4e4] p-8 bg-white hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col group"
+              className="rounded-2xl border border-[#e4e4e4] p-8 bg-white hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col"
             >
               <p
                 className="text-[10px] font-bold uppercase tracking-[0.1em] mb-6 px-3 py-1.5 rounded-full w-fit"
@@ -465,7 +526,7 @@ function Work() {
   );
 }
 
-// ─── CONTACT ─────────────────────────────────────────────────────────────────
+// ─── CONTACT ──────────────────────────────────────────────────────────────────
 function Contact() {
   const { ref, inView } = useScrollInView(0.1);
   const [submitted, setSubmitted] = useState(false);
@@ -491,13 +552,13 @@ function Contact() {
         >
           <motion.h2
             variants={fadeUp}
-            className="text-[40px] md:text-[64px] font-semibold text-[#0D0D0D] leading-[1.1] mb-6"
+            className="text-[clamp(32px,5vw,64px)] font-semibold text-[#0D0D0D] leading-[1.1] mb-6"
           >
             Ready to stop manual work?
           </motion.h2>
           <motion.p variants={fadeUp} className="text-[#747474] text-xl max-w-2xl mx-auto mb-16 leading-relaxed">
-            Walk us through your current stack. We&apos;ll identify your highest-leverage
-            automation opportunities &mdash; no pitch, no obligation.
+            Walk us through your current stack. We&apos;ll identify your highest-leverage automation
+            opportunities &mdash; no pitch, no obligation.
           </motion.p>
 
           <AnimatePresence mode="wait">
@@ -530,26 +591,26 @@ function Contact() {
                     type="text"
                     placeholder="Your name"
                     aria-label="Your name"
-                    className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all"
+                    className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all"
                   />
                   <input
                     required
                     type="email"
                     placeholder="Work email"
                     aria-label="Work email"
-                    className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all"
+                    className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all"
                   />
                 </div>
                 <textarea
                   placeholder="Briefly describe your current challenge or stack..."
                   aria-label="Your message"
                   rows={4}
-                  className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all resize-none"
+                  className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all resize-none"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="mt-2 self-stretch sm:self-end inline-flex items-center justify-center gap-2 bg-[#F26A10] hover:bg-[#d95e0e] disabled:opacity-70 text-white font-semibold px-8 py-4 rounded-xl transition-all text-base shadow-sm focus-visible:ring-2 focus-visible:ring-[#F26A10] focus-visible:ring-offset-2 outline-none hover:-translate-y-0.5"
+                  className="mt-2 self-stretch sm:self-end inline-flex items-center justify-center gap-2 bg-[#F26A10] hover:bg-[#d95e0e] disabled:opacity-70 text-white font-semibold px-8 py-4 rounded-xl transition-all text-base shadow-sm outline-none hover:-translate-y-0.5"
                 >
                   {loading ? "Sending…" : (
                     <>Request Free Audit <ArrowRight className="w-5 h-5" /></>
@@ -564,64 +625,87 @@ function Contact() {
   );
 }
 
-// ─── FOOTER ──────────────────────────────────────────────────────────────────
+// ─── FOOTER ───────────────────────────────────────────────────────────────────
 function Footer() {
   return (
     <footer className="relative bg-[#0a0a0a] overflow-hidden pt-32 pb-12 px-6 md:px-12 xl:px-24">
-      <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-tr from-transparent via-[#F26A10]/10 to-[#FFD700]/5 pointer-events-none" />
+      {/* Ambient gradient */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at top right, rgba(242,106,16,0.10), rgba(255,215,0,0.05) 50%, transparent 80%)",
+        }}
+      />
 
-      <div className="absolute -bottom-[20%] -right-[10%] w-[800px] h-[800px] opacity-[0.03] pointer-events-none grayscale rounded-full overflow-hidden">
-        <Image src="/assets/images/dopmin.jpg" alt="" fill className="object-cover blur-sm" unoptimized aria-hidden />
+      {/* Watermark logo */}
+      <div
+        aria-hidden
+        className="absolute -bottom-[20%] -right-[10%] w-[600px] h-[600px] opacity-[0.04] pointer-events-none rounded-full overflow-hidden grayscale blur-sm"
+      >
+        <Image src="/assets/images/dopmin.jpg" alt="" fill className="object-cover" unoptimized />
       </div>
 
       <div className="relative z-10 max-w-[1920px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-32 border-b border-white/10 pb-20">
+        {/* Big CTA */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24 border-b border-white/10 pb-20">
           <div className="max-w-2xl">
-            <h4 className="text-white text-[40px] md:text-[64px] font-semibold leading-[1.1] mb-6">
+            <h4 className="text-white text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6">
               Ready to architect the future?
             </h4>
             <p className="text-[#a2a2a2] text-xl">
               Let&apos;s discuss your next massive digital transformation.
             </p>
           </div>
-
-          <button className="bg-[#e91d27] hover:bg-[#D94030] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:-translate-y-1">
+          <a
+            href="#contact"
+            className="shrink-0 bg-[#e91d27] hover:bg-[#D94030] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:-translate-y-1"
+          >
             Get in touch
-          </button>
+          </a>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-[#a2a2a2] text-lg">
+        {/* Footer columns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-[#a2a2a2] text-base">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-700">
-                <Image src="/assets/images/dopmin.jpg" alt="Dopmin" fill className="object-cover grayscale" unoptimized />
+              <div className="relative w-8 h-8 shrink-0 rounded-full overflow-hidden bg-gray-700">
+                <Image
+                  src="/assets/images/dopmin.jpg"
+                  alt="Dopmin"
+                  fill
+                  sizes="32px"
+                  className="object-cover grayscale"
+                  unoptimized
+                />
               </div>
               <span className="font-bold text-white text-xl tracking-tight">DOPMIN</span>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <span className="text-white font-semibold mb-2">Capabilities</span>
+          <div className="flex flex-col gap-3">
+            <span className="text-white font-semibold mb-1">Capabilities</span>
             <a href="#expertise" className="hover:text-white transition-colors">Design</a>
             <a href="#expertise" className="hover:text-white transition-colors">Engineering</a>
             <a href="#expertise" className="hover:text-white transition-colors">AI Workflows</a>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <span className="text-white font-semibold mb-2">Company</span>
+          <div className="flex flex-col gap-3">
+            <span className="text-white font-semibold mb-1">Company</span>
             <a href="#" className="hover:text-white transition-colors">About Us</a>
             <a href="#work" className="hover:text-white transition-colors">Work</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <span className="text-white font-semibold mb-2">Legal</span>
+          <div className="flex flex-col gap-3">
+            <span className="text-white font-semibold mb-1">Legal</span>
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
 
-        <div className="mt-24 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+        <div className="mt-16 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
           <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
@@ -634,10 +718,10 @@ function Footer() {
   );
 }
 
-// ─── MAIN EXPORT ──────────────────────────────────────────────────────────────
+// ─── ROOT ─────────────────────────────────────────────────────────────────────
 export default function DopMinPage() {
   return (
-    <main className="bg-white min-h-screen antialiased selection:bg-[#F26A10]/20 selection:text-[#F26A10]">
+    <main className="bg-white min-h-screen antialiased">
       <Nav />
       <Hero />
       <LogoTicker />
