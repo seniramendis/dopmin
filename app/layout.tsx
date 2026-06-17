@@ -1,28 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Surge uses Instrument Sans for body and Inter for Headings
+const instrumentSans = Instrument_Sans({ 
   subsets: ["latin"],
+  variable: '--font-instrument',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({ 
   subsets: ["latin"],
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
-  title: "DopMin — Enterprise AI & Full-Stack Engineering",
-  description:
-    "DopMin fuses enterprise full-stack engineering with autonomous AI workflows — so your operations run leaner, faster, and smarter. Based in Sri Lanka, serving globally.",
-  keywords: ["AI automation", "full-stack engineering", "PWA", "cloud migration", "Sri Lanka", "LLM workflows"],
-  openGraph: {
-    title: "DopMin — Enterprise AI & Full-Stack Engineering",
-    description:
-      "We build systems that think for you. Offline-first PWAs, agentic AI, cloud migration, and headless commerce.",
-    type: "website",
-  },
+  title: "Dopmin | Engineering Digital Luxury",
+  description: "Best-in-class design, marketing, and technology.",
 };
 
 export default function RootLayout({
@@ -31,11 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${instrumentSans.variable} ${inter.variable} font-sans antialiased bg-white text-[#747474]`}>
+        {children}
+      </body>
     </html>
   );
 }

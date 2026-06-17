@@ -10,11 +10,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-// Brand palette: Yellow #F0E080 · Red #D94030 · Green #90E060 · Orange #F26A10 · Black #0D0D0D
+// Brand palette: Yellow #F0E080 · Red #D94030 · Green #90E060 · Orange #F26A10 · Gold #FFD700 · Black #0D0D0D
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
 };
 const stagger: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
 
@@ -31,27 +31,24 @@ function Nav() {
     <motion.header
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
       className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-100"
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" aria-label="DopMin home">
-          <Image
-            src="/assets/images/dopmin.jpeg"
-            alt="DopMin logo"
-            width={108}
-            height={36}
-            className="h-9 w-auto object-contain"
-            priority
-          />
+      <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-24 h-20 flex items-center justify-between">
+        <a href="#" aria-label="DopMin home" className="flex items-center gap-3 group">
+          <div className="relative w-10 h-10 overflow-hidden rounded-full transition-transform duration-700 group-hover:rotate-180 ring-1 ring-black/5 bg-gray-200">
+            {/* Replace with your actual image or keep as placeholder */}
+            <Image src="/assets/images/dopmin.jpg" alt="Dopmin" fill className="object-cover" priority unoptimized />
+          </div>
+          <span className="font-bold text-xl tracking-tight text-[#0D0D0D] hidden sm:block">DOPMIN</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+        <nav className="hidden md:flex items-center gap-10" aria-label="Main navigation">
           {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
-              className="text-sm text-stone-500 hover:text-stone-900 transition-colors font-medium"
+              className="text-[15px] font-medium text-stone-500 hover:text-[#F26A10] transition-colors"
             >
               {l}
             </a>
@@ -60,9 +57,9 @@ function Nav() {
 
         <a
           href="#contact"
-          className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold bg-[#F26A10] text-white px-4 py-2 rounded-lg hover:bg-[#d95e0e] transition-colors focus-visible:ring-2 focus-visible:ring-[#F26A10] focus-visible:ring-offset-2 outline-none"
+          className="hidden md:inline-flex items-center gap-1.5 text-[15px] font-semibold bg-[#0D0D0D] text-white px-6 py-2.5 rounded-lg hover:bg-[#D94030] transition-colors focus-visible:ring-2 focus-visible:ring-[#D94030] focus-visible:ring-offset-2 outline-none shadow-md hover:-translate-y-0.5"
         >
-          Book a Free Audit <ChevronRight className="w-3.5 h-3.5" />
+          Book a Free Audit <ChevronRight className="w-4 h-4" />
         </a>
 
         <button
@@ -71,7 +68,7 @@ function Nav() {
           aria-label="Toggle navigation menu"
           aria-expanded={open}
         >
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {open ? <X className="w-6 h-6 text-[#0D0D0D]" /> : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
         </button>
       </div>
 
@@ -89,7 +86,7 @@ function Nav() {
                   key={l}
                   href={`#${l.toLowerCase()}`}
                   onClick={() => setOpen(false)}
-                  className="text-stone-600 text-sm font-medium hover:text-stone-900 transition-colors"
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
                 >
                   {l}
                 </a>
@@ -97,7 +94,7 @@ function Nav() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-2.5 rounded-lg hover:bg-[#d95e0e] transition-colors"
+                className="text-center text-sm font-semibold bg-[#0D0D0D] text-white px-4 py-3 rounded-lg hover:bg-[#D94030] transition-colors mt-2"
               >
                 Book a Free Audit
               </a>
@@ -112,78 +109,51 @@ function Nav() {
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 pt-24 pb-20 bg-white">
-      <div className="max-w-4xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.1 }}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#D94030] bg-[#D94030]/[0.08] border border-[#D94030]/[0.15] px-3.5 py-1.5 rounded-full mb-10"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#D94030] animate-pulse" />
-          Now accepting Q3 2025 partnerships &middot; Sri Lanka &amp; Remote
-        </motion.div>
+    <section className="relative pt-40 pb-20 md:pt-52 md:pb-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto flex flex-col justify-end min-h-[85vh]">
+      <div className="absolute top-0 right-0 w-2/3 h-[70vh] bg-gradient-to-bl from-[#F26A10]/15 via-[#FFD700]/10 to-transparent -z-10 blur-3xl pointer-events-none" />
 
+      <div className="max-w-[1150px] relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] as const }}
-          className="text-5xl md:text-[68px] font-extrabold text-[#0D0D0D] leading-[1.06] tracking-tight mb-6"
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="text-[50px] sm:text-[70px] md:text-[96px] font-semibold text-[#0D0D0D] leading-[1.05] tracking-tight mb-8"
         >
-          We build systems<br />
-          <span className="relative inline-block">
-            that think for you.
-            <span className="absolute left-0 -bottom-1 h-[4px] w-full bg-[#F26A10] rounded-full" />
+          Engineering digital <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D94030] via-[#F26A10] to-[#FFD700]">
+            luxury &amp; scale.
           </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-          className="text-lg text-stone-500 max-w-xl mx-auto leading-relaxed mb-10 mt-6"
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="text-xl md:text-2xl text-[#747474] font-light max-w-2xl leading-relaxed mb-12"
         >
           DopMin fuses enterprise full-stack engineering with autonomous AI workflows &mdash;
-          so your operations run leaner, faster, and smarter without adding headcount.
+          so your operations run leaner, faster, and smarter.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.42 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3"
+          transition={{ duration: 0.55, delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
         >
           <a
             href="#solutions"
-            className="group inline-flex items-center gap-2 bg-[#F26A10] hover:bg-[#d95e0e] text-white font-semibold px-6 py-3 rounded-lg transition-all text-sm shadow-sm shadow-[#F26A10]/30 focus-visible:ring-2 focus-visible:ring-[#F26A10] focus-visible:ring-offset-2 outline-none"
+            className="group inline-flex items-center gap-2 bg-[#F26A10] hover:bg-[#D94030] text-white font-semibold px-8 py-4 rounded-lg transition-all text-sm md:text-base shadow-sm focus-visible:ring-2 focus-visible:ring-[#F26A10] outline-none"
           >
             Explore Our Solutions
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
             href="#expertise"
-            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-800 border border-stone-200 hover:border-stone-400 px-6 py-3 rounded-lg transition-all text-sm font-medium focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 outline-none"
+            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-800 border border-stone-200 hover:border-stone-400 px-8 py-4 rounded-lg transition-all text-sm md:text-base font-medium outline-none"
           >
-            View Tech Stack <ExternalLink className="w-3.5 h-3.5" />
+            View Tech Stack <ExternalLink className="w-4 h-4" />
           </a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="mt-20 pt-10 border-t border-stone-100 grid grid-cols-3 gap-6 max-w-sm mx-auto"
-        >
-          {[
-            { num: "40+", label: "Deployments" },
-            { num: "99.9%", label: "Uptime SLA" },
-            { num: "3×", label: "Avg. efficiency gain" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="text-2xl font-extrabold text-[#0D0D0D]">{s.num}</div>
-              <div className="text-xs text-stone-400 mt-0.5 font-medium">{s.label}</div>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>
@@ -198,14 +168,21 @@ const BRANDS = [
 
 function LogoTicker() {
   return (
-    <section className="py-12 border-y border-stone-100 bg-stone-50 overflow-hidden" aria-label="Client brands">
+    <section className="py-12 border-y border-[#e4e4e4] bg-[#fafafa] overflow-hidden" aria-label="Client brands">
       <p className="text-center text-[10px] font-bold text-stone-400 uppercase tracking-[0.18em] mb-7">
         Trusted by innovative brands across logistics, healthcare &amp; retail
       </p>
-      <div className="relative flex overflow-hidden" aria-hidden="true">
+      <div
+        className="relative flex overflow-hidden"
+        aria-hidden="true"
+        style={{ maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)" }}
+      >
         <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
           {[...BRANDS, ...BRANDS].map((b, i) => (
-            <span key={i} className="text-stone-300 font-bold text-sm tracking-wide select-none">
+            <span
+              key={i}
+              className="text-[#d4d4d4] hover:text-[#a2a2a2] transition-colors font-bold text-xl md:text-2xl tracking-wide select-none cursor-default"
+            >
               {b}
             </span>
           ))}
@@ -220,84 +197,101 @@ const services = [
   {
     icon: WifiOff,
     title: "Offline-First Web Apps",
-    tag: "PWA Engineering",
-    desc: "Progressive Web Apps that operate in low-connectivity environments — hospital wards, warehouse floors, remote logistics hubs. Users never see a failure screen.",
-    barClass: "bg-[#F0E080]",
-    iconBgClass: "bg-[#F0E080]/20 border border-[#F0E080]/50",
-    iconClass: "text-[#8a7a00]",
+    tags: ["PWA", "React", "Sync"],
+    desc: "Progressive Web Apps that operate in low-connectivity environments. Users never see a failure screen.",
+    color: "#F0E080",
   },
   {
     icon: Bot,
     title: "Agentic AI Automation",
-    tag: "LLM Workflows",
-    desc: "LLM-powered agents that handle intake, triage, scheduling, and follow-up without a human in the loop — from AI receptionists to fully autonomous processors.",
-    barClass: "bg-[#D94030]",
-    iconBgClass: "bg-[#D94030]/10 border border-[#D94030]/30",
-    iconClass: "text-[#D94030]",
+    tags: ["LLM", "Agents", "OpenAI"],
+    desc: "LLM-powered agents that handle intake, triage, and follow-up without a human in the loop.",
+    color: "#D94030",
   },
   {
     icon: CloudUpload,
     title: "Legacy to Cloud Migration",
-    tag: "Infrastructure",
-    desc: "Extract your monolith from on-premise hardware and redeploy as a resilient, auto-scaling cloud architecture on AWS or GCP — zero data loss, zero downtime.",
-    barClass: "bg-[#90E060]",
-    iconBgClass: "bg-[#90E060]/20 border border-[#90E060]/50",
-    iconClass: "text-[#3a8000]",
+    tags: ["AWS", "GCP", "Docker"],
+    desc: "Extract your monolith from on-premise hardware and redeploy as a resilient, auto-scaling cloud architecture.",
+    color: "#90E060",
   },
   {
     icon: ShoppingBag,
     title: "Headless E-commerce",
-    tag: "Commerce Stack",
-    desc: "Decouple your storefront from the commerce engine — sub-second page loads, edge-cached product pages, and a native app-grade checkout experience at scale.",
-    barClass: "bg-[#F26A10]",
-    iconBgClass: "bg-[#F26A10]/10 border border-[#F26A10]/30",
-    iconClass: "text-[#F26A10]",
+    tags: ["Shopify", "Next.js", "Edge"],
+    desc: "Decouple your storefront from the commerce engine — sub-second page loads and app-grade checkout.",
+    color: "#F26A10",
   },
 ];
 
 function Expertise() {
-  const { ref, inView } = useScrollInView();
+  const { ref, inView } = useScrollInView(0.1);
   return (
-    <section id="expertise" className="py-28 px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="expertise" className="py-24 md:py-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto bg-white">
+      <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <motion.div
           ref={ref}
           variants={stagger}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="mb-14"
+          className="max-w-2xl"
         >
           <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
             Core Expertise
           </motion.p>
-          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-[#0D0D0D] tracking-tight max-w-md leading-tight">
-            Four disciplines.<br />One integrated team.
+          <motion.h2 variants={fadeUp} className="text-[40px] md:text-[64px] font-semibold leading-[1.1] mb-6 text-[#0D0D0D]">
+            Expansive areas of expertise
           </motion.h2>
-        </motion.div>
-
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {services.map(({ icon: Icon, title, tag, desc, barClass, iconBgClass, iconClass }) => (
-            <motion.div
-              key={title}
-              variants={fadeUp}
-              className="rounded-2xl p-6 border border-stone-100 hover:shadow-md hover:border-stone-200 transition-all duration-300 cursor-default bg-white group"
-            >
-              <div className={`mb-5 w-10 h-10 rounded-xl flex items-center justify-center ${iconBgClass}`}>
-                <Icon className={`w-5 h-5 ${iconClass}`} />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-stone-400 mb-2">{tag}</p>
-              <h3 className="text-sm font-bold text-[#0D0D0D] mb-3 leading-snug">{title}</h3>
-              <p className="text-sm text-stone-500 leading-relaxed">{desc}</p>
-              <div className={`mt-5 h-0.5 w-8 rounded-full ${barClass} group-hover:w-12 transition-all duration-300`} />
-            </motion.div>
-          ))}
+          <motion.p variants={fadeUp} className="text-xl text-[#747474]">
+            Four disciplines. One integrated team. We architect solutions to capture opportunities across industries.
+          </motion.p>
         </motion.div>
       </div>
+
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
+        {services.map((item) => {
+          const Icon = item.icon;
+          return (
+            <motion.div
+              key={item.title}
+              variants={fadeUp}
+              className="group relative h-[400px] md:h-[500px] w-full bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
+            >
+              <div
+                className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"
+                style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }}
+              />
+
+              <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
+                {item.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-semibold border border-white/20 uppercase tracking-wider"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="absolute bottom-0 left-0 w-full p-8 z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-black via-black/80 to-transparent">
+                <div
+                  className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
+                  style={{ backgroundColor: item.color }}
+                />
+                <h3 className="text-2xl font-semibold text-white mb-3 leading-tight">{item.title}</h3>
+                <p className="text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-sm">
+                  {item.desc}
+                </p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </motion.div>
     </section>
   );
 }
@@ -314,58 +308,60 @@ const compareRows = [
 function Compare() {
   const { ref, inView } = useScrollInView(0.1);
   return (
-    <section id="solutions" className="py-28 px-6 bg-stone-50">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          ref={ref}
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mb-14 text-center"
-        >
-          <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
-            The DopMin Difference
-          </motion.p>
-          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-[#0D0D0D] tracking-tight">
-            Standard vs. Intelligent
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-stone-500 mt-4 text-base max-w-md mx-auto leading-relaxed">
-            Most agencies ship software. We ship leverage &mdash; systems that compound in value after launch.
-          </motion.p>
-        </motion.div>
+    <section id="solutions" className="py-28 px-6 bg-[#fafafa] border-y border-[#e4e4e4]">
+      <div className="max-w-[1920px] mx-auto md:px-12 xl:px-24">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            ref={ref}
+            variants={stagger}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="mb-14 text-center"
+          >
+            <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
+              The DopMin Difference
+            </motion.p>
+            <motion.h2 variants={fadeUp} className="text-[40px] md:text-[64px] font-semibold text-[#0D0D0D] leading-[1.1]">
+              Standard vs. Intelligent
+            </motion.h2>
+            <motion.p variants={fadeUp} className="text-[#747474] mt-6 text-xl max-w-2xl mx-auto leading-relaxed">
+              Most agencies ship software. We ship leverage &mdash; systems that compound in value after launch.
+            </motion.p>
+          </motion.div>
 
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="rounded-2xl overflow-hidden border border-stone-200 bg-white shadow-sm"
-        >
-          <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-stone-50 border-b border-stone-200">
-            <div className="px-5 py-3.5 text-[10px] font-bold text-stone-400 uppercase tracking-[0.1em]">Dimension</div>
-            <div className="px-5 py-3.5 text-[10px] font-bold text-stone-400 uppercase tracking-[0.1em] border-l border-stone-200">Standard App</div>
-            <div className="px-5 py-3.5 text-[10px] font-bold text-[#F26A10] uppercase tracking-[0.1em] border-l border-[#F26A10]/20 bg-[#F26A10]/5">
-              DopMin Systems
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="rounded-2xl overflow-hidden border border-[#e4e4e4] bg-white shadow-sm"
+          >
+            <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f5f5f5] border-b border-[#e4e4e4]">
+              <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider">Dimension</div>
+              <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">Standard App</div>
+              <div className="px-6 py-5 text-xs font-bold text-white uppercase tracking-wider border-l border-[#e91d27] bg-[#e91d27]">
+                DopMin Systems
+              </div>
             </div>
-          </div>
 
-          {compareRows.map(({ label, before, after }, i) => (
-            <motion.div
-              key={label}
-              variants={fadeUp}
-              className={`grid grid-cols-[1.2fr_1fr_1fr] ${i < compareRows.length - 1 ? "border-b border-stone-100" : ""}`}
-            >
-              <div className="px-5 py-4 text-sm font-semibold text-[#0D0D0D]">{label}</div>
-              <div className="px-5 py-4 border-l border-stone-100 flex items-center gap-2">
-                <X className="w-3.5 h-3.5 text-[#D94030] shrink-0" />
-                <span className="text-sm text-stone-400">{before}</span>
-              </div>
-              <div className="px-5 py-4 border-l border-[#F26A10]/15 bg-[#F26A10]/[0.03] flex items-center gap-2">
-                <Check className="w-3.5 h-3.5 text-[#3a8000] shrink-0" />
-                <span className="text-sm text-stone-700">{after}</span>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            {compareRows.map(({ label, before, after }, i) => (
+              <motion.div
+                key={label}
+                variants={fadeUp}
+                className={`grid grid-cols-[1.2fr_1fr_1fr] ${i < compareRows.length - 1 ? "border-b border-[#e4e4e4]" : ""}`}
+              >
+                <div className="px-6 py-5 text-base font-semibold text-[#0D0D0D]">{label}</div>
+                <div className="px-6 py-5 border-l border-[#e4e4e4] flex items-center gap-3">
+                  <X className="w-5 h-5 text-[#D94030] shrink-0" />
+                  <span className="text-sm text-[#747474]">{before}</span>
+                </div>
+                <div className="px-6 py-5 border-l border-[#e91d27]/10 bg-[#e91d27]/5 flex items-center gap-3">
+                  <Check className="w-5 h-5 text-[#90E060] shrink-0" />
+                  <span className="text-sm font-medium text-[#0D0D0D]">{after}</span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -382,7 +378,6 @@ const caseStudies = [
       { icon: WifiOff, value: "100%", label: "Offline capable" },
     ],
     accent: "#D94030",
-    accentLight: "#D94030",
   },
   {
     tag: "Logistics · AI Automation",
@@ -393,7 +388,6 @@ const caseStudies = [
       { icon: Clock, value: "4 hrs", label: "Daily hours saved" },
     ],
     accent: "#F26A10",
-    accentLight: "#F26A10",
   },
   {
     tag: "Retail · Cloud Migration",
@@ -403,8 +397,7 @@ const caseStudies = [
       { icon: CloudUpload, value: "40%", label: "Cost reduction" },
       { icon: Shield, value: "99.9%", label: "Uptime achieved" },
     ],
-    accent: "#3a8000",
-    accentLight: "#90E060",
+    accent: "#90E060",
   },
 ];
 
@@ -412,7 +405,7 @@ function Work() {
   const { ref, inView } = useScrollInView(0.1);
   return (
     <section id="work" className="py-28 px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[1920px] mx-auto md:px-12 xl:px-24">
         <motion.div
           ref={ref}
           variants={stagger}
@@ -423,7 +416,7 @@ function Work() {
           <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
             Selected Work
           </motion.p>
-          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-[#0D0D0D] tracking-tight max-w-lg leading-tight">
+          <motion.h2 variants={fadeUp} className="text-[40px] md:text-[64px] font-semibold text-[#0D0D0D] leading-[1.1] max-w-lg">
             Results we&apos;ve<br />delivered.
           </motion.h2>
         </motion.div>
@@ -434,32 +427,32 @@ function Work() {
           animate={inView ? "visible" : "hidden"}
           className="grid md:grid-cols-3 gap-6"
         >
-          {caseStudies.map(({ tag, title, outcome, metrics, accent, accentLight }) => (
+          {caseStudies.map(({ tag, title, outcome, metrics, accent }) => (
             <motion.div
               key={title}
               variants={fadeUp}
-              className="rounded-2xl border border-stone-100 p-7 bg-white hover:shadow-md hover:border-stone-200 transition-all duration-300 flex flex-col"
+              className="rounded-2xl border border-[#e4e4e4] p-8 bg-white hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col group"
             >
               <p
-                className="text-[10px] font-bold uppercase tracking-[0.1em] mb-4 px-2.5 py-1 rounded-full w-fit"
-                style={{ color: accent, background: `${accentLight}14`, border: `1px solid ${accentLight}30` }}
+                className="text-[10px] font-bold uppercase tracking-[0.1em] mb-6 px-3 py-1.5 rounded-full w-fit"
+                style={{ color: accent, background: `${accent}14`, border: `1px solid ${accent}30` }}
               >
                 {tag}
               </p>
-              <h3 className="text-base font-bold text-[#0D0D0D] mb-3 leading-snug">{title}</h3>
-              <p className="text-sm text-stone-500 leading-relaxed mb-6 flex-1">{outcome}</p>
-              <div className="grid grid-cols-2 gap-3 pt-5 border-t border-stone-100">
+              <h3 className="text-2xl font-semibold text-[#0D0D0D] mb-4 leading-snug">{title}</h3>
+              <p className="text-base text-[#747474] leading-relaxed mb-8 flex-1">{outcome}</p>
+              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-[#e4e4e4]">
                 {metrics.map(({ icon: Icon, value, label }) => (
-                  <div key={label} className="flex items-center gap-2.5">
+                  <div key={label} className="flex items-center gap-3">
                     <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: `${accentLight}12`, border: `1px solid ${accentLight}25` }}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                      style={{ background: `${accent}12`, border: `1px solid ${accent}25` }}
                     >
-                      <Icon className="w-3.5 h-3.5" style={{ color: accent }} />
+                      <Icon className="w-4 h-4" style={{ color: accent }} />
                     </div>
                     <div>
-                      <div className="text-sm font-extrabold text-[#0D0D0D] leading-none">{value}</div>
-                      <div className="text-[10px] text-stone-400 font-medium mt-0.5">{label}</div>
+                      <div className="text-base font-bold text-[#0D0D0D] leading-none">{value}</div>
+                      <div className="text-xs text-[#747474] font-medium mt-1">{label}</div>
                     </div>
                   </div>
                 ))}
@@ -478,10 +471,9 @@ function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate async submission
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
@@ -489,29 +481,22 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 px-6 bg-stone-50">
-      <div className="max-w-2xl mx-auto text-center">
+    <section id="contact" className="py-32 px-6 bg-white border-t border-[#e4e4e4]">
+      <div className="max-w-3xl mx-auto text-center">
         <motion.div
           ref={ref}
           variants={stagger}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-5">
-            Free Architecture Audit
-          </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="text-5xl md:text-6xl font-extrabold text-[#0D0D0D] tracking-tight leading-[1.06] mb-5"
+            className="text-[40px] md:text-[64px] font-semibold text-[#0D0D0D] leading-[1.1] mb-6"
           >
-            Ready to stop<br />
-            <span className="relative inline-block">
-              manual work?
-              <span className="absolute left-0 -bottom-1 h-[4px] w-full bg-[#F26A10] rounded-full" />
-            </span>
+            Ready to stop manual work?
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-stone-500 text-base max-w-md mx-auto mb-12 leading-relaxed mt-5">
-            Walk us through your current stack. We&apos;ll identify your three highest-leverage
+          <motion.p variants={fadeUp} className="text-[#747474] text-xl max-w-2xl mx-auto mb-16 leading-relaxed">
+            Walk us through your current stack. We&apos;ll identify your highest-leverage
             automation opportunities &mdash; no pitch, no obligation.
           </motion.p>
 
@@ -523,11 +508,11 @@ function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="bg-[#90E060]/10 border border-[#90E060]/30 rounded-2xl py-12 px-8"
               >
-                <div className="inline-flex items-center justify-center w-11 h-11 rounded-full mb-4 bg-[#90E060]/20 border border-[#90E060]/40">
-                  <Check className="w-5 h-5 text-[#3a8000]" />
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 bg-[#90E060]/20 border border-[#90E060]/40">
+                  <Check className="w-6 h-6 text-[#3a8000]" />
                 </div>
-                <h3 className="text-[#0D0D0D] font-bold text-lg mb-2">You&apos;re on the list.</h3>
-                <p className="text-stone-500 text-sm">
+                <h3 className="text-[#0D0D0D] font-bold text-2xl mb-2">You&apos;re on the list.</h3>
+                <p className="text-[#747474] text-base">
                   We&apos;ll reach out within one business day to schedule your audit.
                 </p>
               </motion.div>
@@ -536,53 +521,43 @@ function Contact() {
                 key="form"
                 variants={fadeUp}
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-3 text-left"
+                className="flex flex-col gap-4 text-left"
                 noValidate
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     required
                     type="text"
                     placeholder="Your name"
                     aria-label="Your name"
-                    className="bg-white border border-stone-200 focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-stone-400 rounded-lg px-4 py-3 text-sm outline-none transition-all"
+                    className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all"
                   />
                   <input
                     required
                     type="email"
                     placeholder="Work email"
                     aria-label="Work email"
-                    className="bg-white border border-stone-200 focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-stone-400 rounded-lg px-4 py-3 text-sm outline-none transition-all"
+                    className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all"
                   />
                 </div>
-                <input
-                  type="text"
-                  placeholder="Company name (optional)"
-                  aria-label="Company name"
-                  className="bg-white border border-stone-200 focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-stone-400 rounded-lg px-4 py-3 text-sm outline-none transition-all"
-                />
                 <textarea
                   placeholder="Briefly describe your current challenge or stack..."
                   aria-label="Your message"
-                  rows={3}
-                  className="bg-white border border-stone-200 focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-stone-400 rounded-lg px-4 py-3 text-sm outline-none transition-all resize-none"
+                  rows={4}
+                  className="bg-[#fafafa] border border-[#e4e4e4] focus:border-[#F26A10]/50 focus:ring-2 focus:ring-[#F26A10]/10 text-[#0D0D0D] placeholder-[#a2a2a2] rounded-xl px-5 py-4 text-base outline-none transition-all resize-none"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="self-stretch sm:self-end inline-flex items-center justify-center gap-2 bg-[#F26A10] hover:bg-[#d95e0e] disabled:opacity-70 text-white font-semibold px-6 py-3 rounded-lg transition-colors text-sm shadow-sm shadow-[#F26A10]/30 focus-visible:ring-2 focus-visible:ring-[#F26A10] focus-visible:ring-offset-2 outline-none"
+                  className="mt-2 self-stretch sm:self-end inline-flex items-center justify-center gap-2 bg-[#F26A10] hover:bg-[#d95e0e] disabled:opacity-70 text-white font-semibold px-8 py-4 rounded-xl transition-all text-base shadow-sm focus-visible:ring-2 focus-visible:ring-[#F26A10] focus-visible:ring-offset-2 outline-none hover:-translate-y-0.5"
                 >
                   {loading ? "Sending…" : (
-                    <>Request Free Audit <ArrowRight className="w-4 h-4" /></>
+                    <>Request Free Audit <ArrowRight className="w-5 h-5" /></>
                   )}
                 </button>
               </motion.form>
             )}
           </AnimatePresence>
-
-          <motion.p variants={fadeUp} className="mt-6 text-xs text-stone-300">
-            No spam. Your data is never shared. Typical response within 24 hours.
-          </motion.p>
         </motion.div>
       </div>
     </section>
@@ -592,36 +567,77 @@ function Contact() {
 // ─── FOOTER ──────────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer className="border-t border-stone-100 px-6 py-10 bg-white">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <Image
-          src="/assets/images/dopmin.jpeg"
-          alt="DopMin logo"
-          width={90}
-          height={30}
-          className="h-7 w-auto object-contain"
-        />
+    <footer className="relative bg-[#0a0a0a] overflow-hidden pt-32 pb-12 px-6 md:px-12 xl:px-24">
+      <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-tr from-transparent via-[#F26A10]/10 to-[#FFD700]/5 pointer-events-none" />
 
-        <p className="text-xs text-stone-300 text-center order-last md:order-none">
-          &copy; {new Date().getFullYear()} DopMin. Enterprise-grade technology &mdash; Sri Lanka &amp; Remote.
-        </p>
+      <div className="absolute -bottom-[20%] -right-[10%] w-[800px] h-[800px] opacity-[0.03] pointer-events-none grayscale rounded-full overflow-hidden">
+        <Image src="/assets/images/dopmin.jpg" alt="" fill className="object-cover blur-sm" unoptimized aria-hidden />
+      </div>
 
-        <div className="flex gap-6 text-xs text-stone-400">
-          <a href="mailto:hello@dopmin.com" className="hover:text-stone-700 transition-colors">
-            hello@dopmin.com
-          </a>
-          <a href="#" aria-label="Privacy policy" className="hover:text-stone-700 transition-colors">Privacy</a>
-          <a href="#" aria-label="Terms of service" className="hover:text-stone-700 transition-colors">Terms</a>
+      <div className="relative z-10 max-w-[1920px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-32 border-b border-white/10 pb-20">
+          <div className="max-w-2xl">
+            <h4 className="text-white text-[40px] md:text-[64px] font-semibold leading-[1.1] mb-6">
+              Ready to architect the future?
+            </h4>
+            <p className="text-[#a2a2a2] text-xl">
+              Let&apos;s discuss your next massive digital transformation.
+            </p>
+          </div>
+
+          <button className="bg-[#e91d27] hover:bg-[#D94030] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:-translate-y-1">
+            Get in touch
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-[#a2a2a2] text-lg">
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-700">
+                <Image src="/assets/images/dopmin.jpg" alt="Dopmin" fill className="object-cover grayscale" unoptimized />
+              </div>
+              <span className="font-bold text-white text-xl tracking-tight">DOPMIN</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <span className="text-white font-semibold mb-2">Capabilities</span>
+            <a href="#expertise" className="hover:text-white transition-colors">Design</a>
+            <a href="#expertise" className="hover:text-white transition-colors">Engineering</a>
+            <a href="#expertise" className="hover:text-white transition-colors">AI Workflows</a>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <span className="text-white font-semibold mb-2">Company</span>
+            <a href="#" className="hover:text-white transition-colors">About Us</a>
+            <a href="#work" className="hover:text-white transition-colors">Work</a>
+            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <span className="text-white font-semibold mb-2">Legal</span>
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          </div>
+        </div>
+
+        <div className="mt-24 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+          <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
+            <a href="#" className="hover:text-white transition-colors">Twitter</a>
+            <a href="#" className="hover:text-white transition-colors">Instagram</a>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
 
-// ─── PAGE ─────────────────────────────────────────────────────────────────────
+// ─── MAIN EXPORT ──────────────────────────────────────────────────────────────
 export default function DopMinPage() {
   return (
-    <main className="bg-white min-h-screen antialiased">
+    <main className="bg-white min-h-screen antialiased selection:bg-[#F26A10]/20 selection:text-[#F26A10]">
       <Nav />
       <Hero />
       <LogoTicker />
