@@ -303,7 +303,7 @@ function Expertise() {
             <motion.div
               key={item.title}
               variants={fadeUp}
-              className="group relative h-[400px] md:h-[500px] w-full bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
+              className="group relative h-[480px] md:h-[560px] w-full bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
             >
               {/* Colour glow */}
               <div
@@ -325,7 +325,7 @@ function Expertise() {
               </div>
 
               {/* Content */}
-              <div className="absolute bottom-0 left-0 w-full p-8 z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-black via-black/80 to-transparent">
+              <div className="absolute bottom-0 left-0 w-full p-8 z-10 transition-transform duration-500 bg-gradient-to-t from-black via-black/80 to-transparent">
                 <div
                   className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
                   style={{ backgroundColor: item.color }}
@@ -333,8 +333,8 @@ function Expertise() {
                 <div className="mb-3 opacity-60">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-semibold text-white mb-3 leading-tight">{item.title}</h3>
-                <p className="text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-sm">
+                <h3 className="text-2xl font-semibold mb-3 leading-tight" style={{ color: "#ffffff" }}>{item.title}</h3>
+                <p className="text-white/70 transition-opacity duration-500 text-sm">
                   {item.desc}
                 </p>
               </div>
@@ -651,7 +651,7 @@ function Footer() {
         {/* Big CTA */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24 border-b border-white/10 pb-20">
           <div className="max-w-2xl">
-            <h4 className="text-white text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6">
+            <h4 className="text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6" style={{ color: "#ffffff" }}>
               Ready to architect the future?
             </h4>
             <p className="text-[#a2a2a2] text-xl">
