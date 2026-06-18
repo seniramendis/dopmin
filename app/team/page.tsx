@@ -173,8 +173,8 @@ export default function TeamPage() {
           className="mb-16 text-center"
         >
           <h1
-            className="text-[clamp(52px,7.5vw,100px)] font-black text-[#0D0D0D] leading-[1.05] tracking-[-0.03em]"
-            style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
+            className="text-[clamp(52px,7.5vw,100px)] text-[#0D0D0D] leading-[1.05]"
+            style={{ fontFamily: "var(--font-inter), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.01em" }}
           >
             Our full stack<br />tech experts
           </h1>

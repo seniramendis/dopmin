@@ -932,8 +932,8 @@ function TeamTeaser() {
           {/* Headline — exact match to reference */}
           <motion.div variants={fadeUp} className="text-center mb-14">
             <h2
-              className="text-[clamp(44px,7vw,96px)] font-black text-[#0D0D0D] leading-[1.05] tracking-[-0.03em]"
-              style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
+              className="text-[clamp(44px,7vw,96px)] text-[#0D0D0D] leading-[1.05]"
+              style={{ fontFamily: "var(--font-inter), Inter, sans-serif", fontWeight: 700, letterSpacing: "-0.01em" }}
             >
               Our full stack<br />tech experts
             </h2>
