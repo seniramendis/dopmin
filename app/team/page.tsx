@@ -121,14 +121,14 @@ export default function TeamPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <main className="bg-[#0D0D0D] min-h-screen antialiased">
+    <main className="bg-white min-h-screen antialiased">
       <Nav />
 
       {/* ── HERO BAND ── */}
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
         {/* Ambient glow */}
         <div aria-hidden className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(242,106,16,0.12) 0%, transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(242,106,16,0.07) 0%, transparent 70%)" }} />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.p
@@ -143,43 +143,26 @@ export default function TeamPage() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="text-[clamp(48px,8vw,100px)] font-bold text-white leading-[1.02] tracking-tight mb-6"
+            className="text-[clamp(48px,8vw,100px)] font-semibold text-[#0D0D0D] leading-[1.02] tracking-tight mb-6"
           >
-            Small team.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D94030] via-[#F26A10] to-[#FFD700]">
-              Outsized impact.
-            </span>
+            Crafted by experts.<br />
+            Built to last.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-[17px] text-white/55 max-w-xl mx-auto leading-relaxed"
+            className="text-[17px] text-[#747474] max-w-xl mx-auto leading-relaxed"
           >
             Four specialists. One shared obsession: shipping software that actually works in the real world.
           </motion.p>
         </div>
       </section>
 
-      {/* ── STAT BAR ── */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.35 }}
-        className="border-y border-white/8 bg-white/[0.03] py-8 px-6"
-      >
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
-          {STATS.map(({ value, label }) => (
-            <div key={label} className="text-center py-2 md:py-0">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-1">{value}</div>
-              <div className="text-xs text-white/40 font-medium uppercase tracking-wider">{label}</div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
+
 
       {/* ── TEAM CARDS ── */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
 
           {/* Desktop: 4-col cinematic grid */}
@@ -256,7 +239,7 @@ export default function TeamPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="rounded-2xl overflow-hidden border border-white/8"
+                  className="rounded-2xl overflow-hidden border border-[#e4e4e4]"
                   style={{ borderTopColor: member.accentColor, borderTopWidth: 3 }}
                 >
                   {/* Photo strip */}
@@ -272,18 +255,18 @@ export default function TeamPage() {
                   </div>
 
                   {/* Text content */}
-                  <div className="bg-[#161616] px-5 py-5">
-                    <h3 className="text-white font-bold text-xl mb-0.5">{member.name}</h3>
+                  <div className="bg-white px-5 py-5">
+                    <h3 className="text-[#0D0D0D] font-bold text-xl mb-0.5">{member.name}</h3>
                     <p className="text-sm mb-3" style={{ color: member.accentColor }}>{member.role}</p>
-                    <p className="text-white/55 text-[13px] leading-relaxed mb-4">{member.tagline}</p>
+                    <p className="text-[#747474] text-[13px] leading-relaxed mb-4">{member.tagline}</p>
                     <div className="flex flex-wrap gap-2">
                       {member.skills.map(skill => (
-                        <span key={skill} className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-white/70 bg-white/8 border border-white/10">
+                        <span key={skill} className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-[#555] bg-stone-100 border border-stone-200">
                           {skill}
                         </span>
                       ))}
                     </div>
-                    <p className="mt-4 pt-4 border-t border-white/8 text-[12px] text-white/35 italic">
+                    <p className="mt-4 pt-4 border-t border-stone-100 text-[12px] text-stone-400 italic">
                       💡 {member.funFact}
                     </p>
                   </div>
@@ -295,32 +278,56 @@ export default function TeamPage() {
       </section>
 
       {/* ── CULTURE STRIP ── */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7 }}
-        className="py-20 px-6 border-t border-white/8"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { emoji: "⚡", title: "Ship fast, iterate faster", body: "We default to working code over perfect planning. Real feedback from real users beats any internal spec." },
-              { emoji: "🔍", title: "Obsessed with the details", body: "Every pixel, every millisecond, every edge case. We don't ship anything we'd be embarrassed to show." },
-              { emoji: "🤝", title: "Owned end-to-end", body: "No handoff culture here. Each engineer owns their work from architecture to production — and takes pride in it." },
-            ].map(({ emoji, title, body }) => (
-              <div key={title} className="rounded-2xl bg-white/[0.04] border border-white/8 p-7 hover:border-[#F26A10]/30 hover:bg-white/[0.06] transition-all duration-300">
-                <div className="text-3xl mb-4">{emoji}</div>
-                <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
-                <p className="text-white/45 text-[14px] leading-relaxed">{body}</p>
+      <section className="border-t border-[#e4e4e4] bg-[#fafafa]">
+        {[
+          {
+            emoji: "⚡",
+            label: "Our Philosophy",
+            title: "Ship fast, iterate faster",
+            body: "We default to working code over perfect planning. Real feedback from real users beats any internal spec. Velocity isn't recklessness — it's how we learn what actually matters.",
+          },
+          {
+            emoji: "🔍",
+            label: "Our Standard",
+            title: "Obsessed with the details",
+            body: "Every pixel, every millisecond, every edge case. We don't ship anything we'd be embarrassed to show. The difference between good and great lives in the details nobody notices until they're missing.",
+          },
+          {
+            emoji: "🤝",
+            label: "Our Culture",
+            title: "Owned end-to-end",
+            body: "No handoff culture here. Each engineer owns their work from architecture to production — and takes genuine pride in it. Accountability isn't assigned; it's built in.",
+          },
+        ].map(({ emoji, label, title, body }, i) => (
+          <motion.div
+            key={title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="border-b border-[#e4e4e4] last:border-b-0"
+          >
+            <div className="max-w-6xl mx-auto px-6 py-16 md:py-20 grid md:grid-cols-2 gap-10 md:gap-24 items-start">
+              {/* Left: label + big heading */}
+              <div>
+                <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-5 flex items-center gap-2">
+                  <span>{emoji}</span> {label}
+                </p>
+                <h3 className="text-[clamp(28px,4vw,52px)] font-semibold text-[#0D0D0D] leading-[1.08] tracking-tight">
+                  {title}
+                </h3>
               </div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+              {/* Right: body */}
+              <div className="md:pt-14">
+                <p className="text-[17px] text-[#747474] leading-relaxed">{body}</p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </section>
 
       {/* ── FOOTER CTA ── */}
-      <section className="py-20 px-6 text-center border-t border-white/8">
+      <section className="py-20 px-6 text-center border-t border-[#e4e4e4] bg-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -328,10 +335,10 @@ export default function TeamPage() {
           transition={{ duration: 0.6 }}
         >
           <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-4">Work With Us</p>
-          <h2 className="text-[clamp(32px,5vw,60px)] font-bold text-white leading-tight mb-6">
+          <h2 className="text-[clamp(32px,5vw,60px)] font-bold text-[#0D0D0D] leading-tight mb-6">
             Want to build something<br />great together?
           </h2>
-          <p className="text-white/45 text-[16px] max-w-md mx-auto mb-10 leading-relaxed">
+          <p className="text-[#747474] text-[16px] max-w-md mx-auto mb-10 leading-relaxed">
             We're always open to interesting problems. Drop us a line.
           </p>
           <Link
