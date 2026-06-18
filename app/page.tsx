@@ -71,6 +71,12 @@ function Nav() {
                 {l}
               </a>
             ))}
+            <a
+              href="/team"
+              className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
+            >
+              Team
+            </a>
           </nav>
 
           {/* Desktop CTA */}
@@ -114,6 +120,13 @@ function Nav() {
                     {l}
                   </a>
                 ))}
+                <a
+                  href="/team"
+                  onClick={() => setOpen(false)}
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                >
+                  Team
+                </a>
                 <a
                   href="#contact"
                   onClick={() => setOpen(false)}
@@ -881,6 +894,104 @@ function Footer() {
   );
 }
 
+// ─── TEAM TEASER ──────────────────────────────────────────────────────────────
+const TEAM_HOME = [
+  {
+    name: "Senira Mendis",
+    role: "Scrum Master & Backend Developer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727668/1755882213261_zoaphc.png",
+  },
+  {
+    name: "Devin Kulasekere",
+    role: "Front End Developer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/255916317_ru7gyz.jpg",
+  },
+  {
+    name: "Rashmika Kodithuwakku",
+    role: "Backend Developer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727846/Screenshot_2026-06-18_015243_vmapsq.png",
+  },
+  {
+    name: "Pamod Dhananjana",
+    role: "QA Engineer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/1776604303706_hni2ai.jpg",
+  },
+];
+
+function TeamTeaser() {
+  const { ref, inView } = useScrollInView();
+  return (
+    <section id="team" className="pt-24 pb-0 overflow-hidden bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={stagger}
+        >
+          {/* Headline — exact match to reference */}
+          <motion.div variants={fadeUp} className="text-center mb-14">
+            <h2
+              className="text-[clamp(44px,7vw,96px)] font-black text-[#0D0D0D] leading-[1.05] tracking-[-0.03em]"
+              style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}
+            >
+              Our full stack<br />tech experts
+            </h2>
+            <p className="mt-5 text-[17px] text-stone-500 max-w-xl mx-auto leading-relaxed">
+              Leverage elite engineering expertise trusted by leading companies to build
+              systems that serve millions daily.
+            </p>
+          </motion.div>
+
+          {/* Cinematic photo cards — flush at bottom like reference */}
+          <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory md:overflow-visible md:grid md:grid-cols-4">
+            {TEAM_HOME.map((member, i) => (
+              <motion.div
+                key={member.name}
+                variants={fadeUp}
+                className="relative group shrink-0 snap-center w-[72vw] sm:w-[50vw] md:w-auto rounded-t-2xl overflow-hidden cursor-pointer"
+                style={{ aspectRatio: "3/4" }}
+              >
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                {/* Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+                {/* Name + role */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-white font-bold text-xl leading-snug">
+                    {member.name}
+                  </p>
+                  <p className="text-white/65 text-[13px] font-medium mt-1">
+                    {member.role}
+                  </p>
+                </div>
+
+                {/* Hover accent */}
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#F26A10] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* See full team CTA */}
+          <motion.div variants={fadeUp} className="text-center pt-10 pb-12">
+            <a
+              href="/team"
+              className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#F26A10] hover:text-[#D94030] transition-colors"
+            >
+              Meet the full team <ChevronRight className="w-4 h-4" />
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ─── ROOT ─────────────────────────────────────────────────────────────────────
 export default function DopMinPage() {
   return (
@@ -891,6 +1002,7 @@ export default function DopMinPage() {
       <Expertise />
       <Compare />
       <Work />
+      <TeamTeaser />
       <Contact />
       <Footer />
     </main>
