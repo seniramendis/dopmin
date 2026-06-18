@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, X, Menu, Github, Linkedin, Twitter, Code2, Shield, Layers, Cpu } from "lucide-react";
+import { ChevronRight, X, Menu, Code2, Shield, Layers, Cpu } from "lucide-react";
 
 // ─── NAV (no back button) ─────────────────────────────────────────────────────
 function Nav() {
