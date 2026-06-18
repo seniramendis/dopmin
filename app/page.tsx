@@ -81,7 +81,7 @@ function Nav() {
 
           {/* Desktop CTA */}
           <a
-            href="#contact"
+            href="/book"
             className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm"
           >
             Book a Free Audit <ChevronRight className="w-4 h-4" />
@@ -128,7 +128,7 @@ function Nav() {
                   Team
                 </a>
                 <a
-                  href="#contact"
+                  href="/book"
                   onClick={() => setOpen(false)}
                   className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2"
                 >
