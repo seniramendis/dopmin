@@ -35,222 +35,208 @@ function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-      className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-100"
-    >
-      <div className="max-w-[1920px] mx-auto px-6 md:px-12 xl:px-24 h-20 flex items-center justify-between">
+    <div className="fixed top-0 inset-x-0 z-50 flex justify-center pt-5 px-6">
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+        className="w-full max-w-5xl bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-white/60"
+      >
+        <div className="px-6 h-16 flex items-center justify-between">
 
-        {/* Logo */}
-        <a href="#" aria-label="DopMin home" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 shrink-0 overflow-hidden rounded-full ring-1 ring-black/5 bg-stone-100 transition-transform duration-700 group-hover:rotate-180">
-            <Image
-              src="/assets/images/dopmin.jpg"
-              alt="Dopmin logo"
-              fill
-              sizes="40px"
-              className="object-cover"
-              priority
-              unoptimized
-            />
-          </div>
-          <span className="font-bold text-xl tracking-tight text-[#0D0D0D]">DOPMIN</span>
-        </a>
-
-        {/* Desktop nav links */}
-        <nav className="hidden md:flex items-center gap-10" aria-label="Main navigation">
-          {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
-              className="text-[15px] font-medium text-stone-500 hover:text-[#F26A10] transition-colors"
-            >
-              {l}
-            </a>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center gap-1.5 text-[15px] font-semibold bg-[#0D0D0D] text-white px-6 py-2.5 rounded-lg hover:bg-[#D94030] transition-colors outline-none shadow-md hover:-translate-y-0.5"
-        >
-          Book a Free Audit <ChevronRight className="w-4 h-4" />
-        </a>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden text-stone-400 hover:text-stone-700 transition-colors p-1 rounded"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={open}
-        >
-          {open
-            ? <X className="w-6 h-6 text-[#0D0D0D]" />
-            : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
-        </button>
-      </div>
-
-      {/* Mobile drawer */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-white border-t border-stone-100"
-          >
-            <div className="px-6 py-5 flex flex-col gap-4">
-              {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
-                <a
-                  key={l}
-                  href={`#${l.toLowerCase()}`}
-                  onClick={() => setOpen(false)}
-                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
-                >
-                  {l}
-                </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="text-center text-sm font-semibold bg-[#0D0D0D] text-white px-4 py-3 rounded-lg hover:bg-[#D94030] transition-colors mt-2"
-              >
-                Book a Free Audit
-              </a>
+          {/* Logo */}
+          <a href="#" aria-label="DopMin home" className="flex items-center gap-3 group">
+            <div className="relative w-8 h-8 shrink-0 overflow-hidden rounded-full ring-1 ring-black/5 bg-stone-100 transition-transform duration-700 group-hover:rotate-180">
+              <Image
+                src="/assets/images/dopmin.jpg"
+                alt="Dopmin logo"
+                fill
+                sizes="32px"
+                className="object-cover"
+                priority
+                unoptimized
+              />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+            <span className="font-bold text-lg tracking-tight text-[#0D0D0D]">DOPMIN</span>
+          </a>
+
+          {/* Desktop nav links */}
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+            {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
+              <a
+                key={l}
+                href={`#${l.toLowerCase()}`}
+                className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
+              >
+                {l}
+              </a>
+            ))}
+          </nav>
+
+          {/* Desktop CTA */}
+          <a
+            href="#contact"
+            className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm"
+          >
+            Book a Free Audit <ChevronRight className="w-4 h-4" />
+          </a>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden text-stone-400 hover:text-stone-700 transition-colors p-1 rounded"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={open}
+          >
+            {open
+              ? <X className="w-6 h-6 text-[#0D0D0D]" />
+              : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
+          </button>
+        </div>
+
+        {/* Mobile drawer */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl"
+            >
+              <div className="px-6 py-5 flex flex-col gap-4">
+                {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
+                  <a
+                    key={l}
+                    href={`#${l.toLowerCase()}`}
+                    onClick={() => setOpen(false)}
+                    className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                  >
+                    {l}
+                  </a>
+                ))}
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2"
+                >
+                  Book a Free Audit
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
+    </div>
   );
 }
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
-// Cloudinary delivers responsive, transcoded variants on the fly — q_auto picks
-// the leanest codec/quality per browser, w_960 caps resolution for mobile.
-const CLOUDINARY_VIDEO_BASE = "https://res.cloudinary.com/dukv2otyn/video/upload/v1781731256/dopmin-hero-bg_qeyvrd.mp4";
-const HERO_VIDEO_ID = "v1781731256/dopmin-hero-bg_qeyvrd";
-const HERO_VIDEO_DESKTOP = `${CLOUDINARY_VIDEO_BASE}/q_auto/${HERO_VIDEO_ID}.mp4`;
-const HERO_VIDEO_MOBILE = `${CLOUDINARY_VIDEO_BASE}/q_auto,w_960/${HERO_VIDEO_ID}.mp4`;
-const HERO_VIDEO_POSTER = `${CLOUDINARY_VIDEO_BASE}/q_auto/${HERO_VIDEO_ID}.jpg`;
-
 function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [textVisible, setTextVisible] = useState(true);
 
-  // Respect prefers-reduced-motion: swap the autoplaying clip for a static frame.
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  // Subtle scroll-linked parallax: the footage drifts and slowly zooms as the
-  // hero scrolls past, instead of sitting static behind the copy.
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.16]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    let fadeOutTimer: ReturnType<typeof setTimeout>;
+
+    const handleTimeUpdate = () => {
+      const remaining = video.duration - video.currentTime;
+      if (remaining < 1.5 && !textVisible) setTextVisible(true);
+    };
+    const handlePlay = () => {
+      setTextVisible(true);
+      clearTimeout(fadeOutTimer);
+      fadeOutTimer = setTimeout(() => setTextVisible(false), 2000);
+    };
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    if (!video.paused) handlePlay();
+
+    return () => {
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      clearTimeout(fadeOutTimer);
+    };
+  }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden pt-40 pb-20 md:pt-52 md:pb-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto flex flex-col justify-end min-h-[85vh]">
+    <section
+      ref={sectionRef}
+      className="relative w-full min-h-screen bg-[#0D0D0D] overflow-hidden flex flex-col justify-end"
+    >
+      {/* Full-bleed video */}
+      <motion.div
+        aria-hidden
+        style={{ y: videoY, scale: videoScale }}
+        className="absolute inset-0 z-0"
+      >
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="https://res.cloudinary.com/dukv2otyn/video/upload/v1781731256/dopmin-hero-bg_qeyvrd.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
 
-      {/* Background video — full visibility, just a light brand-warmth pass */}
-      <div aria-hidden className="absolute inset-0 -z-20 overflow-hidden bg-[#0D0D0D]">
-        {!prefersReducedMotion ? (
-          <motion.video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            poster={HERO_VIDEO_POSTER}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            style={{
-              y: videoY,
-              scale: videoScale,
-              filter: "saturate(0.92) brightness(1.02) contrast(1.03)",
-            }}
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source media="(max-width: 768px)" src={HERO_VIDEO_MOBILE} type="video/mp4" />
-            <source src={HERO_VIDEO_DESKTOP} type="video/mp4" />
-          </motion.video>
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={HERO_VIDEO_POSTER}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
-      </div>
-
-      {/* Light brand wash + a bottom fade so the section blends into the white ticker below */}
+      {/* Subtle vignette — just bottom + left edge, keeps video open */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 pointer-events-none"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: [
-            "linear-gradient(to bottom, transparent 58%, #ffffff 100%)",
-            "linear-gradient(135deg, rgba(255,215,0,0.14) 0%, rgba(242,106,16,0.10) 45%, rgba(217,64,48,0.08) 100%)",
+            "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 40%, transparent 70%)",
+            "linear-gradient(to right, rgba(0,0,0,0.25) 0%, transparent 55%)",
           ].join(", "),
         }}
       />
 
-      <div className="max-w-[1150px] relative z-10">
-        {/* Frosted glass panel — keeps copy legible over the footage regardless of viewport width */}
-        <div className="backdrop-blur-2xl bg-white/70 ring-1 ring-white/60 shadow-[0_30px_80px_-25px_rgba(13,13,13,0.35)] rounded-[28px] p-8 sm:p-10 md:p-14 inline-block">
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="text-[clamp(40px,8vw,96px)] font-semibold text-[#0D0D0D] leading-[1.05] tracking-tight mb-8"
-        >
-          Engineering digital{" "}
-          <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D94030] via-[#F26A10] to-[#FFD700]">
-            luxury &amp; scale.
-          </span>
-        </motion.h1>
+      {/* Hero content — pinned to bottom like surge */}
+      <div className="relative z-[2] px-6 md:px-12 xl:px-24 pb-16 md:pb-24 max-w-[1920px] mx-auto w-full">
 
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="text-xl md:text-2xl text-[#747474] font-light max-w-2xl leading-relaxed mb-12"
+        {/* Headline + description — fade on video loop */}
+        <div
+          style={{
+            opacity: textVisible ? 1 : 0,
+            transform: textVisible ? "translateY(0px)" : "translateY(12px)",
+            transition: "opacity 0.9s ease, transform 0.9s ease",
+          }}
         >
-          DopMin fuses enterprise full-stack engineering with autonomous AI workflows &mdash; so
-          your operations run leaner, faster, and smarter.
-        </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            className="text-[clamp(48px,8vw,110px)] font-bold text-white leading-[1.0] tracking-tight mb-6"
+            style={{ textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}
+          >
+            Engineering digital
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D94030] via-[#F26A10] to-[#FFD700]">
+              luxury &amp; scale.
+            </span>
+          </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
-        >
-          <a
-            href="#solutions"
-            className="group inline-flex items-center gap-2 bg-[#F26A10] hover:bg-[#D94030] text-white font-semibold px-8 py-4 rounded-lg transition-all text-sm md:text-base shadow-sm outline-none"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            className="text-lg md:text-xl text-white/75 font-light max-w-xl leading-relaxed mb-10"
           >
-            Explore Our Solutions
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="#expertise"
-            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-800 border border-stone-200 hover:border-stone-400 px-8 py-4 rounded-lg transition-all text-sm md:text-base font-medium outline-none"
-          >
-            View Tech Stack <ExternalLink className="w-4 h-4" />
-          </a>
-        </motion.div>
+            DopMin fuses enterprise full-stack engineering with autonomous AI workflows — so your operations run leaner, faster, and smarter.
+          </motion.p>
         </div>
+
       </div>
     </section>
   );
