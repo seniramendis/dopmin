@@ -147,14 +147,24 @@ function Nav() {
 function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const mobileVideoRef = useRef<HTMLVideoElement | null>(null);
   const [textVisible, setTextVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
 
   useEffect(() => {
-    const video = videoRef.current;
+    const video = isMobile ? mobileVideoRef.current : videoRef.current;
     if (!video) return;
     let fadeOutTimer: ReturnType<typeof setTimeout>;
 
@@ -177,18 +187,18 @@ function Hero() {
       video.removeEventListener("timeupdate", handleTimeUpdate);
       clearTimeout(fadeOutTimer);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full min-h-screen bg-[#0D0D0D] overflow-hidden flex flex-col justify-end"
     >
-      {/* Full-bleed video */}
+      {/* Full-bleed video — desktop only */}
       <motion.div
         aria-hidden
         style={{ y: videoY, scale: videoScale }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 hidden md:block"
       >
         <video
           ref={videoRef}
@@ -200,6 +210,25 @@ function Hero() {
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="https://res.cloudinary.com/dukv2otyn/video/upload/v1781731256/dopmin-hero-bg_qeyvrd.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+
+      {/* Full-bleed video — mobile only */}
+      <motion.div
+        aria-hidden
+        style={{ y: videoY, scale: videoScale }}
+        className="absolute inset-0 z-0 block md:hidden"
+      >
+        <video
+          ref={mobileVideoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="https://res.cloudinary.com/dukv2otyn/video/upload/v1781816336/dopmin-hero-bg-mobile_tugdgj.mp4" type="video/mp4" />
         </video>
       </motion.div>
 
