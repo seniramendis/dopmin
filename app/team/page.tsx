@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -119,6 +119,25 @@ const STATS = [
 // ─── TEAM PAGE ────────────────────────────────────────────────────────────────
 export default function TeamPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const handleCarouselScroll = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const slideWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 16 : el.clientWidth;
+    const index = Math.round(el.scrollLeft / slideWidth);
+    setCarouselIndex(Math.max(0, Math.min(index, TEAM.length - 1)));
+  };
+
+  const scrollToSlide = (i: number) => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const slide = el.children[i] as HTMLElement | undefined;
+    if (slide) {
+      el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    }
+  };
 
   return (
     <main className="bg-white min-h-screen antialiased">
@@ -230,49 +249,79 @@ export default function TeamPage() {
           </div>
 
           {/* Mobile: vertical stacked cards with full detail */}
-          <div className="md:hidden flex flex-col gap-6">
-            {TEAM.map((member, i) => {
-              const Icon = member.icon;
-              return (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="rounded-2xl overflow-hidden border border-[#e4e4e4]"
-                  style={{ borderTopColor: member.accentColor, borderTopWidth: 3 }}
-                >
-                  {/* Photo strip */}
-                  <div className="relative h-56 w-full">
-                    <img src={member.img} alt={member.name} className="absolute inset-0 w-full h-full object-cover object-top" />
-                    <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${member.accentBg} 0%, transparent 60%)` }} />
-                    <div className="absolute bottom-4 left-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border"
-                        style={{ color: member.accentColor, backgroundColor: "rgba(0,0,0,0.55)", borderColor: `${member.accentColor}50` }}>
-                        <Icon className="w-3 h-3" /> {member.role.split("&")[0].trim()}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Text content */}
-                  <div className="bg-white px-5 py-5">
-                    <h3 className="text-[#0D0D0D] font-bold text-xl mb-0.5">{member.name}</h3>
-                    <p className="text-sm mb-3" style={{ color: member.accentColor }}>{member.role}</p>
-                    <p className="text-[#747474] text-[13px] leading-relaxed mb-4">{member.tagline}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {member.skills.map(skill => (
-                        <span key={skill} className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-[#555] bg-stone-100 border border-stone-200">
-                          {skill}
+          <div className="md:hidden">
+            <div
+              ref={carouselRef}
+              onScroll={handleCarouselScroll}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-1 pb-2 -mx-1 scrollbar-hide"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {TEAM.map((member, i) => {
+                const Icon = member.icon;
+                return (
+                  <motion.div
+                    key={member.name}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: i * 0.08 }}
+                    className="snap-center shrink-0 w-[85%] rounded-2xl overflow-hidden border border-[#e4e4e4]"
+                  >
+                    {/* Photo strip */}
+                    <div className="relative w-full" style={{ aspectRatio: "3/4" }}>
+                      <img
+                        src={member.img}
+                        alt={member.name}
+                        className="absolute inset-0 w-full h-full object-cover object-top"
+                      />
+                      <div className="absolute bottom-4 left-4">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border"
+                          style={{ color: member.accentColor, backgroundColor: "rgba(0,0,0,0.55)", borderColor: `${member.accentColor}50` }}>
+                          <Icon className="w-3 h-3" /> {member.role.split("&")[0].trim()}
                         </span>
-                      ))}
+                      </div>
                     </div>
-                    <p className="mt-4 pt-4 border-t border-stone-100 text-[12px] text-stone-400 italic">
-                      {member.funFact}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
+
+                    {/* Text content */}
+                    <div className="bg-white px-5 py-5">
+                      <h3 className="text-[#0D0D0D] font-bold text-xl mb-0.5">{member.name}</h3>
+                      <p className="text-sm mb-3" style={{ color: member.accentColor }}>{member.role}</p>
+                      <p className="text-[#747474] text-[13px] leading-relaxed mb-4">{member.tagline}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {member.skills.map(skill => (
+                          <span key={skill} className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-[#555] bg-stone-100 border border-stone-200">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="mt-4 pt-4 border-t border-stone-100 text-[12px] text-stone-400 italic">
+                        {member.funFact}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Dot indicators */}
+            <div className="flex justify-center items-center gap-2 mt-5">
+              {TEAM.map((member, i) => (
+                <button
+                  key={member.name}
+                  aria-label={`Go to ${member.name}`}
+                  onClick={() => scrollToSlide(i)}
+                  className="p-1.5 -m-1.5"
+                >
+                  <span
+                    className="block rounded-full transition-all duration-300"
+                    style={{
+                      width: carouselIndex === i ? 20 : 6,
+                      height: 6,
+                      backgroundColor: carouselIndex === i ? member.accentColor : "#d4d4d4",
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
