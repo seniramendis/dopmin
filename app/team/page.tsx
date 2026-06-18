@@ -108,20 +108,12 @@ const TEAM = [
   },
 ];
 
-// ─── STAT BAR ─────────────────────────────────────────────────────────────────
-const STATS = [
-  { value: "4", label: "Core Team Members" },
-  { value: "3+", label: "Years Building Together" },
-  { value: "12+", label: "Projects Shipped" },
-  { value: "100%", label: "Remote-First" },
-];
-
 // ─── TEAM PAGE ────────────────────────────────────────────────────────────────
 export default function TeamPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <main className="bg-[#0D0D0D] min-h-screen antialiased">
+    <main className="bg-[#ffffff] min-h-screen antialiased">
       <Nav />
 
       {/* ── HERO BAND ── */}
@@ -160,23 +152,6 @@ export default function TeamPage() {
           </motion.p>
         </div>
       </section>
-
-      {/* ── STAT BAR ── */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.35 }}
-        className="border-y border-white/8 bg-white/[0.03] py-8 px-6"
-      >
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
-          {STATS.map(({ value, label }) => (
-            <div key={label} className="text-center py-2 md:py-0">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-1">{value}</div>
-              <div className="text-xs text-white/40 font-medium uppercase tracking-wider">{label}</div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
 
       {/* ── TEAM CARDS ── */}
       <section className="py-20 px-6">
