@@ -278,50 +278,70 @@ export default function TeamPage() {
       </section>
 
       {/* ── CULTURE STRIP ── */}
-      <section className="border-t border-[#e4e4e4] bg-[#fafafa]">
+      <section className="border-t border-[#e4e4e4]">
         {[
           {
             emoji: "⚡",
             label: "Our Philosophy",
             title: "Ship fast, iterate faster",
             body: "We default to working code over perfect planning. Real feedback from real users beats any internal spec. Velocity isn't recklessness — it's how we learn what actually matters.",
+            img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817213/IMG-20250708-WA0035_rhbbo7.jpg",
+            imgSide: "right",
           },
           {
             emoji: "🔍",
             label: "Our Standard",
             title: "Obsessed with the details",
             body: "Every pixel, every millisecond, every edge case. We don't ship anything we'd be embarrassed to show. The difference between good and great lives in the details nobody notices until they're missing.",
+            img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817256/BRAINPATH_UI_DESIGN_2_h9uter.jpg",
+            imgSide: "left",
           },
           {
             emoji: "🤝",
             label: "Our Culture",
             title: "Owned end-to-end",
             body: "No handoff culture here. Each engineer owns their work from architecture to production — and takes genuine pride in it. Accountability isn't assigned; it's built in.",
+            img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817483/Screenshot_2026-06-19_024639_ubg5au.png",
+            imgSide: "right",
           },
-        ].map(({ emoji, label, title, body }, i) => (
+        ].map(({ emoji, label, title, body, img, imgSide }, i) => (
           <motion.div
             key={title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="border-b border-[#e4e4e4] last:border-b-0"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+            className="border-b border-[#e4e4e4] last:border-b-0 grid md:grid-cols-2"
           >
-            <div className="max-w-6xl mx-auto px-6 py-16 md:py-20 grid md:grid-cols-2 gap-10 md:gap-24 items-start">
-              {/* Left: label + big heading */}
-              <div>
+            {/* Text panel */}
+            <div
+              className={`flex items-center px-6 md:px-16 py-16 md:py-24 bg-white ${
+                imgSide === "left" ? "md:order-2" : "md:order-1"
+              }`}
+            >
+              <div className="max-w-md">
                 <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-5 flex items-center gap-2">
                   <span>{emoji}</span> {label}
                 </p>
-                <h3 className="text-[clamp(28px,4vw,52px)] font-semibold text-[#0D0D0D] leading-[1.08] tracking-tight">
+                <h3 className="text-[clamp(28px,4vw,44px)] font-semibold text-[#0D0D0D] leading-[1.08] tracking-tight mb-6">
                   {title}
                 </h3>
-              </div>
-              {/* Right: body */}
-              <div className="md:pt-14">
                 <p className="text-[17px] text-[#747474] leading-relaxed">{body}</p>
               </div>
             </div>
+
+            {/* Image panel */}
+            <motion.div
+              initial={{ opacity: 0, scale: 1.05 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8 }}
+              className={`relative min-h-[320px] md:min-h-[440px] overflow-hidden ${
+                imgSide === "left" ? "md:order-1" : "md:order-2"
+              }`}
+            >
+              <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+            </motion.div>
           </motion.div>
         ))}
       </section>
