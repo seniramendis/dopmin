@@ -16,19 +16,19 @@ function Nav() {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-        className="w-full max-w-5xl bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-white/60"
+        className="w-full max-w-5xl bg-[#161616]/95 backdrop-blur-md rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.5)] border border-white/10"
       >
         <div className="px-6 h-16 flex items-center justify-between">
           <Link href="/" aria-label="DopMin home" className="flex items-center gap-3 group">
-            <div className="relative w-8 h-8 shrink-0 overflow-hidden rounded-full ring-1 ring-black/5 bg-stone-100 transition-transform duration-700 group-hover:rotate-180">
+            <div className="relative w-8 h-8 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10 bg-[#222] transition-transform duration-700 group-hover:rotate-180">
               <Image src="/assets/images/dopmin.jpg" alt="Dopmin logo" fill sizes="32px" className="object-cover" priority unoptimized />
             </div>
-            <span className="font-bold text-lg tracking-tight text-[#0D0D0D]">DOPMIN</span>
+            <span className="font-bold text-lg tracking-tight text-white">DOPMIN</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
             {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
-              <Link key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">{l}</Link>
+              <Link key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-white/50 hover:text-white transition-colors">{l}</Link>
             ))}
             <Link href="/team" className="text-[14px] font-medium text-[#F26A10] hover:text-[#D94030] transition-colors">Team</Link>
           </nav>
@@ -37,17 +37,17 @@ function Nav() {
             Book a Free Audit <ChevronRight className="w-4 h-4" />
           </Link>
 
-          <button className="md:hidden text-stone-400 hover:text-stone-700 transition-colors p-1 rounded" onClick={() => setOpen(!open)} aria-label="Toggle navigation menu" aria-expanded={open}>
-            {open ? <X className="w-6 h-6 text-[#0D0D0D]" /> : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
+          <button className="md:hidden text-white/40 hover:text-white transition-colors p-1 rounded" onClick={() => setOpen(!open)} aria-label="Toggle navigation menu" aria-expanded={open}>
+            {open ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
           </button>
         </div>
 
         <AnimatePresence>
           {open && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl">
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden overflow-hidden border-t border-white/10 rounded-b-2xl bg-[#161616]">
               <div className="px-6 py-5 flex flex-col gap-4">
                 {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
-                  <Link key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">{l}</Link>
+                  <Link key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-white/55 text-base font-medium hover:text-white transition-colors">{l}</Link>
                 ))}
                 <Link href="/team" onClick={() => setOpen(false)} className="text-[#F26A10] text-base font-semibold">Team</Link>
                 <Link href="/#contact" onClick={() => setOpen(false)} className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2">Book a Free Audit</Link>
