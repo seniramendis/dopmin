@@ -45,19 +45,18 @@ function Nav() {
         <div className="px-6 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <a href="#" aria-label="DopMin home" className="flex items-center gap-3 group">
-            <div className="relative w-8 h-8 shrink-0 overflow-hidden rounded-full ring-1 ring-black/5 bg-stone-100 transition-transform duration-700 group-hover:rotate-180">
+          <a href="#" aria-label="DopMin home" className="flex items-center group">
+            <div className="relative h-12 w-48 shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
-                src="/assets/images/dopmin.jpg"
-                alt="Dopmin logo"
+                src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781826436/dopmin_new-removebg-preview_dxqaup.png"
+                alt="DopMin"
                 fill
-                sizes="32px"
-                className="object-cover"
+                sizes="192px"
+                className="object-contain object-left"
                 priority
                 unoptimized
               />
             </div>
-            <span className="font-bold text-lg tracking-tight text-[#0D0D0D]">DOPMIN</span>
           </a>
 
           {/* Desktop nav links */}
