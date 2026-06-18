@@ -564,34 +564,39 @@ function Compare() {
             animate={inView ? "visible" : "hidden"}
             className="rounded-2xl overflow-hidden border border-[#e4e4e4] bg-white shadow-sm"
           >
-            {/* Header row */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f5f5f5] border-b border-[#e4e4e4]">
-              <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider">Dimension</div>
-              <div className="px-6 py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">
-                Standard App
-              </div>
-              <div className="px-6 py-5 text-xs font-bold text-white uppercase tracking-wider border-l border-[#e91d27] bg-[#e91d27]">
-                DopMin Systems
+            {/* Mobile: scrollable; desktop: normal */}
+            <div className="overflow-x-auto">
+              <div className="min-w-[560px]">
+                {/* Header row */}
+                <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f5f5f5] border-b border-[#e4e4e4]">
+                  <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-[#747474] uppercase tracking-wider">Dimension</div>
+                  <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">
+                    Standard App
+                  </div>
+                  <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-white uppercase tracking-wider border-l border-[#e91d27] bg-[#e91d27]">
+                    DopMin Systems
+                  </div>
+                </div>
+
+                {compareRows.map(({ label, before, after }, i) => (
+                  <motion.div
+                    key={label}
+                    variants={fadeUp}
+                    className={`grid grid-cols-[1.2fr_1fr_1fr]${i < compareRows.length - 1 ? " border-b border-[#e4e4e4]" : ""}`}
+                  >
+                    <div className="px-4 md:px-6 py-4 md:py-5 text-sm md:text-base font-semibold text-[#0D0D0D]">{label}</div>
+                    <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[#e4e4e4] flex items-start gap-2 md:gap-3">
+                      <X className="w-4 h-4 md:w-5 md:h-5 text-[#D94030] shrink-0 mt-0.5" />
+                      <span className="text-xs md:text-sm text-[#747474]">{before}</span>
+                    </div>
+                    <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[#e91d27]/10 bg-[#e91d27]/5 flex items-start gap-2 md:gap-3">
+                      <Check className="w-4 h-4 md:w-5 md:h-5 text-[#90E060] shrink-0 mt-0.5" />
+                      <span className="text-xs md:text-sm font-medium text-[#0D0D0D]">{after}</span>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
-
-            {compareRows.map(({ label, before, after }, i) => (
-              <motion.div
-                key={label}
-                variants={fadeUp}
-                className={`grid grid-cols-[1.2fr_1fr_1fr]${i < compareRows.length - 1 ? " border-b border-[#e4e4e4]" : ""}`}
-              >
-                <div className="px-6 py-5 text-base font-semibold text-[#0D0D0D]">{label}</div>
-                <div className="px-6 py-5 border-l border-[#e4e4e4] flex items-center gap-3">
-                  <X className="w-5 h-5 text-[#D94030] shrink-0" />
-                  <span className="text-sm text-[#747474]">{before}</span>
-                </div>
-                <div className="px-6 py-5 border-l border-[#e91d27]/10 bg-[#e91d27]/5 flex items-center gap-3">
-                  <Check className="w-5 h-5 text-[#90E060] shrink-0" />
-                  <span className="text-sm font-medium text-[#0D0D0D]">{after}</span>
-                </div>
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </div>
@@ -900,21 +905,29 @@ const TEAM_HOME = [
     name: "Senira Mendis",
     role: "Scrum Master & Backend Developer",
     img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727668/1755882213261_zoaphc.png",
+    accentColor: "#D4A017",
+    accentBg: "rgba(212,160,23,0.75)",
   },
   {
     name: "Devin Kulasekere",
     role: "Front End Developer",
     img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/255916317_ru7gyz.jpg",
+    accentColor: "#C0392B",
+    accentBg: "rgba(192,57,43,0.75)",
   },
   {
     name: "Rashmika Kodithuwakku",
     role: "Backend Developer",
     img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727846/Screenshot_2026-06-18_015243_vmapsq.png",
+    accentColor: "#27AE60",
+    accentBg: "rgba(39,174,96,0.75)",
   },
   {
     name: "Pamod Dhananjana",
     role: "QA Engineer",
     img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/1776604303706_hni2ai.jpg",
+    accentColor: "#E67E22",
+    accentBg: "rgba(230,126,34,0.75)",
   },
 ];
 
@@ -938,8 +951,7 @@ function TeamTeaser() {
               Our full stack<br />tech experts
             </h2>
             <p className="mt-5 text-[17px] text-stone-500 max-w-xl mx-auto leading-relaxed">
-              Leverage elite engineering expertise trusted by leading companies to build
-              systems that serve millions daily.
+              A tight-knit crew of builders who ship clean code, fast — and actually give a damn about what they build.
             </p>
           </motion.div>
 
@@ -958,21 +970,30 @@ function TeamTeaser() {
                   className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-                {/* Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                {/* Default gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
+
+                {/* Hover coloured overlay */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `linear-gradient(to top, ${member.accentBg} 0%, rgba(0,0,0,0.15) 50%, transparent 100%)` }}
+                />
 
                 {/* Name + role */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-white font-bold text-xl leading-snug">
+                  <p className="text-white font-bold text-xl leading-snug drop-shadow">
                     {member.name}
                   </p>
-                  <p className="text-white/65 text-[13px] font-medium mt-1">
+                  <p className="text-white/75 text-[13px] font-medium mt-1">
                     {member.role}
                   </p>
                 </div>
 
-                {/* Hover accent */}
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#F26A10] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                {/* Hover accent bar — unique colour per member */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[4px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                  style={{ backgroundColor: member.accentColor }}
+                />
               </motion.div>
             ))}
           </div>
