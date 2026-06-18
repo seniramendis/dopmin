@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { useInView, motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useInView, useScroll, useTransform, motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
   WifiOff, Bot, CloudUpload, ShoppingBag,
@@ -129,20 +129,84 @@ function Nav() {
 }
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
+// Cloudinary delivers responsive, transcoded variants on the fly — q_auto picks
+// the leanest codec/quality per browser, w_960 caps resolution for mobile.
+const CLOUDINARY_VIDEO_BASE = "https://res.cloudinary.com/dukv2otyn/video/upload/v1781731256/dopmin-hero-bg_qeyvrd.mp4";
+const HERO_VIDEO_ID = "v1781731256/dopmin-hero-bg_qeyvrd";
+const HERO_VIDEO_DESKTOP = `${CLOUDINARY_VIDEO_BASE}/q_auto/${HERO_VIDEO_ID}.mp4`;
+const HERO_VIDEO_MOBILE = `${CLOUDINARY_VIDEO_BASE}/q_auto,w_960/${HERO_VIDEO_ID}.mp4`;
+const HERO_VIDEO_POSTER = `${CLOUDINARY_VIDEO_BASE}/q_auto/${HERO_VIDEO_ID}.jpg`;
+
 function Hero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  // Respect prefers-reduced-motion: swap the autoplaying clip for a static frame.
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // Subtle scroll-linked parallax: the footage drifts and slowly zooms as the
+  // hero scrolls past, instead of sitting static behind the copy.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.16]);
+
   return (
-    <section className="relative overflow-hidden pt-40 pb-20 md:pt-52 md:pb-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto flex flex-col justify-end min-h-[85vh]">
-      {/* Ambient gradient */}
+    <section ref={sectionRef} className="relative overflow-hidden pt-40 pb-20 md:pt-52 md:pb-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto flex flex-col justify-end min-h-[85vh]">
+
+      {/* Background video — full visibility, just a light brand-warmth pass */}
+      <div aria-hidden className="absolute inset-0 -z-20 overflow-hidden bg-[#0D0D0D]">
+        {!prefersReducedMotion ? (
+          <motion.video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster={HERO_VIDEO_POSTER}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            style={{
+              y: videoY,
+              scale: videoScale,
+              filter: "saturate(0.92) brightness(1.02) contrast(1.03)",
+            }}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source media="(max-width: 768px)" src={HERO_VIDEO_MOBILE} type="video/mp4" />
+            <source src={HERO_VIDEO_DESKTOP} type="video/mp4" />
+          </motion.video>
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={HERO_VIDEO_POSTER}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+      </div>
+
+      {/* Light brand wash + a bottom fade so the section blends into the white ticker below */}
       <div
         aria-hidden
-        className="absolute top-0 right-0 w-2/3 h-[70vh] -z-10 blur-3xl pointer-events-none"
+        className="absolute inset-0 -z-10 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse at top right, rgba(242,106,16,0.15), rgba(255,215,0,0.10) 50%, transparent 80%)",
+          background: [
+            "linear-gradient(to bottom, transparent 58%, #ffffff 100%)",
+            "linear-gradient(135deg, rgba(255,215,0,0.14) 0%, rgba(242,106,16,0.10) 45%, rgba(217,64,48,0.08) 100%)",
+          ].join(", "),
         }}
       />
 
       <div className="max-w-[1150px] relative z-10">
+        {/* Frosted glass panel — keeps copy legible over the footage regardless of viewport width */}
+        <div className="backdrop-blur-2xl bg-white/70 ring-1 ring-white/60 shadow-[0_30px_80px_-25px_rgba(13,13,13,0.35)] rounded-[28px] p-8 sm:p-10 md:p-14 inline-block">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -186,6 +250,7 @@ function Hero() {
             View Tech Stack <ExternalLink className="w-4 h-4" />
           </a>
         </motion.div>
+        </div>
       </div>
     </section>
   );
