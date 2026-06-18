@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
   animation: marquee 30s linear infinite;
   will-change: transform;
   display: flex;
-  gap: 4rem;          /* 64px — mirrors gap-16 in JSX */
+  gap: 3.5rem;        /* spacing between tech logo cards */
   align-items: center;
   white-space: nowrap;
   min-width: max-content;
