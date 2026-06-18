@@ -267,7 +267,7 @@ export default function TeamPage() {
                       ))}
                     </div>
                     <p className="mt-4 pt-4 border-t border-stone-100 text-[12px] text-stone-400 italic">
-                      💡 {member.funFact}
+                      {member.funFact}
                     </p>
                   </div>
                 </motion.div>
@@ -281,7 +281,6 @@ export default function TeamPage() {
       <section className="border-t border-[#e4e4e4]">
         {[
           {
-            emoji: "⚡",
             label: "Our Philosophy",
             title: "Ship fast, iterate faster",
             body: "We default to working code over perfect planning. Real feedback from real users beats any internal spec. Velocity isn't recklessness — it's how we learn what actually matters.",
@@ -289,7 +288,6 @@ export default function TeamPage() {
             imgSide: "right",
           },
           {
-            emoji: "🔍",
             label: "Our Standard",
             title: "Obsessed with the details",
             body: "Every pixel, every millisecond, every edge case. We don't ship anything we'd be embarrassed to show. The difference between good and great lives in the details nobody notices until they're missing.",
@@ -297,14 +295,13 @@ export default function TeamPage() {
             imgSide: "left",
           },
           {
-            emoji: "🤝",
             label: "Our Culture",
             title: "Owned end-to-end",
             body: "No handoff culture here. Each engineer owns their work from architecture to production — and takes genuine pride in it. Accountability isn't assigned; it's built in.",
             img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817483/Screenshot_2026-06-19_024639_ubg5au.png",
             imgSide: "right",
           },
-        ].map(({ emoji, label, title, body, img, imgSide }, i) => (
+        ].map(({ label, title, body, img, imgSide }, i) => (
           <motion.div
             key={title}
             initial={{ opacity: 0 }}
@@ -320,8 +317,8 @@ export default function TeamPage() {
               }`}
             >
               <div className="max-w-md">
-                <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-5 flex items-center gap-2">
-                  <span>{emoji}</span> {label}
+                <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-5">
+                  {label}
                 </p>
                 <h3 className="text-[clamp(28px,4vw,44px)] font-semibold text-[#0D0D0D] leading-[1.08] tracking-tight mb-6">
                   {title}
