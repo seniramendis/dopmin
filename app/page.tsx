@@ -258,14 +258,12 @@ function Hero() {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="text-[clamp(48px,8vw,110px)] font-bold text-white leading-[1.0] tracking-tight mb-6"
-            style={{ textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}
+            className="text-[clamp(48px,8vw,110px)] font-bold text-white leading-[1.0] tracking-tight mb-10 md:mb-12"
+            style={{ textShadow: "0 4px 28px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.9)" }}
           >
             Engineering digital
             <br />
-            <span className="text-white" style={{ textShadow: "0 4px 28px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.9)" }}>
-              luxury &amp; scale.
-            </span>
+            luxury &amp; scale.
           </motion.h1>
 
           <motion.p
