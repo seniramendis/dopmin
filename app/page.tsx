@@ -9,6 +9,7 @@ import {
   TrendingUp, Clock, Shield, Code, Layout, Zap, Smartphone, Monitor
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { SocialIconRow } from "./components/social-links";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
@@ -46,7 +47,7 @@ function Nav() {
         <div className="px-6 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <a href="#" aria-label="DopMin home" className="flex items-center group">
+          <Link href="/" aria-label="DopMin home" className="flex items-center group">
             <div className="relative h-12 w-48 shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781826436/dopmin_new-removebg-preview_dxqaup.png"
@@ -58,11 +59,14 @@ function Nav() {
                 unoptimized
               />
             </div>
-          </a>
+          </Link>
 
           {/* Desktop nav links */}
           <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
+            <Link href="/expertise" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">
+              Expertise
+            </Link>
+            {["Solutions", "Work", "Contact"].map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}
@@ -71,21 +75,21 @@ function Nav() {
                 {l}
               </a>
             ))}
-            <a
+            <Link
               href="/team"
               className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
             >
               Team
-            </a>
+            </Link>
           </nav>
 
           {/* Desktop CTA */}
-          <a
+          <Link
             href="/book"
             className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm"
           >
             Book a Free Audit <ChevronRight className="w-4 h-4" />
-          </a>
+          </Link>
 
           {/* Mobile hamburger */}
           <button
@@ -110,7 +114,14 @@ function Nav() {
               className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl"
             >
               <div className="px-6 py-5 flex flex-col gap-4">
-                {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
+                <Link
+                  href="/expertise"
+                  onClick={() => setOpen(false)}
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                >
+                  Expertise
+                </Link>
+                {["Solutions", "Work", "Contact"].map((l) => (
                   <a
                     key={l}
                     href={`#${l.toLowerCase()}`}
@@ -120,20 +131,20 @@ function Nav() {
                     {l}
                   </a>
                 ))}
-                <a
+                <Link
                   href="/team"
                   onClick={() => setOpen(false)}
                   className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
                 >
                   Team
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/book"
                   onClick={() => setOpen(false)}
                   className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2"
                 >
                   Book a Free Audit
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -530,7 +541,6 @@ function Expertise() {
     if (!track) return;
     const card = track.children[index] as HTMLElement;
     if (!card) return;
-    // Adjust logic to center smoothly
     track.scrollTo({ left: card.offsetLeft - 24, behavior: "smooth" });
     setActiveIndex(index);
   };
@@ -539,9 +549,8 @@ function Expertise() {
     const track = trackRef.current;
     if (!track) return;
     const scrollLeft = track.scrollLeft;
-    // Estimate index based on average card width + gap
     const cardWidth = (track.children[0] as HTMLElement)?.offsetWidth ?? 1;
-    const newIndex = Math.round(scrollLeft / (cardWidth + 16)); // 16px is gap-4
+    const newIndex = Math.round(scrollLeft / (cardWidth + 16));
     setActiveIndex(Math.min(newIndex, expertiseItems.length - 1));
   };
 
@@ -576,7 +585,6 @@ function Expertise() {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          {/* Track for horizontal scrolling */}
           <div
             ref={trackRef}
             onScroll={handleScroll}
@@ -590,14 +598,11 @@ function Expertise() {
                   variants={fadeUp}
                   className="group relative shrink-0 snap-center w-[85vw] sm:w-[320px] md:w-[360px] h-[520px] bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
                 >
-                  {/* Colour glow */}
                   <div
                     aria-hidden
                     className="absolute inset-0 opacity-15 group-hover:opacity-35 transition-opacity duration-700 z-0"
                     style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }}
                   />
-
-                  {/* Tags */}
                   <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
                     {item.tags.map((tag) => (
                       <span
@@ -608,8 +613,6 @@ function Expertise() {
                       </span>
                     ))}
                   </div>
-
-                  {/* Card image */}
                   <div className="absolute inset-x-0 top-16 bottom-44 z-[1] overflow-hidden">
                     <Image
                       src={item.img}
@@ -619,11 +622,8 @@ function Expertise() {
                       className="object-cover opacity-35 group-hover:opacity-55 transition-opacity duration-700 scale-105 group-hover:scale-100"
                       unoptimized
                     />
-                    {/* Fade bottom */}
                     <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#111111] to-transparent z-10" />
                   </div>
-
-                  {/* Content */}
                   <div className="absolute bottom-0 left-0 w-full p-8 z-10 transition-transform duration-500 bg-gradient-to-t from-black via-black/85 to-transparent">
                     <div
                       className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
@@ -642,7 +642,6 @@ function Expertise() {
             })}
           </div>
 
-          {/* Nav Controls for Carousel */}
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={() => scrollTo(Math.max(0, activeIndex - 1))}
@@ -724,10 +723,8 @@ function Compare() {
             animate={inView ? "visible" : "hidden"}
             className="rounded-2xl overflow-hidden border border-[#e4e4e4] bg-white shadow-sm"
           >
-            {/* Mobile: scrollable; desktop: normal */}
             <div className="overflow-x-auto">
               <div className="min-w-[560px]">
-                {/* Header row */}
                 <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f5f5f5] border-b border-[#e4e4e4]">
                   <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-[#747474] uppercase tracking-wider">Dimension</div>
                   <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">
@@ -1004,12 +1001,12 @@ function Footer() {
               Let&apos;s discuss your next massive digital transformation.
             </p>
           </div>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="shrink-0 bg-[#e91d27] hover:bg-[#D94030] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:-translate-y-1"
           >
             Get in touch
-          </a>
+          </Link>
         </div>
 
         {/* Footer columns */}
@@ -1031,9 +1028,9 @@ function Footer() {
 
           <div className="flex flex-col gap-3">
             <span className="text-white font-semibold mb-1">Capabilities</span>
-            <a href="#expertise" className="hover:text-white transition-colors">Design</a>
-            <a href="#expertise" className="hover:text-white transition-colors">Engineering</a>
-            <a href="#expertise" className="hover:text-white transition-colors">AI Workflows</a>
+            <Link href="/expertise" className="hover:text-white transition-colors">Design</Link>
+            <Link href="/expertise" className="hover:text-white transition-colors">Engineering</Link>
+            <Link href="/expertise" className="hover:text-white transition-colors">AI Workflows</Link>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -1160,12 +1157,12 @@ function TeamTeaser() {
 
           {/* See full team CTA */}
           <motion.div variants={fadeUp} className="text-center pt-10 pb-12">
-            <a
+            <Link
               href="/team"
               className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#F26A10] hover:text-[#D94030] transition-colors"
             >
               Meet the full team <ChevronRight className="w-4 h-4" />
-            </a>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

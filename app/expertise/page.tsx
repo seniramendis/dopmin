@@ -4,10 +4,10 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, X, Menu, Code2, Shield, Layers, Cpu } from "lucide-react";
-import { SocialIconRow } from "../components/social-links";
+import { ChevronRight, X, Menu, Code2, Shield, Layers, Cpu, Monitor, Smartphone, Layout, Zap } from "lucide-react";
+import { SocialIconRow } from "../components/social-links"; // Adjust path if needed
 
-// ─── NAV (no back button) ─────────────────────────────────────────────────────
+// ─── NAV ──────────────────────────────────────────────────────────────────────
 function Nav() {
   const [open, setOpen] = useState(false);
 
@@ -35,13 +35,11 @@ function Nav() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            <Link href="/expertise" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">
-              Expertise
-            </Link>
+            <Link href="/expertise" className="text-[14px] font-medium text-[#F26A10] hover:text-[#D94030] transition-colors">Expertise</Link>
             {["Solutions", "Work", "Contact"].map((l) => (
               <Link key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">{l}</Link>
             ))}
-            <Link href="/team" className="text-[14px] font-medium text-[#F26A10] hover:text-[#D94030] transition-colors">Team</Link>
+            <Link href="/team" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Team</Link>
           </nav>
 
           <Link href="/#contact" className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm">
@@ -57,13 +55,11 @@ function Nav() {
           {open && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl">
               <div className="px-6 py-5 flex flex-col gap-4">
-                <Link href="/expertise" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">
-                  Expertise
-                </Link>
+                <Link href="/expertise" onClick={() => setOpen(false)} className="text-[#F26A10] text-base font-semibold">Expertise</Link>
                 {["Solutions", "Work", "Contact"].map((l) => (
                   <Link key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">{l}</Link>
                 ))}
-                <Link href="/team" onClick={() => setOpen(false)} className="text-[#F26A10] text-base font-semibold">Team</Link>
+                <Link href="/team" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Team</Link>
                 <Link href="/#contact" onClick={() => setOpen(false)} className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2">Book a Free Audit</Link>
               </div>
             </motion.div>
@@ -74,64 +70,101 @@ function Nav() {
   );
 }
 
-// ─── TEAM DATA ────────────────────────────────────────────────────────────────
-const TEAM = [
+// ─── EXPERTISE DATA (Using Team Card Template) ────────────────────────────────
+const EXPERTISE_AREAS = [
   {
-    name: "Senira Mendis",
-    role: "Scrum Master & Backend Developer",
-    tagline: "The architect who keeps the engine running and the team in sync.",
-    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727668/1755882213261_zoaphc.png",
-    accentColor: "#D4A017",
-    accentBg: "rgba(212,160,23,0.80)",
-    icon: Layers,
-    skills: ["Spring Boot", "PostgreSQL", "Agile", "System Design", "REST APIs"],
-    funFact: "Breaks sprints into pieces so small, bugs have nowhere left to hide.",
+    name: "Custom Software",
+    role: "Enterprise Systems",
+    tagline: "High-leverage software systems built to scale.",
+    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80&auto=format&fit=crop",
+    accentColor: "#F26A10",
+    accentBg: "rgba(242,106,16,0.80)",
+    icon: Monitor,
+    skills: ["Architecture", "Databases", "Microservices"],
   },
   {
-    name: "Devin Kulasekere",
-    role: "Front End Developer",
-    tagline: "Pixel-perfect interfaces that feel as good as they look.",
-    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/255916317_ru7gyz.jpg",
-    accentColor: "#C0392B",
-    accentBg: "rgba(192,57,43,0.80)",
+    name: "UI/UX Design",
+    role: "Digital Interfaces",
+    tagline: "Structured, minimalistic, and intuitive experiences.",
+    img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80&auto=format&fit=crop",
+    accentColor: "#F0E080",
+    accentBg: "rgba(240,224,128,0.80)",
+    icon: Layout,
+    skills: ["Figma", "Wireframing", "Prototyping"],
+  },
+  {
+    name: "AI & Automation",
+    role: "Agentic Workflows",
+    tagline: "Purpose-built AI agents that optimize operations.",
+    img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop",
+    accentColor: "#D94030",
+    accentBg: "rgba(217,64,48,0.80)",
+    icon: Zap,
+    skills: ["LLMs", "OpenAI", "Autonomy"],
+  },
+  {
+    name: "Mobile Apps",
+    role: "Native & Cross-Platform",
+    tagline: "Native performance and beautiful interfaces on the go.",
+    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80&auto=format&fit=crop",
+    accentColor: "#90E060",
+    accentBg: "rgba(144,224,96,0.80)",
+    icon: Smartphone,
+    skills: ["Android", "Kotlin", "Java"],
+  },
+  {
+    name: "Full-Stack Web",
+    role: "Web Applications",
+    tagline: "Custom, high-performance web applications built to last.",
+    img: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=600&q=80&auto=format&fit=crop",
+    accentColor: "#007ACC",
+    accentBg: "rgba(0,122,204,0.80)",
     icon: Code2,
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Figma"],
-    funFact: "Will spend 3 hours perfecting a 2px animation — and it'll be worth it.",
-  },
-  {
-    name: "Rashmika Kodithuwakku",
-    role: "Backend Developer",
-    tagline: "The engine under the hood — fast, reliable, and always scalable.",
-    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727846/Screenshot_2026-06-18_015243_vmapsq.png",
-    accentColor: "#27AE60",
-    accentBg: "rgba(39,174,96,0.80)",
-    icon: Cpu,
-    skills: ["Node.js", "Python", "MySQL", "Docker", "AWS"],
-    funFact: "Optimises queries until the database says thank you.",
-  },
-  {
-    name: "Pamod Dhananjana",
-    role: "QA Engineer",
-    tagline: "Nothing ships until it's unbreakable. He makes sure of that.",
-    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/1776604303706_hni2ai.jpg",
-    accentColor: "#E67E22",
-    accentBg: "rgba(230,126,34,0.80)",
-    icon: Shield,
-    skills: ["Selenium", "Cypress", "Jest", "Performance Testing", "CI/CD"],
-    funFact: "Finds edge cases in his sleep. Literally dreams in test scenarios.",
+    skills: ["React", "Node.js", "PostgreSQL"],
   },
 ];
 
-// ─── STAT BAR ─────────────────────────────────────────────────────────────────
-const STATS = [
-  { value: "4", label: "Core Team Members" },
-  { value: "3+", label: "Years Building Together" },
-  { value: "12+", label: "Projects Shipped" },
-  { value: "100%", label: "Remote-First" },
+// ─── SDLC PROCESS (Using Culture Strip Template) ──────────────────────────────
+const SDLC_PHASES = [
+  {
+    label: "Phase 01 · Discovery",
+    title: "Planning & API Architecture",
+    body: "Before a single line of code is written, we analyze your business logic and technical requirements. We design robust database schemas, establish clear API contracts, and map out a scalable cloud architecture. This guarantees we build the right system the first time.",
+    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
+    imgSide: "right",
+  },
+  {
+    label: "Phase 02 · Design",
+    title: "UI/UX & Interactive Prototyping",
+    body: "We translate complex workflows into clean, minimalistic interfaces. Starting with structured wireframes, we iterate into high-fidelity, interactive prototypes. You get to see and feel exactly how the application will work before engineering begins.",
+    img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&q=80&w=800",
+    imgSide: "left",
+  },
+  {
+    label: "Phase 03 · Engineering",
+    title: "Core Development & Integration",
+    body: "Our developers build secure, high-performance systems using modern stacks like React, Node.js, and Spring Boot. We integrate third-party services, develop robust RESTful APIs, and embed agentic AI workflows directly into your core operations.",
+    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800",
+    imgSide: "right",
+  },
+  {
+    label: "Phase 04 · Assurance",
+    title: "Rigorous QA & Security Testing",
+    body: "Shipping broken features is not an option. We implement comprehensive testing pipelines—including unit, integration, and end-to-end testing. Our QA process uncovers edge cases and ensures your data is secure against vulnerabilities.",
+    img: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800",
+    imgSide: "left",
+  },
+  {
+    label: "Phase 05 · Delivery",
+    title: "Deployment & Auto-Scaling",
+    body: "A seamless transition from staging to production. We containerize applications using Docker and deploy them onto resilient cloud infrastructures like AWS or GCP. We ensure your system auto-scales to handle traffic spikes with zero downtime.",
+    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+    imgSide: "right",
+  },
 ];
 
-// ─── TEAM PAGE ────────────────────────────────────────────────────────────────
-export default function TeamPage() {
+// ─── EXPERTISE PAGE ───────────────────────────────────────────────────────────
+export default function ExpertisePage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -141,7 +174,7 @@ export default function TeamPage() {
     if (!el) return;
     const slideWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 16 : el.clientWidth;
     const index = Math.round(el.scrollLeft / slideWidth);
-    setCarouselIndex(Math.max(0, Math.min(index, TEAM.length - 1)));
+    setCarouselIndex(Math.max(0, Math.min(index, EXPERTISE_AREAS.length - 1)));
   };
 
   const scrollToSlide = (i: number) => {
@@ -168,93 +201,79 @@ export default function TeamPage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-5"
+            className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3"
           >
-            The People Behind the Product
+            Core Expertise
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="text-[clamp(48px,8vw,100px)] font-semibold text-[#0D0D0D] leading-[1.02] tracking-tight mb-6"
+            className="text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6 text-[#0D0D0D]"
           >
-            Crafted by experts.<br />
-            Built to last.
+            Expansive areas of expertise
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-[17px] text-[#747474] max-w-xl mx-auto leading-relaxed"
+            className="text-xl text-[#747474] max-w-2xl mx-auto"
           >
-            Four specialists. One shared obsession: shipping software that actually works in the real world.
+            Five disciplines. One integrated team. We architect solutions to capture opportunities across industries.
           </motion.p>
         </div>
       </section>
 
-
-
-      {/* ── TEAM CARDS ── */}
-      <section className="py-20 px-6 bg-white">
+      {/* ── EXPERTISE CARDS (Using Team template style) ── */}
+      <section className="py-12 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-
-          {/* Desktop: 4-col cinematic grid */}
-          <div className="hidden md:grid md:grid-cols-4 gap-5">
-            {TEAM.map((member, i) => {
-              const Icon = member.icon;
+          {/* Desktop: 5-col cinematic grid */}
+          <div className="hidden md:flex md:flex-wrap md:justify-center gap-5">
+            {EXPERTISE_AREAS.map((area, i) => {
+              const Icon = area.icon;
               return (
                 <motion.div
-                  key={member.name}
+                  key={area.name}
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                  className="group relative rounded-2xl overflow-hidden cursor-pointer"
+                  className="group relative rounded-2xl overflow-hidden cursor-pointer w-[calc(20%-16px)] min-w-[200px]"
                   style={{ aspectRatio: "3/4" }}
                   onMouseEnter={() => setActiveIndex(i)}
                   onMouseLeave={() => setActiveIndex(null)}
                 >
-                  {/* Photo */}
-                  <img src={member.img} alt={member.name}
-                    className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                  <img src={area.img} alt={area.name}
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
 
-                  {/* Default dark gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
 
-                  {/* Hover coloured gradient */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: `linear-gradient(to top, ${member.accentBg} 0%, rgba(0,0,0,0.5) 55%, transparent 100%)` }} />
+                    style={{ background: `linear-gradient(to top, ${area.accentBg} 0%, rgba(0,0,0,0.5) 55%, transparent 100%)` }} />
 
-                  {/* Top accent bar */}
                   <div className="absolute top-0 left-0 right-0 h-[4px] scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left rounded-tr-sm"
-                    style={{ backgroundColor: member.accentColor }} />
+                    style={{ backgroundColor: area.accentColor }} />
 
-                  {/* Role chip — visible on hover */}
-                  <div className="absolute top-5 left-5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border"
-                      style={{ color: member.accentColor, backgroundColor: "rgba(0,0,0,0.5)", borderColor: `${member.accentColor}40` }}>
-                      <Icon className="w-3 h-3" /> {member.role.split(" ")[0]}
+                  <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border"
+                      style={{ color: area.accentColor, backgroundColor: "rgba(0,0,0,0.5)", borderColor: `${area.accentColor}40` }}>
+                      <Icon className="w-3 h-3" /> Area {i + 1}
                     </span>
                   </div>
 
-                  {/* Bottom info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                    {/* Skills — slide up on hover */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
                     <div className="mb-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-400">
                       <div className="flex flex-wrap gap-1.5">
-                        {member.skills.slice(0, 3).map(skill => (
-                          <span key={skill} className="px-2 py-0.5 rounded text-[10px] font-semibold text-white/90 bg-white/15 border border-white/20">
+                        {area.skills.slice(0, 3).map(skill => (
+                          <span key={skill} className="px-2 py-0.5 rounded text-[9px] font-semibold text-white/90 bg-white/15 border border-white/20">
                             {skill}
                           </span>
                         ))}
                       </div>
                     </div>
-
-                    <p className="text-white font-bold text-xl leading-snug drop-shadow mb-1">{member.name}</p>
-                    <p className="text-white/60 text-[13px] font-medium leading-snug group-hover:text-white/80 transition-colors">{member.role}</p>
-
-                    {/* Tagline — visible on hover */}
-                    <p className="mt-2 text-[12px] text-white/70 leading-relaxed opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 delay-75">
-                      {member.tagline}
+                    <p className="text-white font-bold text-lg leading-snug drop-shadow mb-1">{area.name}</p>
+                    <p className="text-white/60 text-[12px] font-medium leading-snug group-hover:text-white/80 transition-colors">{area.role}</p>
+                    <p className="mt-2 text-[11px] text-white/70 leading-relaxed opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 delay-75">
+                      {area.tagline}
                     </p>
                   </div>
                 </motion.div>
@@ -262,7 +281,7 @@ export default function TeamPage() {
             })}
           </div>
 
-          {/* Mobile: vertical stacked cards with full detail */}
+          {/* Mobile: stacked cards */}
           <div className="md:hidden">
             <div
               ref={carouselRef}
@@ -270,58 +289,50 @@ export default function TeamPage() {
               className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-1 pb-2 -mx-1 scrollbar-hide"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              {TEAM.map((member, i) => {
-                const Icon = member.icon;
+              {EXPERTISE_AREAS.map((area, i) => {
+                const Icon = area.icon;
                 return (
                   <motion.div
-                    key={member.name}
+                    key={area.name}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: i * 0.08 }}
                     className="snap-center shrink-0 w-[85%] rounded-2xl overflow-hidden border border-[#e4e4e4]"
                   >
-                    {/* Photo strip */}
                     <div className="relative w-full" style={{ aspectRatio: "3/4" }}>
                       <img
-                        src={member.img}
-                        alt={member.name}
-                        className="absolute inset-0 w-full h-full object-cover object-top"
+                        src={area.img}
+                        alt={area.name}
+                        className="absolute inset-0 w-full h-full object-cover object-center"
                       />
                       <div className="absolute bottom-4 left-4">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border"
-                          style={{ color: member.accentColor, backgroundColor: "rgba(0,0,0,0.55)", borderColor: `${member.accentColor}50` }}>
-                          <Icon className="w-3 h-3" /> {member.role.split("&")[0].trim()}
+                          style={{ color: area.accentColor, backgroundColor: "rgba(0,0,0,0.55)", borderColor: `${area.accentColor}50` }}>
+                          <Icon className="w-3 h-3" /> {area.name}
                         </span>
                       </div>
                     </div>
-
-                    {/* Text content */}
                     <div className="bg-white px-5 py-5">
-                      <h3 className="text-[#0D0D0D] font-bold text-xl mb-0.5">{member.name}</h3>
-                      <p className="text-sm mb-3" style={{ color: member.accentColor }}>{member.role}</p>
-                      <p className="text-[#747474] text-[13px] leading-relaxed mb-4">{member.tagline}</p>
+                      <h3 className="text-[#0D0D0D] font-bold text-xl mb-0.5">{area.name}</h3>
+                      <p className="text-sm mb-3" style={{ color: area.accentColor }}>{area.role}</p>
+                      <p className="text-[#747474] text-[13px] leading-relaxed mb-4">{area.tagline}</p>
                       <div className="flex flex-wrap gap-2">
-                        {member.skills.map(skill => (
+                        {area.skills.map(skill => (
                           <span key={skill} className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-[#555] bg-stone-100 border border-stone-200">
                             {skill}
                           </span>
                         ))}
                       </div>
-                      <p className="mt-4 pt-4 border-t border-stone-100 text-[12px] text-stone-400 italic">
-                        {member.funFact}
-                      </p>
                     </div>
                   </motion.div>
                 );
               })}
             </div>
-
-            {/* Dot indicators */}
             <div className="flex justify-center items-center gap-2 mt-5">
-              {TEAM.map((member, i) => (
+              {EXPERTISE_AREAS.map((area, i) => (
                 <button
-                  key={member.name}
-                  aria-label={`Go to ${member.name}`}
+                  key={area.name}
+                  aria-label={`Go to ${area.name}`}
                   onClick={() => scrollToSlide(i)}
                   className="p-1.5 -m-1.5"
                 >
@@ -330,7 +341,7 @@ export default function TeamPage() {
                     style={{
                       width: carouselIndex === i ? 20 : 6,
                       height: 6,
-                      backgroundColor: carouselIndex === i ? member.accentColor : "#d4d4d4",
+                      backgroundColor: carouselIndex === i ? area.accentColor : "#d4d4d4",
                     }}
                   />
                 </button>
@@ -340,31 +351,18 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* ── CULTURE STRIP ── */}
-      <section className="border-t border-[#e4e4e4]">
-        {[
-          {
-            label: "Our Philosophy",
-            title: "Ship fast, iterate faster",
-            body: "We default to working code over perfect planning. Real feedback from real users beats any internal spec. Velocity isn't recklessness — it's how we learn what actually matters.",
-            img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817213/IMG-20250708-WA0035_rhbbo7.jpg",
-            imgSide: "right",
-          },
-          {
-            label: "Our Standard",
-            title: "Obsessed with the details",
-            body: "Every pixel, every millisecond, every edge case. We don't ship anything we'd be embarrassed to show. The difference between good and great lives in the details nobody notices until they're missing.",
-            img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817256/BRAINPATH_UI_DESIGN_2_h9uter.jpg",
-            imgSide: "left",
-          },
-          {
-            label: "Our Culture",
-            title: "Owned end-to-end",
-            body: "No handoff culture here. Each engineer owns their work from architecture to production — and takes genuine pride in it. Accountability isn't assigned; it's built in.",
-            img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781817483/Screenshot_2026-06-19_024639_ubg5au.png",
-            imgSide: "right",
-          },
-        ].map(({ label, title, body, img, imgSide }, i) => (
+      {/* ── SDLC PROCESS STRIP (Using Culture Strip template) ── */}
+      <section className="border-t border-[#e4e4e4] mt-12">
+        <div className="text-center pt-24 pb-8">
+          <h2 className="text-[clamp(28px,4vw,48px)] font-bold text-[#0D0D0D] leading-[1.08] tracking-tight">
+            How we engineer solutions
+          </h2>
+          <p className="text-[17px] text-[#747474] mt-4 max-w-xl mx-auto">
+            From the initial blueprint to post-launch scaling, our full Software Development Life Cycle (SDLC) guarantees results at every stage.
+          </p>
+        </div>
+
+        {SDLC_PHASES.map(({ label, title, body, img, imgSide }, i) => (
           <motion.div
             key={title}
             initial={{ opacity: 0 }}
@@ -414,12 +412,12 @@ export default function TeamPage() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-4">Work With Us</p>
+          <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-4">Start Building</p>
           <h2 className="text-[clamp(32px,5vw,60px)] font-bold text-[#0D0D0D] leading-tight mb-6">
-            Want to build something<br />great together?
+            Ready to upgrade your<br />digital infrastructure?
           </h2>
           <p className="text-[#747474] text-[16px] max-w-md mx-auto mb-10 leading-relaxed">
-            We're always open to interesting problems. Drop us a line.
+            Let’s discuss your technical requirements and map out the architecture.
           </p>
           <Link
             href="/#contact"
