@@ -263,7 +263,7 @@ function Hero() {
           >
             Engineering digital
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D94030] via-[#F26A10] to-[#FFD700]">
+            <span className="text-white" style={{ textShadow: "0 4px 28px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.9)" }}>
               luxury &amp; scale.
             </span>
           </motion.h1>
