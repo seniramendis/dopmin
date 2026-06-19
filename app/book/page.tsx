@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, X, Menu, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { SocialIconRow } from "../components/social-links";
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 function Nav() {
@@ -103,11 +104,7 @@ function Footer() {
         </div>
         <div className="border-t border-white/10 pt-8 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
           <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">Twitter</a>
-            <a href="#" className="hover:text-white transition-colors">Instagram</a>
-          </div>
+          <SocialIconRow variant="dark" />
         </div>
       </div>
     </footer>

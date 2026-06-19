@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, X, Menu, Code2, Shield, Layers, Cpu } from "lucide-react";
+import { SocialIconRow } from "../components/social-links";
 
 // ─── NAV (no back button) ─────────────────────────────────────────────────────
 function Nav() {
@@ -422,6 +423,33 @@ export default function TeamPage() {
           </Link>
         </motion.div>
       </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="relative bg-[#0a0a0a] overflow-hidden pt-20 pb-12 px-6 md:px-12 xl:px-24">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at top right, rgba(242,106,16,0.10), rgba(255,215,0,0.05) 50%, transparent 80%)" }}
+        />
+        <div className="relative z-10 max-w-[1920px] mx-auto">
+          <div className="flex items-center mb-10">
+            <div className="relative h-16 w-64 shrink-0">
+              <Image
+                src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781827164/ChatGPT_Image_Jun_19__2026__05_28_15_AM-removebg-preview_yxwkjs.png"
+                alt="DopMin"
+                fill
+                sizes="256px"
+                className="object-contain object-left"
+                unoptimized
+              />
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-8 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+            <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
+            <SocialIconRow variant="dark" />
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

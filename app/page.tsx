@@ -9,6 +9,7 @@ import {
   TrendingUp, Clock, Shield,
 } from "lucide-react";
 import Image from "next/image";
+import { SocialIconRow } from "./components/social-links";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -826,6 +827,11 @@ function Contact() {
               </motion.form>
             )}
           </AnimatePresence>
+
+          <div className="mt-12 pt-10 border-t border-[#e4e4e4] flex flex-col items-center gap-4">
+            <p className="text-[#a2a2a2] text-sm">Or find us here</p>
+            <SocialIconRow variant="light" />
+          </div>
         </motion.div>
       </div>
     </section>
@@ -913,11 +919,7 @@ function Footer() {
 
         <div className="mt-16 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
           <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">Twitter</a>
-            <a href="#" className="hover:text-white transition-colors">Instagram</a>
-          </div>
+          <SocialIconRow variant="dark" />
         </div>
       </div>
     </footer>
