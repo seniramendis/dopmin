@@ -122,6 +122,47 @@ const TEAM = [
   },
 ];
 
+// ─── TEAM SDLC PLAYBOOK DATA ──────────────────────────────────────────────────
+const TEAM_SDLC = [
+  {
+    phase: "Phase 1: Discovery & Architecture",
+    member: "Senira Mendis",
+    role: "Scrum Master & Backend Developer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727668/1755882213261_zoaphc.png",
+    imgSide: "right",
+    accent: "#D4A017",
+    imgPosition: "object-center", // Added to perfectly frame your face
+    description: "Before a single line of code is written, Senira works directly with clients to translate business goals into actionable Agile sprints. Using strict System Design principles, he architects robust REST APIs and maps out scalable PostgreSQL schemas. He ensures the project roadmap is clear, expectations are set, and the foundational architecture can handle enterprise-level scale."
+  },
+  {
+    phase: "Phase 2: UI/UX & Client-Side Engineering",
+    member: "Devin Kulasekere",
+    role: "Front End Developer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/255916317_ru7gyz.jpg",
+    imgSide: "left",
+    accent: "#C0392B",
+    description: "Devin bridges the gap between vision and reality. He begins by transforming the blueprint into intuitive UI/UX prototypes inside Figma for the client to review. Once approved, he brings those designs to life using React, Next.js, and Tailwind CSS. His obsession with pixel-perfect execution ensures that the final product feels flawless and responsive on every device."
+  },
+  {
+    phase: "Phase 3: Core Infrastructure & Cloud",
+    member: "Rashmika Kodithuwakku",
+    role: "Backend Developer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727846/Screenshot_2026-06-18_015243_vmapsq.png",
+    imgSide: "right",
+    accent: "#27AE60",
+    description: "When it's time to build the heavy-lifting engine, Rashmika steps in. Utilizing Node.js, Python, and MySQL, he develops the complex backend logic that powers the application. To guarantee seamless delivery, he containerizes the services with Docker and orchestrates the deployment on AWS, ensuring the client's system remains highly available and auto-scales with demand."
+  },
+  {
+    phase: "Phase 4: Assurance & Delivery",
+    member: "Pamod Dhananjana",
+    role: "QA Engineer",
+    img: "https://res.cloudinary.com/dukv2otyn/image/upload/v1781727666/1776604303706_hni2ai.jpg",
+    imgSide: "left",
+    accent: "#E67E22",
+    description: "Pamod acts as the final gatekeeper, guaranteeing that we never ship broken features. He builds rigorous automated testing pipelines using Selenium, Cypress, and Jest, integrating them directly into our CI/CD workflows. By catching edge cases and performance bottlenecks before they hit production, he protects the client's brand reputation and ensures a perfect launch."
+  },
+];
+
 // ─── STAT BAR ─────────────────────────────────────────────────────────────────
 const STATS = [
   { value: "4", label: "Core Team Members" },
@@ -191,8 +232,6 @@ export default function TeamPage() {
           </motion.p>
         </div>
       </section>
-
-
 
       {/* ── TEAM CARDS ── */}
       <section className="py-20 px-6 bg-white">
@@ -316,7 +355,6 @@ export default function TeamPage() {
               })}
             </div>
 
-            {/* Dot indicators */}
             <div className="flex justify-center items-center gap-2 mt-5">
               {TEAM.map((member, i) => (
                 <button
@@ -401,6 +439,67 @@ export default function TeamPage() {
               }`}
             >
               <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+            </motion.div>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* ── TEAM SDLC PLAYBOOK ── */}
+      <section className="border-t border-[#e4e4e4] bg-[#fafafa]">
+        <div className="text-center pt-24 pb-8 px-6">
+          <h2 className="text-[clamp(28px,4vw,48px)] font-bold text-[#0D0D0D] leading-[1.08] tracking-tight">
+            How we drive your success
+          </h2>
+          <p className="text-[17px] text-[#747474] mt-4 max-w-xl mx-auto">
+            Our team operates like a finely tuned machine. Here is how each member steps into the Software Development Life Cycle to turn your vision into a reality.
+          </p>
+        </div>
+
+        {TEAM_SDLC.map(({ phase, member, role, description, img, imgSide, accent, imgPosition }, i) => (
+          <motion.div
+            key={member}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+            className="border-b border-[#e4e4e4] last:border-b-0 grid md:grid-cols-2"
+          >
+            {/* Text panel */}
+            <div
+              className={`flex items-center px-6 md:px-16 py-16 md:py-24 bg-[#fafafa] ${
+                imgSide === "left" ? "md:order-2" : "md:order-1"
+              }`}
+            >
+              <div className="max-w-md">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] mb-5" style={{ color: accent }}>
+                  {phase}
+                </p>
+                <h3 className="text-[clamp(28px,4vw,44px)] font-semibold text-[#0D0D0D] leading-[1.08] tracking-tight mb-2">
+                  {member}
+                </h3>
+                <p className="text-sm font-medium text-stone-500 mb-6 uppercase tracking-wider">
+                  {role}
+                </p>
+                <p className="text-[17px] text-[#747474] leading-relaxed">{description}</p>
+              </div>
+            </div>
+
+            {/* Image panel */}
+            <motion.div
+              initial={{ opacity: 0, scale: 1.05 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8 }}
+              className={`relative min-h-[320px] md:min-h-[440px] overflow-hidden ${
+                imgSide === "left" ? "md:order-1" : "md:order-2"
+              }`}
+            >
+              <img 
+                src={img} 
+                alt={member} 
+                className={`absolute inset-0 w-full h-full object-cover ${imgPosition || 'object-top'}`} 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
             </motion.div>
           </motion.div>
         ))}
