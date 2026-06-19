@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useScroll, useTransform, motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
-  WifiOff, Bot, CloudUpload, ShoppingBag,
+  WifiOff, Bot, CloudUpload,
   ArrowRight, ChevronRight, X, Check, Menu, ExternalLink,
   TrendingUp, Clock, Shield,
+  Code2, Palette, Smartphone, Globe,
 } from "lucide-react";
 import Image from "next/image";
 import { SocialIconRow } from "./components/social-links";
@@ -62,7 +63,7 @@ function Nav() {
 
           {/* Desktop nav links */}
           <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {["Expertise", "Services", "Solutions", "Work", "Contact"].map((l) => (
+            {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}
@@ -110,7 +111,7 @@ function Nav() {
               className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl"
             >
               <div className="px-6 py-5 flex flex-col gap-4">
-                {["Expertise", "Services", "Solutions", "Work", "Contact"].map((l) => (
+                {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
                   <a
                     key={l}
                     href={`#${l.toLowerCase()}`}
@@ -438,40 +439,49 @@ function LogoTicker() {
 // ─── EXPERTISE ────────────────────────────────────────────────────────────────
 const services = [
   {
-    icon: WifiOff,
-    title: "Offline-First Web Apps",
-    tags: ["PWA", "React", "Sync"],
-    desc: "Progressive Web Apps that operate in low-connectivity environments. Users never see a failure screen.",
+    icon: Code2,
+    title: "Custom Software Engineering",
+    tags: ["Systems", "Architecture", "Scale"],
+    desc: "We build high-leverage software systems and applications tailored to your exact operational needs.",
+    color: "#F26A10",
+    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Code on monitor — custom software engineering",
+  },
+  {
+    icon: Palette,
+    title: "UI/UX Design",
+    tags: ["Figma", "Wireframes", "Prototyping"],
+    desc: "Crafting professional, minimalistic digital interfaces with structured wireframes that prioritize clean, intuitive user experiences.",
     color: "#F0E080",
-    img: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=600&q=80&auto=format&fit=crop",
-    imgAlt: "Mobile app UI on phone screen",
+    img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "UI design wireframe on tablet",
   },
   {
     icon: Bot,
-    title: "Agentic AI Automation",
-    tags: ["LLM", "Agents", "OpenAI"],
-    desc: "LLM-powered agents that handle intake, triage, and follow-up without a human in the loop.",
+    title: "AI & Automation Solutions",
+    tags: ["LLM", "Agents", "Automation"],
+    desc: "Engineering autonomous AI workflows to eliminate manual tasks, optimize operations, and scale your business efficiently.",
     color: "#D94030",
     img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop",
     imgAlt: "AI neural network visualization",
   },
   {
-    icon: CloudUpload,
-    title: "Legacy to Cloud Migration",
-    tags: ["AWS", "GCP", "Docker"],
-    desc: "Extract your monolith from on-premise hardware and redeploy as a resilient, auto-scaling cloud architecture.",
+    icon: Smartphone,
+    title: "Mobile App Development",
+    tags: ["Android", "Kotlin", "Java"],
+    desc: "Creating seamless, user-centric mobile experiences. Expert in high-quality development using Java and Kotlin.",
     color: "#90E060",
-    img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80&auto=format&fit=crop",
-    imgAlt: "Server racks in data center",
+    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Mobile app development on smartphone",
   },
   {
-    icon: ShoppingBag,
-    title: "Headless E-commerce",
-    tags: ["Shopify", "Next.js", "Edge"],
-    desc: "Decouple your storefront from the commerce engine — sub-second page loads and app-grade checkout.",
-    color: "#F26A10",
-    img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80&auto=format&fit=crop",
-    imgAlt: "E-commerce shopping on laptop",
+    icon: Globe,
+    title: "Full-Stack Web Development",
+    tags: ["React", "Node.js", "PostgreSQL"],
+    desc: "Custom, high-performance web applications built to scale. Specializing in modern frameworks like React and robust backend systems.",
+    color: "#007ACC",
+    img: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Full-stack web development setup with code",
   },
 ];
 
@@ -497,7 +507,7 @@ function Expertise() {
             Expansive areas of expertise
           </motion.h2>
           <motion.p variants={fadeUp} className="text-xl text-[#747474]">
-            Four disciplines. One integrated team. We architect solutions to capture opportunities across industries.
+            Five disciplines. One integrated team. We architect solutions to capture opportunities across industries.
           </motion.p>
         </motion.div>
       </div>
@@ -506,7 +516,7 @@ function Expertise() {
         variants={stagger}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
       >
         {services.map((item) => {
           const Icon = item.icon;
@@ -573,250 +583,6 @@ function Expertise() {
   );
 }
 
-// ─── SERVICES ─────────────────────────────────────────────────────────────────
-const servicesList = [
-  {
-    title: "Custom Software Engineering",
-    subtitle: "Delivering digital luxury and scale.",
-    desc: "We build high-leverage software systems and applications tailored to your exact operational needs.",
-    color: "#F26A10",
-    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80&auto=format&fit=crop",
-    imgAlt: "Code on monitor — custom software engineering",
-    tags: ["Systems", "Architecture", "Scale"],
-  },
-  {
-    title: "UI/UX Design",
-    subtitle: "Crafting professional, minimalistic digital interfaces.",
-    desc: "Structured wireframes that prioritize clean, intuitive user experiences — because clarity is the ultimate luxury.",
-    color: "#F0E080",
-    img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop",
-    imgAlt: "UI design wireframe on tablet",
-    tags: ["Figma", "Wireframes", "Prototyping"],
-  },
-  {
-    title: "AI & Automation Solutions",
-    subtitle: "Engineering autonomous AI workflows.",
-    desc: "Eliminate manual tasks, optimize operations, and scale your business efficiently with purpose-built AI agents.",
-    color: "#D94030",
-    img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80&auto=format&fit=crop",
-    imgAlt: "AI neural network and automation visualization",
-    tags: ["LLM", "Agents", "Automation"],
-  },
-  {
-    title: "Mobile App Development",
-    subtitle: "Creating seamless, user-centric mobile experiences.",
-    desc: "Expert in high-quality development using Java and Kotlin — native performance, beautiful interfaces.",
-    color: "#90E060",
-    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80&auto=format&fit=crop",
-    imgAlt: "Mobile app development on smartphone",
-    tags: ["Android", "Kotlin", "Java"],
-  },
-  {
-    title: "Full-Stack Web Development",
-    subtitle: "Custom, high-performance web applications built to scale.",
-    desc: "Specializing in modern frameworks like React and robust backend systems — from concept to cloud.",
-    color: "#007ACC",
-    img: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=80&auto=format&fit=crop",
-    imgAlt: "Full-stack web development setup with code",
-    tags: ["React", "Node.js", "PostgreSQL"],
-  },
-];
-
-function Services() {
-  const { ref, inView } = useScrollInView(0.1);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const scrollTo = (index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.children[index] as HTMLElement;
-    if (!card) return;
-    track.scrollTo({ left: card.offsetLeft - 24, behavior: "smooth" });
-    setActiveIndex(index);
-  };
-
-  const handleScroll = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    const scrollLeft = track.scrollLeft;
-    const cardWidth = (track.children[0] as HTMLElement)?.offsetWidth ?? 1;
-    const newIndex = Math.round(scrollLeft / (cardWidth + 24));
-    setActiveIndex(Math.min(newIndex, servicesList.length - 1));
-  };
-
-  return (
-    <section id="services" className="py-24 md:py-32 bg-[#0D0D0D] overflow-hidden">
-      <div className="px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto">
-        {/* Header */}
-        <motion.div
-          ref={ref}
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mb-14 md:mb-20"
-        >
-          <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
-            What We Build
-          </motion.p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <motion.h2
-              variants={fadeUp}
-              className="text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] text-white max-w-xl"
-            >
-              Services built for results
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-[#747474] text-lg max-w-md md:text-right leading-relaxed">
-              Five disciplines. One integrated team engineered to deliver at every layer of your stack.
-            </motion.p>
-          </div>
-        </motion.div>
-
-        {/* Desktop: 5-col grid / Mobile: touch carousel */}
-        <div className="hidden md:grid md:grid-cols-5 gap-5">
-          {servicesList.map((svc) => (
-            <motion.div
-              key={svc.title}
-              variants={fadeUp}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              className="group relative h-[520px] rounded-2xl overflow-hidden bg-[#111] border border-white/10 cursor-pointer shadow-lg"
-            >
-              {/* Glow */}
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-15 group-hover:opacity-35 transition-opacity duration-700 z-0"
-                style={{ background: `radial-gradient(circle at center, ${svc.color}, transparent 70%)` }}
-              />
-              {/* Image */}
-              <div className="absolute inset-x-0 top-0 bottom-44 z-[1] overflow-hidden">
-                <Image
-                  src={svc.img}
-                  alt={svc.imgAlt}
-                  fill
-                  sizes="(max-width: 1280px) 20vw, 18vw"
-                  className="object-cover opacity-35 group-hover:opacity-55 transition-opacity duration-700 scale-105 group-hover:scale-100"
-                  unoptimized
-                />
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#111] to-transparent z-10" />
-              </div>
-              {/* Tags */}
-              <div className="absolute top-5 left-5 flex flex-wrap gap-1.5 z-10">
-                {svc.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-[10px] font-semibold border border-white/20 uppercase tracking-wider"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 w-full p-6 z-10 bg-gradient-to-t from-black via-black/85 to-transparent">
-                <div
-                  className="h-[3px] w-10 mb-5 transition-all duration-500 group-hover:w-full rounded-full"
-                  style={{ backgroundColor: svc.color }}
-                />
-                <h3 className="text-[15px] font-bold text-white leading-tight mb-2">{svc.title}</h3>
-                <p className="text-white/50 text-[11px] font-semibold uppercase tracking-wider mb-3">{svc.subtitle}</p>
-                <p className="text-white/65 text-[12px] leading-relaxed">{svc.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Mobile carousel */}
-        <div className="md:hidden">
-          <div
-            ref={trackRef}
-            onScroll={handleScroll}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
-            style={{ scrollPaddingLeft: "24px" }}
-          >
-            {servicesList.map((svc) => (
-              <div
-                key={svc.title}
-                className="group relative shrink-0 snap-center w-[80vw] max-w-[320px] h-[480px] rounded-2xl overflow-hidden bg-[#111] border border-white/10 shadow-lg"
-              >
-                {/* Glow */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0 opacity-20 z-0"
-                  style={{ background: `radial-gradient(circle at center, ${svc.color}, transparent 70%)` }}
-                />
-                {/* Image */}
-                <div className="absolute inset-x-0 top-0 bottom-44 z-[1] overflow-hidden">
-                  <Image
-                    src={svc.img}
-                    alt={svc.imgAlt}
-                    fill
-                    sizes="80vw"
-                    className="object-cover opacity-40"
-                    unoptimized
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#111] to-transparent z-10" />
-                </div>
-                {/* Tags */}
-                <div className="absolute top-5 left-5 flex flex-wrap gap-1.5 z-10">
-                  {svc.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-[10px] font-semibold border border-white/20 uppercase tracking-wider"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 w-full p-6 z-10 bg-gradient-to-t from-black via-black/85 to-transparent">
-                  <div className="h-[3px] w-10 mb-5 rounded-full" style={{ backgroundColor: svc.color }} />
-                  <h3 className="text-[16px] font-bold text-white leading-tight mb-2">{svc.title}</h3>
-                  <p className="text-white/50 text-[11px] font-semibold uppercase tracking-wider mb-3">{svc.subtitle}</p>
-                  <p className="text-white/65 text-[13px] leading-relaxed">{svc.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Dot indicators + arrow navigation */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button
-              onClick={() => scrollTo(Math.max(0, activeIndex - 1))}
-              disabled={activeIndex === 0}
-              aria-label="Previous service"
-              className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-all disabled:opacity-20"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7L9 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-            <div className="flex gap-2">
-              {servicesList.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => scrollTo(i)}
-                  aria-label={`Go to service ${i + 1}`}
-                  className="transition-all duration-300 rounded-full"
-                  style={{
-                    width: i === activeIndex ? "24px" : "8px",
-                    height: "8px",
-                    backgroundColor: i === activeIndex ? "#F26A10" : "rgba(255,255,255,0.25)",
-                  }}
-                />
-              ))}
-            </div>
-            <button
-              onClick={() => scrollTo(Math.min(servicesList.length - 1, activeIndex + 1))}
-              disabled={activeIndex === servicesList.length - 1}
-              aria-label="Next service"
-              className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-all disabled:opacity-20"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // ─── COMPARE ──────────────────────────────────────────────────────────────────
 const compareRows = [
@@ -1317,7 +1083,6 @@ export default function DopMinPage() {
       <Hero />
       <LogoTicker />
       <Expertise />
-      <Services />
       <Compare />
       <Work />
       <TeamTeaser />
