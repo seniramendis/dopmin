@@ -878,18 +878,17 @@ function Footer() {
         {/* Footer columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-[#a2a2a2] text-base">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-8 h-8 shrink-0 rounded-full overflow-hidden bg-gray-700">
+            <div className="flex items-center mb-6">
+              <div className="relative h-16 w-64 shrink-0">
                 <Image
-                  src="/assets/images/dopmin.jpg"
-                  alt="Dopmin"
+                  src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781827164/ChatGPT_Image_Jun_19__2026__05_28_15_AM-removebg-preview_yxwkjs.png"
+                  alt="DopMin"
                   fill
-                  sizes="32px"
-                  className="object-cover grayscale"
+                  sizes="256px"
+                  className="object-contain object-left"
                   unoptimized
                 />
               </div>
-              <span className="font-bold text-white text-xl tracking-tight">DOPMIN</span>
             </div>
           </div>
 

@@ -69,11 +69,17 @@ function Footer() {
       <div className="relative z-10 max-w-[1920px] mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-[#a2a2a2] text-base mb-16">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-8 h-8 shrink-0 rounded-full overflow-hidden bg-gray-700">
-                <Image src="/assets/images/dopmin.jpg" alt="Dopmin" fill sizes="32px" className="object-cover grayscale" unoptimized />
+            <div className="flex items-center mb-4">
+              <div className="relative h-16 w-64 shrink-0">
+                <Image
+                  src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781827164/ChatGPT_Image_Jun_19__2026__05_28_15_AM-removebg-preview_yxwkjs.png"
+                  alt="DopMin"
+                  fill
+                  sizes="256px"
+                  className="object-contain object-left"
+                  unoptimized
+                />
               </div>
-              <span className="font-bold text-white text-xl tracking-tight">DOPMIN</span>
             </div>
             <p className="text-[#555] text-sm leading-relaxed">Engineering digital luxury for brands that refuse to be ordinary.</p>
           </div>
