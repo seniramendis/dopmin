@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useScroll, useTransform, motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
-  WifiOff, Bot, CloudUpload,
+  WifiOff, Bot, CloudUpload, ShoppingBag,
   ArrowRight, ChevronRight, X, Check, Menu, ExternalLink,
-  TrendingUp, Clock, Shield,
-  Code2, Palette, Smartphone, Globe,
+  TrendingUp, Clock, Shield, Code, Layout, Zap, Smartphone, Monitor
 } from "lucide-react";
 import Image from "next/image";
 import { SocialIconRow } from "./components/social-links";
@@ -390,7 +389,7 @@ const TECH_STACK = [
     name: "Laravel",
     svg: (
       <svg viewBox="0 0 128 128" className="w-10 h-10">
-        <path fill="#FF2D20" d="M106.6 37.2c.1.3.1.6.1.9v25.8c0 1-.5 1.9-1.4 2.4l-21.6 12.5v24.8c0 1-.5 1.9-1.4 2.4l-45.1 26c-.2.1-.4.1-.6.2-.1 0-.2.1-.3.1-.4 0-.7-.1-1-.2L1.4 106c-.9-.5-1.4-1.4-1.4-2.4V26.3c0-.3 0-.6.1-.9.1-.2.2-.4.3-.6.1-.1.1-.2.2-.3l13.5-7.8c.9-.5 2-.5 2.8 0l13.5 7.8c.1.1.2.2.2.3.1.2.2.4.3.6.1.3.1.6.1.9v49l18.4-10.6V15c0-.3 0-.6.1-.9.1-.2.2-.4.3-.6.1-.1.1-.2.2-.3l13.5-7.8c.9-.5 2-.5 2.8 0L79.9 13c.1.1.2.2.2.3.1.2.2.4.3.6zm-2.8 24.8V41.4L96.4 46l-7.5 4.4v16.2l14.9-8.6zM79.6 89.6V73.4l-43.4 25v16.2l43.4-25zM3 27.5v75.7l41.8 24.2V52.8L3 27.5zM16.5 19.7L2.9 27.9l13.6 7.8 13.6-7.8-13.6-8.2zm7 31.3V34.8L10 39.2v16.2l13.5-4.4zm42.7-38.3L52.7 4.9l-13.6 7.8 13.6 7.8 13.5-7.8zm7 31.3V27.8l-13.5 4.4v16.2l13.5-4.1zm-7.1 8.6l-13.5 7.8 13.5 7.8 13.6-7.8-13.6-7.8zm-6.9 18.1l-13.6-7.8v15.7l13.6 7.8v-15.7zm20.7 1.3l-13.5 7.8v15.7l13.5-7.8V71.3zM80 13l-13.6 7.8 13.6 7.8L93.5 20.8 80 13zm6.9 37.8L73.4 43v15.7l13.5 7.8V50.8zm27.2-1.3L100.5 42v15.7l13.6 7.8V49.5z"/>
+        <path fill="#FF2D20" d="M106.6 37.2c.1.3.1.6.1.9v25.8c0 1-.5 1.9-1.4 2.4l-21.6 12.5v24.8c0 1-.5 1.9-1.4 2.4l-45.1 26c-.2.1-.4.1-.6.2-.1 0-.2.1-.3.1-.4 0-.7-.1-1-.2L1.4 106c-.9-.5-1.4-1.4-1.4-2.4V26.3c0-.3 0-.6.1-.9.1-.2.2-.4.3-.6.1-.1.1-.2.2-.3l13.5-7.8c.9-.5 2-.5 2.8 0l13.5 7.8c.1.1.2.2.2.3.1.2.2.4.3-.6.1-.3.1-.6.1-.9v49l18.4-10.6V15c0-.3 0-.6.1-.9.1-.2.2-.4.3-.6.1-.1.1-.2.2-.3l13.5-7.8c.9-.5 2-.5 2.8 0L79.9 13c.1.1.2.2.2.3.1.2.2.4.3-.6zm-2.8 24.8V41.4L96.4 46l-7.5 4.4v16.2l14.9-8.6zM79.6 89.6V73.4l-43.4 25v16.2l43.4-25zM3 27.5v75.7l41.8 24.2V52.8L3 27.5zM16.5 19.7L2.9 27.9l13.6 7.8 13.6-7.8-13.6-8.2zm7 31.3V34.8L10 39.2v16.2l13.5-4.4zm42.7-38.3L52.7 4.9l-13.6 7.8 13.6 7.8 13.5-7.8zm7 31.3V27.8l-13.5 4.4v16.2l13.5-4.1zm-7.1 8.6l-13.5 7.8 13.5 7.8 13.6-7.8-13.6-7.8zm-6.9 18.1l-13.6-7.8v15.7l13.6 7.8v-15.7zm20.7 1.3l-13.5 7.8v15.7l13.5-7.8V71.3zM80 13l-13.6 7.8 13.6 7.8L93.5 20.8 80 13zm6.9 37.8L73.4 43v15.7l13.5 7.8V50.8zm27.2-1.3L100.5 42v15.7l13.6 7.8V49.5z"/>
       </svg>
     ),
   },
@@ -437,9 +436,9 @@ function LogoTicker() {
 }
 
 // ─── EXPERTISE ────────────────────────────────────────────────────────────────
-const services = [
+const expertiseItems = [
   {
-    icon: Code2,
+    icon: Monitor,
     title: "Custom Software Engineering",
     tags: ["Systems", "Architecture", "Scale"],
     desc: "We build high-leverage software systems and applications tailored to your exact operational needs.",
@@ -448,141 +447,240 @@ const services = [
     imgAlt: "Code on monitor — custom software engineering",
   },
   {
-    icon: Palette,
+    icon: Layout,
     title: "UI/UX Design",
     tags: ["Figma", "Wireframes", "Prototyping"],
-    desc: "Crafting professional, minimalistic digital interfaces with structured wireframes that prioritize clean, intuitive user experiences.",
+    desc: "Structured wireframes that prioritize clean, intuitive user experiences — because clarity is the ultimate luxury.",
     color: "#F0E080",
     img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80&auto=format&fit=crop",
     imgAlt: "UI design wireframe on tablet",
   },
   {
-    icon: Bot,
+    icon: Zap,
     title: "AI & Automation Solutions",
     tags: ["LLM", "Agents", "Automation"],
-    desc: "Engineering autonomous AI workflows to eliminate manual tasks, optimize operations, and scale your business efficiently.",
+    desc: "Eliminate manual tasks, optimize operations, and scale your business efficiently with purpose-built AI agents.",
     color: "#D94030",
     img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop",
-    imgAlt: "AI neural network visualization",
+    imgAlt: "AI neural network and automation visualization",
   },
   {
     icon: Smartphone,
     title: "Mobile App Development",
     tags: ["Android", "Kotlin", "Java"],
-    desc: "Creating seamless, user-centric mobile experiences. Expert in high-quality development using Java and Kotlin.",
+    desc: "Expert in high-quality development using Java and Kotlin — native performance, beautiful interfaces.",
     color: "#90E060",
     img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80&auto=format&fit=crop",
     imgAlt: "Mobile app development on smartphone",
   },
   {
-    icon: Globe,
+    icon: Code,
     title: "Full-Stack Web Development",
     tags: ["React", "Node.js", "PostgreSQL"],
-    desc: "Custom, high-performance web applications built to scale. Specializing in modern frameworks like React and robust backend systems.",
+    desc: "Specializing in modern frameworks like React and robust backend systems — from concept to cloud.",
     color: "#007ACC",
     img: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=600&q=80&auto=format&fit=crop",
     imgAlt: "Full-stack web development setup with code",
+  },
+  {
+    icon: WifiOff,
+    title: "Offline-First Web Apps",
+    tags: ["PWA", "React", "Sync"],
+    desc: "Progressive Web Apps that operate in low-connectivity environments. Users never see a failure screen.",
+    color: "#F0E080",
+    img: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Mobile app UI on phone screen",
+  },
+  {
+    icon: Bot,
+    title: "Agentic AI Automation",
+    tags: ["LLM", "Agents", "OpenAI"],
+    desc: "LLM-powered agents that handle intake, triage, and follow-up without a human in the loop.",
+    color: "#D94030",
+    img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "AI neural network visualization",
+  },
+  {
+    icon: CloudUpload,
+    title: "Legacy to Cloud Migration",
+    tags: ["AWS", "GCP", "Docker"],
+    desc: "Extract your monolith from on-premise hardware and redeploy as a resilient, auto-scaling cloud architecture.",
+    color: "#90E060",
+    img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Server racks in data center",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Headless E-commerce",
+    tags: ["Shopify", "Next.js", "Edge"],
+    desc: "Decouple your storefront from the commerce engine — sub-second page loads and app-grade checkout.",
+    color: "#F26A10",
+    img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "E-commerce shopping on laptop",
   },
 ];
 
 function Expertise() {
   const { ref, inView } = useScrollInView(0.1);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const scrollTo = (index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.children[index] as HTMLElement;
+    if (!card) return;
+    // Adjust logic to center smoothly
+    track.scrollTo({ left: card.offsetLeft - 24, behavior: "smooth" });
+    setActiveIndex(index);
+  };
+
+  const handleScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const scrollLeft = track.scrollLeft;
+    // Estimate index based on average card width + gap
+    const cardWidth = (track.children[0] as HTMLElement)?.offsetWidth ?? 1;
+    const newIndex = Math.round(scrollLeft / (cardWidth + 16)); // 16px is gap-4
+    setActiveIndex(Math.min(newIndex, expertiseItems.length - 1));
+  };
+
   return (
-    <section id="expertise" className="py-24 md:py-32 px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto bg-white">
-      <div className="mb-16 md:mb-24">
+    <section id="expertise" className="py-24 md:py-32 bg-white overflow-hidden">
+      <div className="px-6 md:px-12 xl:px-24 max-w-[1920px] mx-auto">
+        <div className="mb-16 md:mb-24">
+          <motion.div
+            ref={ref}
+            variants={stagger}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="max-w-2xl"
+          >
+            <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
+              Core Expertise
+            </motion.p>
+            <motion.h2
+              variants={fadeUp}
+              className="text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6 text-[#0D0D0D]"
+            >
+              Expansive areas of expertise
+            </motion.h2>
+            <motion.p variants={fadeUp} className="text-xl text-[#747474]">
+              Five disciplines. One integrated team. We architect solutions to capture opportunities across industries.
+            </motion.p>
+          </motion.div>
+        </div>
+
         <motion.div
-          ref={ref}
           variants={stagger}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="max-w-2xl"
         >
-          <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
-            Core Expertise
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            className="text-[clamp(32px,5vw,64px)] font-semibold leading-[1.1] mb-6 text-[#0D0D0D]"
+          {/* Track for horizontal scrolling */}
+          <div
+            ref={trackRef}
+            onScroll={handleScroll}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6 pt-4"
           >
-            Expansive areas of expertise
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-xl text-[#747474]">
-            Five disciplines. One integrated team. We architect solutions to capture opportunities across industries.
-          </motion.p>
+            {expertiseItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  variants={fadeUp}
+                  className="group relative shrink-0 snap-center w-[85vw] sm:w-[320px] md:w-[360px] h-[520px] bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
+                >
+                  {/* Colour glow */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-15 group-hover:opacity-35 transition-opacity duration-700 z-0"
+                    style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }}
+                  />
+
+                  {/* Tags */}
+                  <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-[10px] font-semibold border border-white/20 uppercase tracking-wider"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Card image */}
+                  <div className="absolute inset-x-0 top-16 bottom-44 z-[1] overflow-hidden">
+                    <Image
+                      src={item.img}
+                      alt={item.imgAlt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 360px"
+                      className="object-cover opacity-35 group-hover:opacity-55 transition-opacity duration-700 scale-105 group-hover:scale-100"
+                      unoptimized
+                    />
+                    {/* Fade bottom */}
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#111111] to-transparent z-10" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 w-full p-8 z-10 transition-transform duration-500 bg-gradient-to-t from-black via-black/85 to-transparent">
+                    <div
+                      className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <div className="mb-3 opacity-70">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3 leading-tight text-white">{item.title}</h3>
+                    <p className="text-white/60 transition-opacity duration-500 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Nav Controls for Carousel */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <button
+              onClick={() => scrollTo(Math.max(0, activeIndex - 1))}
+              disabled={activeIndex === 0}
+              aria-label="Previous service"
+              className="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center text-stone-400 hover:text-[#0D0D0D] hover:border-[#0D0D0D] transition-all disabled:opacity-30 disabled:hover:border-stone-200 disabled:hover:text-stone-400"
+            >
+              <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7L9 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            <div className="flex gap-2">
+              {expertiseItems.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollTo(i)}
+                  aria-label={`Go to item ${i + 1}`}
+                  className="transition-all duration-300 rounded-full"
+                  style={{
+                    width: i === activeIndex ? "28px" : "8px",
+                    height: "8px",
+                    backgroundColor: i === activeIndex ? "#F26A10" : "#e4e4e4",
+                  }}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => scrollTo(Math.min(expertiseItems.length - 1, activeIndex + 1))}
+              disabled={activeIndex === expertiseItems.length - 1}
+              aria-label="Next service"
+              className="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center text-stone-400 hover:text-[#0D0D0D] hover:border-[#0D0D0D] transition-all disabled:opacity-30 disabled:hover:border-stone-200 disabled:hover:text-stone-400"
+            >
+              <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          </div>
         </motion.div>
       </div>
-
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
-      >
-        {services.map((item) => {
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.title}
-              variants={fadeUp}
-              className="group relative h-[480px] md:h-[560px] w-full bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
-            >
-              {/* Colour glow */}
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"
-                style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }}
-              />
-
-              {/* Tags */}
-              <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
-                {item.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-semibold border border-white/20 uppercase tracking-wider"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Card image — sits in the middle, fades at edges */}
-              <div className="absolute inset-x-0 top-16 bottom-48 z-[1] overflow-hidden">
-                <Image
-                  src={item.img}
-                  alt={item.imgAlt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  className="object-cover opacity-40 group-hover:opacity-55 transition-opacity duration-700 scale-105 group-hover:scale-100"
-                  unoptimized
-                />
-                {/* Fade top */}
-                <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-[#111111] to-transparent z-10" />
-                {/* Fade bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#111111] to-transparent z-10" />
-              </div>
-
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 w-full p-8 z-10 transition-transform duration-500 bg-gradient-to-t from-black via-black/80 to-transparent">
-                <div
-                  className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
-                  style={{ backgroundColor: item.color }}
-                />
-                <div className="mb-3 opacity-60">
-                  <Icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-semibold mb-3 leading-tight" style={{ color: "#ffffff" }}>{item.title}</h3>
-                <p className="text-white/70 transition-opacity duration-500 text-sm">
-                  {item.desc}
-                </p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
     </section>
   );
 }
-
 
 // ─── COMPARE ──────────────────────────────────────────────────────────────────
 const compareRows = [
