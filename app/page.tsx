@@ -443,6 +443,8 @@ const services = [
     tags: ["PWA", "React", "Sync"],
     desc: "Progressive Web Apps that operate in low-connectivity environments. Users never see a failure screen.",
     color: "#F0E080",
+    img: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Mobile app UI on phone screen",
   },
   {
     icon: Bot,
@@ -450,6 +452,8 @@ const services = [
     tags: ["LLM", "Agents", "OpenAI"],
     desc: "LLM-powered agents that handle intake, triage, and follow-up without a human in the loop.",
     color: "#D94030",
+    img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "AI neural network visualization",
   },
   {
     icon: CloudUpload,
@@ -457,6 +461,8 @@ const services = [
     tags: ["AWS", "GCP", "Docker"],
     desc: "Extract your monolith from on-premise hardware and redeploy as a resilient, auto-scaling cloud architecture.",
     color: "#90E060",
+    img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "Server racks in data center",
   },
   {
     icon: ShoppingBag,
@@ -464,6 +470,8 @@ const services = [
     tags: ["Shopify", "Next.js", "Edge"],
     desc: "Decouple your storefront from the commerce engine — sub-second page loads and app-grade checkout.",
     color: "#F26A10",
+    img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80&auto=format&fit=crop",
+    imgAlt: "E-commerce shopping on laptop",
   },
 ];
 
@@ -525,6 +533,22 @@ function Expertise() {
                     {tag}
                   </span>
                 ))}
+              </div>
+
+              {/* Card image — sits in the middle, fades at edges */}
+              <div className="absolute inset-x-0 top-16 bottom-48 z-[1] overflow-hidden">
+                <Image
+                  src={item.img}
+                  alt={item.imgAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  className="object-cover opacity-40 group-hover:opacity-55 transition-opacity duration-700 scale-105 group-hover:scale-100"
+                  unoptimized
+                />
+                {/* Fade top */}
+                <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-[#111111] to-transparent z-10" />
+                {/* Fade bottom */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#111111] to-transparent z-10" />
               </div>
 
               {/* Content */}
