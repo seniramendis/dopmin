@@ -32,9 +32,10 @@ function Nav() {
             </div>
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
+            {["Expertise", "Work", "Contact"].map((l) => (
               <a key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">{l}</a>
             ))}
+            <a href="/solutions" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Solutions</a>
             <a href="/team" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Team</a>
           </nav>
           <a href="/book" className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm">
@@ -48,9 +49,10 @@ function Nav() {
           {open && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl">
               <div className="px-6 py-5 flex flex-col gap-4">
-                {["Expertise", "Solutions", "Work", "Contact"].map((l) => (
+                {["Expertise", "Work", "Contact"].map((l) => (
                   <a key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">{l}</a>
                 ))}
+                <a href="/solutions" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Solutions</a>
                 <a href="/team" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Team</a>
                 <a href="/book" onClick={() => setOpen(false)} className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2">Book a Free Audit</a>
               </div>

@@ -38,7 +38,8 @@ function Nav() {
             <Link href="/expertise" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">
               Expertise
             </Link>
-            {["Solutions", "Work", "Contact"].map((l) => (
+            <Link href="/solutions" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Solutions</Link>
+            {["Work", "Contact"].map((l) => (
               <Link key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">{l}</Link>
             ))}
             <Link href="/team" className="text-[14px] font-medium text-[#F26A10] hover:text-[#D94030] transition-colors">Team</Link>
@@ -60,7 +61,8 @@ function Nav() {
                 <Link href="/expertise" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">
                   Expertise
                 </Link>
-                {["Solutions", "Work", "Contact"].map((l) => (
+                <Link href="/solutions" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Solutions</Link>
+                {["Work", "Contact"].map((l) => (
                   <Link key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">{l}</Link>
                 ))}
                 <Link href="/team" onClick={() => setOpen(false)} className="text-[#F26A10] text-base font-semibold">Team</Link>

@@ -66,7 +66,10 @@ function Nav() {
             <Link href="/expertise" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">
               Expertise
             </Link>
-            {["Solutions", "Work", "Contact"].map((l) => (
+            <Link href="/solutions" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">
+              Solutions
+            </Link>
+            {["Work", "Contact"].map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}
@@ -121,7 +124,14 @@ function Nav() {
                 >
                   Expertise
                 </Link>
-                {["Solutions", "Work", "Contact"].map((l) => (
+                <Link
+                  href="/solutions"
+                  onClick={() => setOpen(false)}
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                >
+                  Solutions
+                </Link>
+                {["Work", "Contact"].map((l) => (
                   <a
                     key={l}
                     href={`#${l.toLowerCase()}`}
