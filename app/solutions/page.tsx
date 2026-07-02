@@ -9,6 +9,7 @@ import {
   ChevronRight, X, Check, Menu,
 } from "lucide-react";
 import { SocialIconRow } from "../components/social-links";
+import { HeroScrollDemo } from "../components/hero-scroll-demo";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -129,6 +130,9 @@ export default function SolutionsPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── SCROLL SHOWCASE ── */}
+      <HeroScrollDemo />
 
       {/* ── COMPARE: STANDARD VS INTELLIGENT ── */}
       <section className="py-28 px-6 bg-[#fafafa] border-y border-[#e4e4e4]">
