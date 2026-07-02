@@ -65,7 +65,7 @@ export function AppSolvesShowcase() {
 
   return (
     <section ref={sectionRef} className="py-24 px-6 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-[0.85fr_1.15fr] gap-12 md:gap-8 items-center">
         {/* ── COPY / UVP ── */}
         <div ref={copyRef} className="order-2 md:order-1">
           <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-4">
@@ -96,7 +96,7 @@ export function AppSolvesShowcase() {
         </div>
 
         {/* ── IMAGE ── */}
-        <div ref={imageWrapRef} className="order-1 md:order-2 relative">
+        <div ref={imageWrapRef} className="order-1 md:order-2 relative scale-110 md:scale-125">
           <Image
             src="https://res.cloudinary.com/dukv2otyn/image/upload/v1783030945/tech_care_mockup_2_thi0v0-removebg-preview_cixai8.png"
             alt="DopMin app solving real operational problems"
