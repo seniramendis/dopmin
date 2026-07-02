@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { SocialIconRow } from "./components/social-links";
+import { HeroScrollDemo } from "./components/hero-scroll-demo";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -1189,6 +1190,7 @@ export default function DopMinPage() {
       <LogoTicker />
       <Expertise />
       <Compare />
+      <HeroScrollDemo />
       <Work />
       <TeamTeaser />
       <Contact />
