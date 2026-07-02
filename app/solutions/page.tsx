@@ -7,7 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ChevronRight, X, Check, Menu,
-  Zap, WifiOff, CloudUpload, ShoppingBag, Monitor,
 } from "lucide-react";
 import { SocialIconRow } from "../components/social-links";
 
@@ -88,45 +87,6 @@ function Nav() {
   );
 }
 
-// ─── SOLUTIONS DATA ───────────────────────────────────────────────────────────
-const SOLUTIONS = [
-  {
-    icon: WifiOff,
-    title: "Offline-First Field Apps",
-    desc: "Progressive Web Apps built for low-connectivity environments — users never see a failure screen, ever.",
-    tags: ["PWA", "Sync", "Resilience"],
-    color: "#F0E080",
-  },
-  {
-    icon: CloudUpload,
-    title: "Legacy to Cloud Migration",
-    desc: "Extract your monolith from on-premise hardware and redeploy as a resilient, auto-scaling cloud architecture.",
-    tags: ["AWS", "GCP", "Docker"],
-    color: "#90E060",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Headless Commerce",
-    desc: "Decouple your storefront from the commerce engine for sub-second page loads and an app-grade checkout.",
-    tags: ["Shopify", "Next.js", "Edge"],
-    color: "#F26A10",
-  },
-  {
-    icon: Monitor,
-    title: "Custom Enterprise Systems",
-    desc: "Purpose-built software and internal tools architected around how your business actually operates.",
-    tags: ["Systems", "Architecture", "Scale"],
-    color: "#007ACC",
-  },
-  {
-    icon: Zap,
-    title: "Real-Time Operational Dashboards",
-    desc: "Live visibility into the metrics that matter, replacing weekly spreadsheets with always-on reporting.",
-    tags: ["Analytics", "Alerts", "Dashboards"],
-    color: "#D94030",
-  },
-];
-
 // ─── COMPARE ROWS (Standard vs Intelligent) ───────────────────────────────────
 const compareRows = [
   { label: "Responsiveness", before: "Manual triaging by staff",       after: "AI agent responds in < 2 sec" },
@@ -166,46 +126,6 @@ export default function SolutionsPage() {
               Every business has a different bottleneck. We architect the specific solution that removes yours &mdash;
               then engineer it to compound in value long after launch.
             </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── SOLUTIONS GRID ── */}
-      <section className="pb-28 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {SOLUTIONS.map(({ icon: Icon, title, desc, tags, color }) => (
-              <motion.div
-                key={title}
-                variants={fadeUp}
-                className="group rounded-2xl border border-[#e4e4e4] p-8 bg-white hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 shrink-0"
-                  style={{ background: `${color}14`, border: `1px solid ${color}30` }}
-                >
-                  <Icon className="w-5 h-5" style={{ color }} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#0D0D0D] mb-3 leading-snug">{title}</h3>
-                <p className="text-[15px] text-[#747474] leading-relaxed mb-6 flex-1">{desc}</p>
-                <div className="flex flex-wrap gap-2 pt-6 border-t border-[#e4e4e4]">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 rounded-full text-[11px] font-semibold text-stone-600 bg-stone-100 border border-stone-200"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </section>
