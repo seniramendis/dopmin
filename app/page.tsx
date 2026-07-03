@@ -13,6 +13,7 @@ import Link from "next/link";
 import { SocialIconRow } from "./components/social-links";
 import { HeroScrollDemo } from "./components/hero-scroll-demo";
 import { GlobeDemo } from "./components/globe-demo";
+import { HowWeCompare } from "./components/how-we-compare";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -693,86 +694,6 @@ function Expertise() {
   );
 }
 
-// ─── COMPARE ──────────────────────────────────────────────────────────────────
-const compareRows = [
-  { label: "Responsiveness", before: "Manual triaging by staff",       after: "AI agent responds in < 2 sec" },
-  { label: "Uptime model",   before: "Restart after failure",          after: "Self-healing, auto-recovery" },
-  { label: "Reporting",      before: "Weekly CSV exports",             after: "Real-time dashboards & alerts" },
-  { label: "Scalability",    before: "Provisioned for peak, idle 80%", after: "Auto-scales to demand" },
-  { label: "Connectivity",   before: "Requires stable internet",       after: "Works offline, syncs on reconnect" },
-];
-
-function Compare() {
-  const { ref, inView } = useScrollInView(0.1);
-  return (
-    <section id="solutions" className="py-28 px-6 bg-[#fafafa] border-y border-[#e4e4e4]">
-      <div className="max-w-[1920px] mx-auto md:px-12 xl:px-24">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            ref={ref}
-            variants={stagger}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="mb-14 text-center"
-          >
-            <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
-              The DopMin Difference
-            </motion.p>
-            <motion.h2
-              variants={fadeUp}
-              className="text-[clamp(32px,5vw,64px)] font-semibold text-[#0D0D0D] leading-[1.1]"
-            >
-              Standard vs. Intelligent
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-[#747474] mt-6 text-xl max-w-2xl mx-auto leading-relaxed">
-              Most agencies ship software. We ship leverage &mdash; systems that compound in value after launch.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="rounded-2xl overflow-hidden border border-[#e4e4e4] bg-white shadow-sm"
-          >
-            <div className="overflow-x-auto">
-              <div className="min-w-[560px]">
-                <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f5f5f5] border-b border-[#e4e4e4]">
-                  <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-[#747474] uppercase tracking-wider">Dimension</div>
-                  <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-[#747474] uppercase tracking-wider border-l border-[#e4e4e4]">
-                    Standard App
-                  </div>
-                  <div className="px-4 md:px-6 py-4 md:py-5 text-xs font-bold text-white uppercase tracking-wider border-l border-[#e91d27] bg-[#e91d27]">
-                    DopMin Systems
-                  </div>
-                </div>
-
-                {compareRows.map(({ label, before, after }, i) => (
-                  <motion.div
-                    key={label}
-                    variants={fadeUp}
-                    className={`grid grid-cols-[1.2fr_1fr_1fr]${i < compareRows.length - 1 ? " border-b border-[#e4e4e4]" : ""}`}
-                  >
-                    <div className="px-4 md:px-6 py-4 md:py-5 text-sm md:text-base font-semibold text-[#0D0D0D]">{label}</div>
-                    <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[#e4e4e4] flex items-start gap-2 md:gap-3">
-                      <X className="w-4 h-4 md:w-5 md:h-5 text-[#D94030] shrink-0 mt-0.5" />
-                      <span className="text-xs md:text-sm text-[#747474]">{before}</span>
-                    </div>
-                    <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[#e91d27]/10 bg-[#e91d27]/5 flex items-start gap-2 md:gap-3">
-                      <Check className="w-4 h-4 md:w-5 md:h-5 text-[#90E060] shrink-0 mt-0.5" />
-                      <span className="text-xs md:text-sm font-medium text-[#0D0D0D]">{after}</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── WORK / CASE STUDIES ──────────────────────────────────────────────────────
 const caseStudies = [
   {
@@ -1190,7 +1111,9 @@ export default function DopMinPage() {
       <Hero />
       <LogoTicker />
       <Expertise />
-      <Compare />
+      <div id="solutions">
+        <HowWeCompare />
+      </div>
       <HeroScrollDemo />
       <Work />
       <TeamTeaser />
