@@ -1,9 +1,6 @@
 "use client";
-
 import React from "react";
-import Image from "next/image";
 import { ContainerScroll } from "../ui/container-scroll-animation";
-
 export function HeroScrollDemo() {
   return (
     <div className="flex flex-col overflow-hidden">
@@ -19,15 +16,13 @@ export function HeroScrollDemo() {
           </>
         }
       >
-        <Image
-          src="https://res.cloudinary.com/dukv2otyn/image/upload/f_auto,q_100/v1783028766/Screenshot_2026-07-03_025703_tf94e8.png"
+        <img
+          src={`https://res.cloudinary.com/dukv2otyn/image/upload/f_auto,q_100/v1783028766/Screenshot_2026-07-03_025703_tf94e8.png`}
           alt="hero"
-          height={1024}
-          width={1976}
-          quality={100}
+          height={720}
+          width={1400}
           className="mx-auto rounded-2xl object-cover h-full object-left-top"
           draggable={false}
-          unoptimized
         />
       </ContainerScroll>
     </div>
