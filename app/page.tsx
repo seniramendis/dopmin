@@ -72,15 +72,18 @@ function Nav() {
             <Link href="/solutions" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">
               Solutions
             </Link>
-            {["Work", "Contact"].map((l) => (
-              <a
-                key={l}
-                href={`#${l.toLowerCase()}`}
-                className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
-              >
-                {l}
-              </a>
-            ))}
+            <Link
+              href="/work"
+              className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
+            >
+              Work
+            </Link>
+            <a
+              href="#contact"
+              className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
+            >
+              Contact
+            </a>
             <Link
               href="/team"
               className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
@@ -134,16 +137,20 @@ function Nav() {
                 >
                   Solutions
                 </Link>
-                {["Work", "Contact"].map((l) => (
-                  <a
-                    key={l}
-                    href={`#${l.toLowerCase()}`}
-                    onClick={() => setOpen(false)}
-                    className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
-                  >
-                    {l}
-                  </a>
-                ))}
+                <Link
+                  href="/work"
+                  onClick={() => setOpen(false)}
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                >
+                  Work
+                </Link>
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                >
+                  Contact
+                </a>
                 <Link
                   href="/team"
                   onClick={() => setOpen(false)}

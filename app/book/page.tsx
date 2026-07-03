@@ -32,9 +32,10 @@ function Nav() {
             </div>
           </a>
           <nav className="hidden md:flex items-center gap-8">
-            {["Expertise", "Work", "Contact"].map((l) => (
+            {["Expertise", "Contact"].map((l) => (
               <a key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">{l}</a>
             ))}
+            <a href="/work" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Work</a>
             <a href="/solutions" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Solutions</a>
             <a href="/team" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Team</a>
           </nav>
@@ -49,9 +50,10 @@ function Nav() {
           {open && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden overflow-hidden border-t border-stone-100 rounded-b-2xl">
               <div className="px-6 py-5 flex flex-col gap-4">
-                {["Expertise", "Work", "Contact"].map((l) => (
+                {["Expertise", "Contact"].map((l) => (
                   <a key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">{l}</a>
                 ))}
+                <a href="/work" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Work</a>
                 <a href="/solutions" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Solutions</a>
                 <a href="/team" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Team</a>
                 <a href="/book" onClick={() => setOpen(false)} className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2">Book a Free Audit</a>
@@ -95,7 +97,7 @@ function Footer() {
           <div className="flex flex-col gap-3">
             <span className="text-white font-semibold mb-1">Company</span>
             <a href="/" className="hover:text-white transition-colors">About Us</a>
-            <a href="/#work" className="hover:text-white transition-colors">Work</a>
+            <a href="/work" className="hover:text-white transition-colors">Work</a>
             <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
           <div className="flex flex-col gap-3">

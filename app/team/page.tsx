@@ -39,9 +39,8 @@ function Nav() {
               Expertise
             </Link>
             <Link href="/solutions" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Solutions</Link>
-            {["Work", "Contact"].map((l) => (
-              <Link key={l} href={`/#${l.toLowerCase()}`} className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">{l}</Link>
-            ))}
+            <Link href="/work" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Work</Link>
+            <Link href="/#contact" className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors">Contact</Link>
             <Link href="/team" className="text-[14px] font-medium text-[#F26A10] hover:text-[#D94030] transition-colors">Team</Link>
           </nav>
 
@@ -62,9 +61,8 @@ function Nav() {
                   Expertise
                 </Link>
                 <Link href="/solutions" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Solutions</Link>
-                {["Work", "Contact"].map((l) => (
-                  <Link key={l} href={`/#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">{l}</Link>
-                ))}
+                <Link href="/work" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Work</Link>
+                <Link href="/#contact" onClick={() => setOpen(false)} className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors">Contact</Link>
                 <Link href="/team" onClick={() => setOpen(false)} className="text-[#F26A10] text-base font-semibold">Team</Link>
                 <Link href="/#contact" onClick={() => setOpen(false)} className="text-center text-sm font-semibold bg-[#F26A10] text-white px-4 py-3 rounded-xl hover:bg-[#D94030] transition-colors mt-2">Book a Free Audit</Link>
               </div>
