@@ -104,7 +104,7 @@ function GlobeInstance({
     if (!globe) return;
 
     globe
-      .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-dark.jpg")
+      .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
       .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
       .showAtmosphere(defaultProps.showAtmosphere)
       .atmosphereColor(defaultProps.atmosphereColor)
@@ -200,16 +200,18 @@ export function World({ globeConfig, data }: { globeConfig: GlobeConfig; data: P
       dpr={dpr}
       camera={{ fov: 50, near: 180, far: 1800, position: [0, 0, 300] }}
     >
-      <ambientLight color={globeConfig.ambientLight ?? "#38bdf8"} intensity={0.6} />
+      <ambientLight color={globeConfig.ambientLight ?? "#38bdf8"} intensity={1.1} />
       <directionalLight
         color={globeConfig.directionalLeftLight ?? "#ffffff"}
         position={[-400, 100, 400]}
+        intensity={1.4}
       />
       <directionalLight
         color={globeConfig.directionalTopLight ?? "#ffffff"}
         position={[-200, 500, 200]}
+        intensity={1.4}
       />
-      <pointLight color={globeConfig.pointLight ?? "#ffffff"} position={[-200, 500, 200]} intensity={0.8} />
+      <pointLight color={globeConfig.pointLight ?? "#ffffff"} position={[-200, 500, 200]} intensity={1.2} />
       <GlobeInstance globeConfig={globeConfig} data={data} />
       <Controls />
     </Canvas>

@@ -10,15 +10,15 @@ const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
 export function GlobeDemo() {
   const globeConfig = {
     pointSize: 4,
-    globeColor: "#062056",
+    globeColor: "#0a2a6b",
     showAtmosphere: true,
-    atmosphereColor: "#FFFFFF",
-    atmosphereAltitude: 0.1,
-    emissive: "#062056",
-    emissiveIntensity: 0.1,
-    shininess: 0.9,
+    atmosphereColor: "#7db8ff",
+    atmosphereAltitude: 0.22,
+    emissive: "#0a2a6b",
+    emissiveIntensity: 0.15,
+    shininess: 0.7,
     polygonColor: "rgba(255,255,255,0.7)",
-    ambientLight: "#38bdf8",
+    ambientLight: "#93c5fd",
     directionalLeftLight: "#ffffff",
     directionalTopLight: "#ffffff",
     pointLight: "#ffffff",
@@ -45,8 +45,8 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center py-24 px-6 bg-[#0a0a0a] relative w-full overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full relative h-[32rem] md:h-[40rem]">
+    <div className="flex flex-col items-center justify-center py-24 px-6 bg-white relative w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full relative h-[42rem] md:h-[50rem]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,16 +57,20 @@ export function GlobeDemo() {
           <p className="text-center text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-3">
             Global by Default
           </p>
-          <h2 className="text-center text-2xl md:text-4xl font-semibold text-white">
-            We do remote work too — anywhere on the map.
+          <h2
+            className="w-full text-center text-4xl md:text-6xl lg:text-7xl font-bold text-[#0D0D0D] leading-[1.05]"
+            style={{ textAlign: "center" }}
+          >
+            Distance is not a dependency.
           </h2>
-          <p className="text-center text-base md:text-lg font-normal text-neutral-400 max-w-xl mt-3 mx-auto leading-relaxed">
-            Distance is not a dependency. We ship, sync, and support clients
-            across time zones as if we were down the hall.
+          <p className="text-center text-lg md:text-2xl font-medium text-[#747474] max-w-2xl mt-5 mx-auto leading-relaxed">
+            We do remote work too — anywhere on the map. We ship, sync, and
+            support clients across time zones as if we were down the hall.
           </p>
         </motion.div>
-        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-[#0a0a0a] z-30" />
-        <div className="absolute w-full -bottom-16 h-[28rem] md:h-full z-10">
+        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-white z-30" />
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-8 w-[70%] max-w-md h-10 rounded-full bg-black/10 blur-2xl z-0" />
+        <div className="absolute w-full top-[12rem] md:top-[15rem] bottom-[-4rem] z-10">
           <World data={sampleArcs} globeConfig={globeConfig} />
         </div>
       </div>
