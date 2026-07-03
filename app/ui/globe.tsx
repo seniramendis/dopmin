@@ -195,10 +195,21 @@ function Controls() {
 export function World({ globeConfig, data }: { globeConfig: GlobeConfig; data: Position[] }) {
   const dpr = useMemo(() => (typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1), []);
 
+  // Zoom the camera further back on narrow screens so the globe doesn't
+  // overflow its container — the globe's on-screen size is driven by
+  // fov/distance, not by the canvas's CSS size, so this has to be explicit.
+  const cameraZ = useMemo(() => {
+    if (typeof window === "undefined") return 300;
+    const w = window.innerWidth;
+    if (w < 480) return 460;
+    if (w < 768) return 400;
+    return 300;
+  }, []);
+
   return (
     <Canvas
       dpr={dpr}
-      camera={{ fov: 50, near: 180, far: 1800, position: [0, 0, 300] }}
+      camera={{ fov: 50, near: 180, far: 1800, position: [0, 0, cameraZ] }}
     >
       <ambientLight color={globeConfig.ambientLight ?? "#38bdf8"} intensity={1.1} />
       <directionalLight
