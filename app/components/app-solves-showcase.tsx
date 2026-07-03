@@ -1,73 +1,34 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function AppSolvesShowcase() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const imageWrapRef = useRef<HTMLDivElement | null>(null);
-  const copyRef = useRef<HTMLDivElement | null>(null);
+  const phoneWrapRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    let ctx: { revert: () => void } | undefined;
-    let mounted = true;
+  const { scrollYProgress } = useScroll({
+    target: phoneWrapRef,
+    offset: ["start 90%", "start 30%"],
+  });
 
-    (async () => {
-      const gsapModule = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      const gsap = gsapModule.default;
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (!mounted || !sectionRef.current) return;
-
-      ctx = gsap.context(() => {
-        gsap.fromTo(
-          imageWrapRef.current,
-          { opacity: 0, x: 80, scale: 0.94 },
-          {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 75%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-
-        gsap.fromTo(
-          copyRef.current,
-          { opacity: 0, x: -40 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 1,
-            ease: "power3.out",
-            delay: 0.15,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 75%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }, sectionRef);
-    })();
-
-    return () => {
-      mounted = false;
-      if (ctx) ctx.revert();
-    };
-  }, []);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [42, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.65, 1]);
+  const translateY = useTransform(scrollYProgress, [0, 1], [90, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <section ref={sectionRef} className="py-24 px-6 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto grid md:grid-cols-[0.85fr_1.15fr] gap-12 md:gap-8 items-center">
         {/* ── COPY / UVP ── */}
-        <div ref={copyRef} className="order-2 md:order-1">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="order-2 md:order-1"
+        >
           <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-4">
             Built to Solve, Not Just Ship
           </p>
@@ -93,18 +54,34 @@ export function AppSolvesShowcase() {
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
-        {/* ── IMAGE ── */}
-        <div ref={imageWrapRef} className="order-1 md:order-2 relative scale-110 md:scale-125">
-          <Image
-            src="https://res.cloudinary.com/dukv2otyn/image/upload/v1783030945/tech_care_mockup_2_thi0v0-removebg-preview_cixai8.png"
-            alt="DopMin app solving real operational problems"
-            width={900}
-            height={900}
-            className="w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]"
-            unoptimized
-          />
+        {/* ── PHONE MOCKUP — scroll-linked tilt, like the dashboard scroll section ── */}
+        <div
+          ref={phoneWrapRef}
+          className="order-1 md:order-2 relative flex items-center justify-center"
+          style={{ perspective: "1200px" }}
+        >
+          <motion.div
+            style={{
+              rotateX,
+              scale,
+              y: translateY,
+              opacity,
+              transformStyle: "preserve-3d",
+            }}
+            className="relative w-full max-w-[420px] md:max-w-none md:scale-110"
+          >
+            <Image
+              src="https://res.cloudinary.com/dukv2otyn/image/upload/f_auto,q_100/v1783030945/tech_care_mockup_2_thi0v0-removebg-preview_cixai8.png"
+              alt="DopMin app solving real operational problems"
+              width={1400}
+              height={1400}
+              quality={100}
+              className="w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]"
+              unoptimized
+            />
+          </motion.div>
         </div>
       </div>
     </section>

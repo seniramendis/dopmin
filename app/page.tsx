@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SocialIconRow } from "./components/social-links";
 import { HeroScrollDemo } from "./components/hero-scroll-demo";
+import { GlobeDemo } from "./components/globe-demo";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -1193,6 +1194,7 @@ export default function DopMinPage() {
       <HeroScrollDemo />
       <Work />
       <TeamTeaser />
+      <GlobeDemo />
       <Contact />
       <Footer />
     </main>

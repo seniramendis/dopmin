@@ -20,10 +20,11 @@ export function HeroScrollDemo() {
         }
       >
         <Image
-          src="https://res.cloudinary.com/dukv2otyn/image/upload/v1783028766/Screenshot_2026-07-03_025703_tf94e8.png"
+          src="https://res.cloudinary.com/dukv2otyn/image/upload/f_auto,q_100/v1783028766/Screenshot_2026-07-03_025703_tf94e8.png"
           alt="hero"
-          height={720}
-          width={1400}
+          height={1024}
+          width={1976}
+          quality={100}
           className="mx-auto rounded-2xl object-cover h-full object-left-top"
           draggable={false}
           unoptimized
