@@ -5,8 +5,8 @@
    ─────────────────────────────────────────────────────────────────────────── */
 @theme {
   /* Fonts — matches the variables set in layout.tsx */
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-inter: var(--font-inter), Arial, ui-sans-serif, system-ui, sans-serif;
 
   /* Brand colours — usable as Tailwind utilities e.g. bg-brand-orange */
   --color-brand-yellow:  #F0E080;
