@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, X, Menu, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { SocialIconRow } from "../components/social-links";
+import { Footer } from "../components/footer";
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 function Nav() {
@@ -63,55 +63,6 @@ function Nav() {
         </AnimatePresence>
       </motion.header>
     </div>
-  );
-}
-
-// ─── FOOTER ──────────────────────────────────────────────────────────────────
-function Footer() {
-  return (
-    <footer className="relative bg-[#0a0a0a] overflow-hidden pt-20 pb-12 px-6 md:px-12 xl:px-24">
-      <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at top right, rgba(242,106,16,0.10), rgba(255,215,0,0.05) 50%, transparent 80%)" }} />
-      <div className="relative z-10 max-w-[1920px] mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-[#a2a2a2] text-base mb-16">
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center mb-4">
-              <div className="relative h-16 w-64 shrink-0">
-                <Image
-                  src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781827164/ChatGPT_Image_Jun_19__2026__05_28_15_AM-removebg-preview_yxwkjs.png"
-                  alt="DopMin"
-                  fill
-                  sizes="256px"
-                  className="object-contain object-left"
-                  unoptimized
-                />
-              </div>
-            </div>
-            <p className="text-[#555] text-sm leading-relaxed">Engineering digital luxury for brands that refuse to be ordinary.</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-white font-semibold mb-1">Capabilities</span>
-            <a href="/#expertise" className="hover:text-white transition-colors">Design</a>
-            <a href="/#expertise" className="hover:text-white transition-colors">Engineering</a>
-            <a href="/#expertise" className="hover:text-white transition-colors">AI Workflows</a>
-          </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-white font-semibold mb-1">Company</span>
-            <a href="/" className="hover:text-white transition-colors">About Us</a>
-            <a href="/work" className="hover:text-white transition-colors">Work</a>
-            <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-white font-semibold mb-1">Legal</span>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          </div>
-        </div>
-        <div className="border-t border-white/10 pt-8 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-          <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
-          <SocialIconRow variant="dark" />
-        </div>
-      </div>
-    </footer>
   );
 }
 
