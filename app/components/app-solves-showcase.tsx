@@ -14,8 +14,9 @@ export function AppSolvesShowcase() {
   });
 
   const rotateX = useTransform(scrollYProgress, [0, 1], [42, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.65, 1]);
-  const translateY = useTransform(scrollYProgress, [0, 1], [90, 0]);
+  const rotateZ = useTransform(scrollYProgress, [0, 1], [-8, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+  const translateY = useTransform(scrollYProgress, [0, 1], [110, 0]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
@@ -42,18 +43,6 @@ export function AppSolvesShowcase() {
             bottleneck — not a template. That&apos;s the difference between software
             that looks good and a system that actually moves your business forward.
           </p>
-          <ul className="flex flex-col gap-3">
-            {[
-              "Rooted in your actual workflow, not a generic template",
-              "Designed for the problem first, the interface second",
-              "Built to compound in value long after launch",
-            ].map((point) => (
-              <li key={point} className="flex items-start gap-3">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#F26A10] shrink-0" />
-                <span className="text-[15px] text-[#0D0D0D]/80">{point}</span>
-              </li>
-            ))}
-          </ul>
         </motion.div>
 
         {/* ── PHONE MOCKUP — scroll-linked tilt, like the dashboard scroll section ── */}
@@ -65,6 +54,7 @@ export function AppSolvesShowcase() {
           <motion.div
             style={{
               rotateX,
+              rotateZ,
               scale,
               y: translateY,
               opacity,
@@ -73,12 +63,12 @@ export function AppSolvesShowcase() {
             className="relative w-full max-w-[420px] md:max-w-none md:scale-110"
           >
             <Image
-              src="https://res.cloudinary.com/dukv2otyn/image/upload/f_auto,q_100/v1783030945/tech_care_mockup_2_thi0v0-removebg-preview_cixai8.png"
-              alt="DopMin app solving real operational problems"
+              src="https://res.cloudinary.com/dukv2otyn/image/upload/f_auto,q_100/v1783074433/Black_Pink_3D_Abstract_Tech_Instagram_Post_axdycw.png"
+              alt="DopMin — technology built around your operations"
               width={1400}
               height={1400}
               quality={100}
-              className="w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]"
+              className="w-full h-auto object-contain rounded-3xl drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]"
               unoptimized
             />
           </motion.div>
