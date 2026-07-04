@@ -133,7 +133,7 @@ export function HowWeCompare() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-28 px-6 overflow-hidden bg-[#fff6ef]">
+    <section ref={sectionRef} className="relative py-24 md:py-28 px-6 overflow-hidden bg-white">
       {/* decorative blobs — parallax on scroll */}
       <div
         ref={blob1Ref}
