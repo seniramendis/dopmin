@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { 
-  ChevronRight, ChevronLeft, X, Menu, Code2, 
+  ChevronRight, X, Menu,
   Layout, Zap, Smartphone, Server, Monitor 
 } from "lucide-react";
 import { Footer } from "../components/footer";
+import { ExpertiseRoadmap } from "../components/expertise-roadmap";
 
 // ─── NAV ──────────────────────────────────────────────────────────────────────
 function Nav() {
@@ -134,28 +135,6 @@ const EXPERTISE = [
 
 // ─── EXPERTISE PAGE ───────────────────────────────────────────────────────────
 export default function ExpertisePage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === EXPERTISE.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? EXPERTISE.length - 1 : prev - 1));
-  };
-
-  // Auto-play timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 5000); // Transitions every 5 seconds
-
-    return () => clearInterval(timer);
-  }, [currentIndex]); // Reset timer whenever slide changes manually
-
-  const currentItem = EXPERTISE[currentIndex];
-  const Icon = currentItem.icon;
-
   return (
     <main className="bg-white min-h-screen antialiased">
       <Nav />
@@ -185,124 +164,8 @@ export default function ExpertisePage() {
         </div>
       </section>
 
-      {/* ── INTERACTIVE SLIDESHOW SHOWCASE (BORDERLESS) ── */}
-      <section className="pb-32 px-6 bg-white">
-        <div className="max-w-[1200px] mx-auto">
-          
-          <div className="relative w-full flex flex-col-reverse md:flex-row items-center gap-8 md:gap-16 min-h-[500px]">
-            
-            {/* Left Side: Text Content */}
-            <div className="w-full md:w-[45%] flex flex-col justify-center relative z-10">
-              
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="flex flex-col h-full"
-                >
-                  {/* Badge */}
-                  <div className="mb-6">
-                    <span 
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider"
-                      style={{ color: currentItem.accentColor, backgroundColor: currentItem.accentBg }}
-                    >
-                      <Icon className="w-4 h-4" /> {currentItem.role}
-                    </span>
-                  </div>
-
-                  {/* Main Title & Tagline */}
-                  <div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-[#0D0D0D] leading-tight mb-4 tracking-tight">
-                      {currentItem.name}
-                    </h2>
-                    <p className="text-stone-500 text-lg leading-relaxed mb-8">
-                      {currentItem.tagline}
-                    </p>
-                  </div>
-
-                  {/* Skills Map */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {currentItem.skills.map((skill) => (
-                      <span key={skill} className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-600 bg-stone-100 border border-stone-200">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Fun Fact Divider */}
-                  <div className="pt-6 border-t border-stone-100">
-                    <p className="text-sm text-stone-400 italic">
-                      "{currentItem.funFact}"
-                    </p>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Navigation Controls */}
-              <div className="flex items-center gap-4 mt-12">
-                <button 
-                  onClick={prevSlide}
-                  className="w-12 h-12 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-50 hover:text-[#0D0D0D] transition-all"
-                  aria-label="Previous Area"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={nextSlide}
-                  className="w-12 h-12 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-50 hover:text-[#0D0D0D] transition-all"
-                  aria-label="Next Area"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-
-                {/* Progress Indicators */}
-                <div className="flex gap-2 ml-4">
-                  {EXPERTISE.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentIndex(i)}
-                      className="transition-all duration-300 rounded-full"
-                      style={{
-                        width: currentIndex === i ? "32px" : "8px",
-                        height: "8px",
-                        backgroundColor: currentIndex === i ? currentItem.accentColor : "#e4e4e4",
-                      }}
-                      aria-label={`Go to slide ${i + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side: Image Showcase */}
-            <div className="w-full md:w-[55%] relative h-[350px] sm:h-[450px] md:h-[550px] bg-stone-100 overflow-hidden rounded-3xl shadow-md">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <img 
-                    src={currentItem.img} 
-                    alt={currentItem.name} 
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                  />
-                  {/* Subtle vignette over the image */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-transparent hidden md:block" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent md:hidden" />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* ── ANIMATED EXPERTISE ROADMAP (GSAP) ── */}
+      <ExpertiseRoadmap items={EXPERTISE} />
 
       {/* ── SDLC STRIP ── */}
       <section className="border-t border-[#e4e4e4] pt-24 bg-[#fafafa]">
