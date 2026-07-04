@@ -6,8 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { 
   ChevronRight, X, Menu,
-  Layout, Zap, Smartphone, Server, Monitor 
+  Layout, Zap, Smartphone, Server, Monitor,
+  Cpu, Building2, Boxes, PenTool, MousePointerClick,
+  BrainCircuit, Bot, Workflow
 } from "lucide-react";
+import { SiFigma, SiAndroid, SiKotlin, SiReact, SiNodedotjs, SiPostgresql } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 import { Footer } from "../components/footer";
 import { ExpertiseRoadmap } from "../components/expertise-roadmap";
 
@@ -84,7 +88,11 @@ const EXPERTISE = [
     accentColor: "#F26A10",
     accentBg: "rgba(242,106,16,0.1)",
     icon: Monitor,
-    skills: ["Systems", "Architecture", "Microservices"],
+    skills: [
+      { name: "Systems", icon: Cpu },
+      { name: "Architecture", icon: Building2 },
+      { name: "Microservices", icon: Boxes },
+    ],
     funFact: "We build systems that compound in value, not technical debt.",
   },
   {
@@ -95,7 +103,11 @@ const EXPERTISE = [
     accentColor: "#F0E080",
     accentBg: "rgba(240,224,128,0.2)",
     icon: Layout,
-    skills: ["Figma", "Wireframes", "Prototyping"],
+    skills: [
+      { name: "Figma", icon: SiFigma },
+      { name: "Wireframes", icon: PenTool },
+      { name: "Prototyping", icon: MousePointerClick },
+    ],
     funFact: "Clarity is the ultimate luxury in digital design.",
   },
   {
@@ -106,7 +118,11 @@ const EXPERTISE = [
     accentColor: "#D94030",
     accentBg: "rgba(217,64,48,0.1)",
     icon: Zap,
-    skills: ["LLM", "Agents", "Process Automation"],
+    skills: [
+      { name: "LLM", icon: BrainCircuit },
+      { name: "Agents", icon: Bot },
+      { name: "Process Automation", icon: Workflow },
+    ],
     funFact: "Your operations run leaner, faster, and smarter.",
   },
   {
@@ -117,7 +133,11 @@ const EXPERTISE = [
     accentColor: "#90E060",
     accentBg: "rgba(144,224,96,0.15)",
     icon: Smartphone,
-    skills: ["Android", "Kotlin", "Java"],
+    skills: [
+      { name: "Android", icon: SiAndroid },
+      { name: "Kotlin", icon: SiKotlin },
+      { name: "Java", icon: FaJava },
+    ],
     funFact: "Native performance combined with beautiful interfaces.",
   },
   {
@@ -128,7 +148,11 @@ const EXPERTISE = [
     accentColor: "#007ACC",
     accentBg: "rgba(0,122,204,0.1)",
     icon: Server,
-    skills: ["React", "Node.js", "PostgreSQL"],
+    skills: [
+      { name: "React", icon: SiReact },
+      { name: "Node.js", icon: SiNodedotjs },
+      { name: "PostgreSQL", icon: SiPostgresql },
+    ],
     funFact: "Taking concepts smoothly from local development to the cloud.",
   },
 ];

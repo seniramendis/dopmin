@@ -5,6 +5,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LucideIcon } from "lucide-react";
 
+export interface ExpertiseSkill {
+  name: string;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+}
+
 export interface ExpertiseRoadmapItem {
   name: string;
   role: string;
@@ -12,7 +17,7 @@ export interface ExpertiseRoadmapItem {
   accentColor: string;
   accentBg: string;
   icon: LucideIcon;
-  skills: string[];
+  skills: ExpertiseSkill[];
   funFact: string;
 }
 
@@ -165,20 +170,28 @@ export function ExpertiseRoadmap({ items }: { items: ExpertiseRoadmapItem[] }) {
                   </h3>
                   <p className="text-stone-500 text-[15px] leading-relaxed mb-4">{item.tagline}</p>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {item.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="rm-chip px-3 py-1 rounded-lg text-xs font-semibold border"
-                        style={{
-                          color: item.accentColor,
-                          borderColor: `${item.accentColor}40`,
-                          backgroundColor: item.accentBg,
-                        }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                  <div className="flex flex-wrap gap-5 mb-4">
+                    {item.skills.map((skill) => {
+                      const SkillIcon = skill.icon;
+                      return (
+                        <div
+                          key={skill.name}
+                          className="rm-chip flex flex-col items-center gap-2 w-[64px]"
+                        >
+                          <div
+                            className="w-11 h-11 rounded-2xl flex items-center justify-center bg-stone-50"
+                          >
+                            <SkillIcon
+                              className="w-5 h-5"
+                              style={{ color: item.accentColor }}
+                            />
+                          </div>
+                          <span className="text-[11px] font-medium text-stone-500 text-center leading-tight">
+                            {skill.name}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
 
                   <p className="text-xs text-stone-400 italic border-t border-stone-100 pt-3">
