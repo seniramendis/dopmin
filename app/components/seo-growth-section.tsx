@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
   AreaChart,
@@ -55,25 +55,6 @@ const uvpItems = [
     caption: "Sub-second loads and mobile-first architecture — the ranking factors Google actually weights.",
   },
 ];
-
-// ─── ANIMATED COUNT-UP STAT ────────────────────────────────────────────────────
-function AnimatedStat({ target }: { target: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, target, {
-      duration: 1.8,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => setValue(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [inView, target]);
-
-  return <span ref={ref}>+{value}%</span>;
-}
 
 // ─── TOOLTIP ──────────────────────────────────────────────────────────────────
 interface CustomTooltipProps {
@@ -203,31 +184,61 @@ export function SEOGrowthSection() {
             <p className="text-[#a2a2a2] text-[11px] font-bold uppercase tracking-[0.1em] mb-1.5">
               Organic Traffic Index
             </p>
-            <p className="text-[#0D0D0D] text-3xl md:text-4xl font-bold mb-6">
-              <AnimatedStat target={238} />
-              <span className="text-[#3a8000] text-sm font-semibold ml-2 align-middle">avg. 6-month growth*</span>
+            <p className="text-[#0D0D0D] text-2xl md:text-3xl font-bold mb-1">
+              The compounding curve
+            </p>
+            <p className="text-[#747474] text-sm mb-6 max-w-sm">
+              What steady, SEO-first growth looks like over time — a trend, not a spike.
             </p>
 
             <GrowthChart />
 
             <p className="text-[#a2a2a2] text-[11px] mt-4 leading-relaxed">
-              *Illustrative trajectory based on average client organic search performance after SEO-first launch.
+              *Illustrative model, not a guaranteed or historical result.
             </p>
           </motion.div>
 
-          {/* UVP column — clean list, no icon boxes */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
+          {/* UVP column — tree/timeline animation: trunk grows, nodes branch off at each step */}
+          <div className="relative pl-8">
+            {/* Trunk — grows downward as it scrolls into view */}
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              style={{ originY: 0 }}
+              className="absolute left-0 top-1.5 bottom-1.5 w-px bg-[#e4e4e4]"
+            />
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+              style={{ originY: 0 }}
+              className="absolute left-0 top-1.5 bottom-1.5 w-px bg-[#DC2626]"
+            />
+
             {uvpItems.map((item, i) => (
               <motion.div
                 key={item.title}
-                variants={fadeUp}
-                className="py-6 border-b border-[#e4e4e4] first:pt-0 last:border-b-0 last:pb-0"
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{
+                  duration: 0.5,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.3 + i * 0.22,
+                }}
+                className="relative pb-10 last:pb-0"
               >
+                {/* Branch node on the trunk */}
+                <span
+                  className="absolute -left-8 top-1.5 w-2.5 h-2.5 rounded-full bg-white border-2 border-[#DC2626]"
+                  style={{ transform: "translateX(-4.5px)" }}
+                />
+                {/* Branch tick connecting trunk to content */}
+                <span className="absolute -left-8 top-[13px] w-5 h-px bg-[#e4e4e4]" />
+
                 <span className="text-[11px] font-bold text-[#DC2626] tracking-wide">
                   0{i + 1}
                 </span>
@@ -239,7 +250,7 @@ export function SEOGrowthSection() {
                 </p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
