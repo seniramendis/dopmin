@@ -9,6 +9,7 @@ import { ChevronRight, X, Menu } from "lucide-react";
 import { Footer } from "../components/footer";
 import { HeroScrollDemo } from "../components/hero-scroll-demo";
 import { AppSolvesShowcase } from "../components/app-solves-showcase";
+import { SEOGrowthSection } from "../components/seo-growth-section";
 import { HowWeCompare } from "../components/how-we-compare";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
@@ -128,6 +129,9 @@ export default function SolutionsPage() {
 
       {/* ── APP SOLVES / UVP ── */}
       <AppSolvesShowcase />
+
+      {/* ── SEO & GROWTH ── */}
+      <SEOGrowthSection />
 
       {/* ── COMPARE: HOW WE COMPARE ── */}
       <HowWeCompare />
