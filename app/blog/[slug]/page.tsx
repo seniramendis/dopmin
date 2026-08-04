@@ -5,6 +5,8 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { BlogNav } from "../../components/blog-nav";
+import { Footer } from "../../components/footer";
 
 interface Post {
   _id: string;
@@ -57,8 +59,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) return notFound();
 
   return (
-    <main className="min-h-screen bg-white pt-28 pb-24 px-6 md:px-12 lg:px-24">
-      <div className="max-w-3xl mx-auto">
+    <main className="min-h-screen bg-white antialiased">
+      <BlogNav />
+
+      <div className="max-w-3xl mx-auto pt-36 pb-24 px-6 md:px-12 lg:px-24">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-[#747474] hover:text-[#F26A10] transition-colors mb-10 text-sm font-medium"
@@ -122,6 +126,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           />
         </article>
       </div>
+
+      <Footer />
     </main>
   );
 }

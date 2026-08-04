@@ -2,6 +2,8 @@ import { client, safeSanityFetch, urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
+import { BlogNav } from "../components/blog-nav";
+import { Footer } from "../components/footer";
 
 interface Post {
   _id: string;
@@ -44,8 +46,10 @@ export default async function BlogPage() {
   const posts = await getPosts();
 
   return (
-    <main className="min-h-screen bg-white pt-32 pb-24 px-6 md:px-12 lg:px-24">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen bg-white antialiased">
+      <BlogNav />
+
+      <div className="max-w-6xl mx-auto pt-36 pb-24 px-6 md:px-12 lg:px-24">
         <div className="mb-16">
           <h1
             className="text-4xl md:text-6xl font-bold tracking-tight text-[#0D0D0D] mb-4"
@@ -112,6 +116,8 @@ export default async function BlogPage() {
           </div>
         )}
       </div>
+
+      <Footer />
     </main>
   );
 }

@@ -79,6 +79,12 @@ function Nav() {
             >
               Work
             </Link>
+            <Link
+              href="/blog"
+              className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
+            >
+              Blog
+            </Link>
             <a
               href="#contact"
               className="text-[14px] font-medium text-stone-500 hover:text-[#0D0D0D] transition-colors"
@@ -144,6 +150,13 @@ function Nav() {
                   className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
                 >
                   Work
+                </Link>
+                <Link
+                  href="/blog"
+                  onClick={() => setOpen(false)}
+                  className="text-stone-600 text-base font-medium hover:text-[#0D0D0D] transition-colors"
+                >
+                  Blog
                 </Link>
                 <a
                   href="#contact"

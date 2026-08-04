@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ─── TAILWIND v4: THEME TOKENS ──────────────────────────────────────────────
    In Tailwind v4, theme customisation lives here in CSS — no tailwind.config.js
