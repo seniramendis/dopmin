@@ -12,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SocialIconRow } from "./components/social-links";
 import { HeroScrollDemo } from "./components/hero-scroll-demo";
-import { GlobeDemo } from "./components/globe-demo";
+import { WorldMapDemo } from "./components/world-map-demo";
 import { HowWeCompare } from "./components/how-we-compare";
 import { Footer } from "./components/footer";
 
@@ -1050,7 +1050,7 @@ export default function DopMinPage() {
       <HeroScrollDemo />
       <Work />
       <TeamTeaser />
-      <GlobeDemo />
+      <WorldMapDemo />
       <Contact />
       <Footer />
     </main>
