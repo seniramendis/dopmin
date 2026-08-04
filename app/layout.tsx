@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Inter } from "next/font/google";
 import "./globals.css";
-import WhatsAppButton from "./components/whatsapp-button";
+import { WhatsAppGate } from "./components/whatsapp-gate";
 import { SITE_URL, SITE_NAME } from "../lib/site-config";
 
 // Surge uses Instrument Sans for body and Inter for Headings
@@ -95,7 +95,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${instrumentSans.variable} ${inter.variable} font-sans antialiased bg-white text-[#747474]`}>
         {children}
-        <WhatsAppButton />
+        <WhatsAppGate />
       </body>
     </html>
   );

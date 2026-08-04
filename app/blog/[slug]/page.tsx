@@ -1,22 +1,28 @@
-import { client, safeSanityFetch, urlFor } from "@/lib/sanity";
+import { safeSanityFetch, urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BlogNav } from "../../components/blog-nav";
 import { Footer } from "../../components/footer";
+
+interface PortableTextBlock {
+  _type: string;
+  children?: { text?: string }[];
+}
 
 interface Post {
   _id: string;
   title: string;
   slug: { current: string };
   excerpt: string;
-  coverImage: any;
+  coverImage: unknown;
   publishedAt: string;
   author: string;
-  body: any[];
+  body: PortableTextBlock[];
 }
 
 async function getPost(slug: string): Promise<Post | null> {
@@ -32,6 +38,16 @@ async function getPost(slug: string): Promise<Post | null> {
   }`;
 
   return safeSanityFetch<Post | null>(query, { slug });
+}
+
+// Rough estimate from the Portable Text body — good enough for a "X min read" tag.
+function estimateReadingTime(body: PortableTextBlock[] = []): number {
+  const wordCount = body
+    .filter((block) => block._type === "block")
+    .flatMap((block) => block.children ?? [])
+    .reduce((total, span) => total + (span.text?.split(/\s+/).filter(Boolean).length ?? 0), 0);
+
+  return Math.max(1, Math.round(wordCount / 200));
 }
 
 export const revalidate = 60;
@@ -58,37 +74,51 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   if (!post) return notFound();
 
+  const readingTime = estimateReadingTime(post.body);
+
   return (
     <main className="min-h-screen bg-white antialiased">
       <BlogNav />
 
-      <div className="max-w-3xl mx-auto pt-36 pb-24 px-6 md:px-12 lg:px-24">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-[#747474] hover:text-[#F26A10] transition-colors mb-10 text-sm font-medium"
-        >
-          ← Back to Blog
-        </Link>
+      {/* ── HEADER BAND ── */}
+      <section className="relative pt-36 pb-4 px-6 overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(242,106,16,0.07) 0%, transparent 70%)" }}
+        />
 
-        <div className="flex items-center gap-3 text-sm text-[#747474] mb-5">
-          <span className="font-semibold text-[#0D0D0D]">{post.author || "Dopmin Team"}</span>
-          <span>•</span>
-          <span>{post.publishedAt ? format(new Date(post.publishedAt), "MMMM d, yyyy") : "Draft"}</span>
+        <div className="max-w-3xl mx-auto relative z-10">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-[#747474] hover:text-[#F26A10] transition-colors mb-10 text-sm font-medium"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to Blog
+          </Link>
+
+          <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">Article</p>
+
+          <h1 className="text-3xl md:text-5xl font-semibold text-[#0D0D0D] mb-6 tracking-tight leading-[1.1]">
+            {post.title}
+          </h1>
+
+          {post.excerpt && (
+            <p className="text-xl text-[#747474] mb-8 leading-relaxed">{post.excerpt}</p>
+          )}
+
+          <div className="flex flex-wrap items-center gap-3 text-sm text-[#747474] pb-10 border-b border-[#e4e4e4]">
+            <span className="font-semibold text-[#0D0D0D]">{post.author || "Dopmin Team"}</span>
+            <span>•</span>
+            <span>{post.publishedAt ? format(new Date(post.publishedAt), "MMMM d, yyyy") : "Draft"}</span>
+            <span>•</span>
+            <span>{readingTime} min read</span>
+          </div>
         </div>
+      </section>
 
-        <h1
-          className="text-3xl md:text-5xl font-bold text-[#0D0D0D] mb-6 tracking-tight leading-tight"
-          style={{ fontFamily: "var(--font-inter)" }}
-        >
-          {post.title}
-        </h1>
-
-        {post.excerpt && (
-          <p className="text-xl text-[#747474] mb-10 leading-relaxed">{post.excerpt}</p>
-        )}
-
+      <div className="max-w-3xl mx-auto pb-24 px-6 md:px-12 lg:px-24">
         {post.coverImage && (
-          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-12">
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden my-12">
             <Image
               src={urlFor(post.coverImage).width(1200).height(675).url()}
               alt={post.title}
@@ -105,7 +135,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             value={post.body}
             components={{
               types: {
-                image: ({ value }: { value: any }) => (
+                image: ({ value }: { value: { alt?: string; caption?: string } & Record<string, unknown> }) => (
                   <figure className="my-8">
                     <div className="relative aspect-video rounded-xl overflow-hidden">
                       <Image
@@ -125,6 +155,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             }}
           />
         </article>
+
+        {/* ── END-OF-POST CTA ── */}
+        <div className="mt-20 pt-16 border-t border-[#e4e4e4] text-center">
+          <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.18em] mb-4">Enjoyed This?</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#0D0D0D] mb-6 max-w-lg mx-auto">
+            Let&apos;s build something like this together.
+          </h2>
+          <Link
+            href="/#contact"
+            className="inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-6 py-3 rounded-xl hover:bg-[#D94030] transition-colors shadow-sm"
+          >
+            Get in touch <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
 
       <Footer />
