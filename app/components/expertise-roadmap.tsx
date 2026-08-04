@@ -14,6 +14,7 @@ export interface ExpertiseRoadmapItem {
   name: string;
   role: string;
   tagline: string;
+  img: string;
   accentColor: string;
   accentBg: string;
   icon: LucideIcon;

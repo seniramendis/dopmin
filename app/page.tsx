@@ -14,6 +14,7 @@ import { SocialIconRow } from "./components/social-links";
 import { HeroScrollDemo } from "./components/hero-scroll-demo";
 import { WorldMapDemo } from "./components/world-map-demo";
 import { HowWeCompare } from "./components/how-we-compare";
+import { HomeExpertiseCarousel } from "./components/home-expertise-carousel";
 import { Footer } from "./components/footer";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
@@ -567,26 +568,6 @@ const expertiseItems = [
 
 function Expertise() {
   const { ref, inView } = useScrollInView(0.1);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const scrollTo = (index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.children[index] as HTMLElement;
-    if (!card) return;
-    track.scrollTo({ left: card.offsetLeft - 24, behavior: "smooth" });
-    setActiveIndex(index);
-  };
-
-  const handleScroll = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    const scrollLeft = track.scrollLeft;
-    const cardWidth = (track.children[0] as HTMLElement)?.offsetWidth ?? 1;
-    const newIndex = Math.round(scrollLeft / (cardWidth + 16));
-    setActiveIndex(Math.min(newIndex, expertiseItems.length - 1));
-  };
 
   return (
     <section id="expertise" className="py-24 md:py-32 bg-white overflow-hidden">
@@ -613,104 +594,9 @@ function Expertise() {
             </motion.p>
           </motion.div>
         </div>
-
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          <div
-            ref={trackRef}
-            onScroll={handleScroll}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6 pt-4"
-          >
-            {expertiseItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.title}
-                  variants={fadeUp}
-                  className="group relative shrink-0 snap-center w-[85vw] sm:w-[320px] md:w-[360px] h-[520px] bg-[#111111] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#222]"
-                >
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-15 group-hover:opacity-35 transition-opacity duration-700 z-0"
-                    style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }}
-                  />
-                  <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-[10px] font-semibold border border-white/20 uppercase tracking-wider"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="absolute inset-x-0 top-16 bottom-44 z-[1] overflow-hidden">
-                    <Image
-                      src={item.img}
-                      alt={item.imgAlt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 360px"
-                      className="object-cover opacity-35 group-hover:opacity-55 transition-opacity duration-700 scale-105 group-hover:scale-100"
-                      unoptimized
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#111111] to-transparent z-10" />
-                  </div>
-                  <div className="absolute bottom-0 left-0 w-full p-8 z-10 transition-transform duration-500 bg-gradient-to-t from-black via-black/85 to-transparent">
-                    <div
-                      className="h-1 w-12 mb-6 transition-all duration-500 group-hover:w-full rounded-full"
-                      style={{ backgroundColor: item.color }}
-                    />
-                    <div className="mb-3 opacity-70">
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-3 leading-tight text-white">{item.title}</h3>
-                    <p className="text-white/60 transition-opacity duration-500 text-sm leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button
-              onClick={() => scrollTo(Math.max(0, activeIndex - 1))}
-              disabled={activeIndex === 0}
-              aria-label="Previous service"
-              className="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center text-stone-400 hover:text-[#0D0D0D] hover:border-[#0D0D0D] transition-all disabled:opacity-30 disabled:hover:border-stone-200 disabled:hover:text-stone-400"
-            >
-              <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7L9 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-            <div className="flex gap-2">
-              {expertiseItems.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => scrollTo(i)}
-                  aria-label={`Go to item ${i + 1}`}
-                  className="transition-all duration-300 rounded-full"
-                  style={{
-                    width: i === activeIndex ? "28px" : "8px",
-                    height: "8px",
-                    backgroundColor: i === activeIndex ? "#F26A10" : "#e4e4e4",
-                  }}
-                />
-              ))}
-            </div>
-            <button
-              onClick={() => scrollTo(Math.min(expertiseItems.length - 1, activeIndex + 1))}
-              disabled={activeIndex === expertiseItems.length - 1}
-              aria-label="Next service"
-              className="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center text-stone-400 hover:text-[#0D0D0D] hover:border-[#0D0D0D] transition-all disabled:opacity-30 disabled:hover:border-stone-200 disabled:hover:text-stone-400"
-            >
-              <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-          </div>
-        </motion.div>
       </div>
+
+      <HomeExpertiseCarousel items={expertiseItems} />
     </section>
   );
 }
