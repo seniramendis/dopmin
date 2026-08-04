@@ -22,6 +22,7 @@ interface Post {
   coverImage: unknown | null;
   publishedAt: string;
   author: string;
+  category?: string;
   body: PortableTextBlock[];
 }
 
@@ -34,6 +35,7 @@ async function getPost(slug: string): Promise<Post | null> {
     coverImage,
     publishedAt,
     author,
+    category,
     body
   }`;
 
@@ -96,7 +98,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <ArrowLeft className="w-4 h-4" /> Back to Blog
           </Link>
 
-          <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">Article</p>
+          <p className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
+            {post.category || "Article"}
+          </p>
 
           <h1 className="text-3xl md:text-5xl font-semibold text-[#0D0D0D] mb-6 tracking-tight leading-[1.1]">
             {post.title}

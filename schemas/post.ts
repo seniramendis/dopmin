@@ -26,6 +26,23 @@ export default defineType({
       description: "Short summary shown on the blog listing page",
     }),
     defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      description: "Used for the category filter pills on the blog listing page",
+      options: {
+        list: [
+          { title: "Engineering", value: "Engineering" },
+          { title: "Design", value: "Design" },
+          { title: "AI", value: "AI" },
+          { title: "Product", value: "Product" },
+          { title: "Culture", value: "Culture" },
+          { title: "Insights", value: "Insights" },
+        ],
+      },
+      initialValue: "Insights",
+    }),
+    defineField({
       name: "coverImage",
       title: "Cover Image",
       type: "image",

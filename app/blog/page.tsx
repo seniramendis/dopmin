@@ -1,10 +1,10 @@
 import { safeSanityFetch } from "@/lib/sanity";
 import { BlogNav } from "../components/blog-nav";
 import { BlogHero } from "../components/blog-hero";
-import { BlogPostGrid } from "../components/blog-post-grid";
+import { BlogListing } from "../components/blog-listing";
 import { Footer } from "../components/footer";
 
-interface Post {
+export interface Post {
   _id: string;
   title: string;
   slug: { current: string };
@@ -12,6 +12,7 @@ interface Post {
   coverImage: unknown;
   publishedAt: string;
   author: string;
+  category?: string;
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -22,7 +23,8 @@ async function getPosts(): Promise<Post[]> {
     excerpt,
     coverImage,
     publishedAt,
-    author
+    author,
+    category
   }`;
 
   return safeSanityFetch<Post[]>(query);
@@ -44,7 +46,7 @@ export default async function BlogPage() {
       <BlogHero />
 
       <div className="max-w-6xl mx-auto pb-24 px-6 md:px-12 lg:px-24">
-        <BlogPostGrid posts={posts} />
+        <BlogListing posts={posts} />
       </div>
 
       <Footer />

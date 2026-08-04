@@ -15,6 +15,7 @@ interface Post {
   coverImage: unknown;
   publishedAt: string;
   author: string;
+  category?: string;
 }
 
 const fadeUp: Variants = {
@@ -38,6 +39,32 @@ const formatPostDate = (value?: string) => {
     ? "Draft"
     : parsed.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 };
+
+// Deterministic accent from author initials so avatars don't all look identical.
+const AVATAR_PALETTE = ["#F26A10", "#D94030", "#0D0D0D", "#747474"];
+function avatarColor(seed: string) {
+  const code = seed.split("").reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+  return AVATAR_PALETTE[code % AVATAR_PALETTE.length];
+}
+
+function Avatar({ name }: { name: string }) {
+  const initials = name
+    .split(" ")
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+  return (
+    <div
+      className="w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px] font-bold shrink-0"
+      style={{ backgroundColor: avatarColor(name || "Dopmin Team") }}
+    >
+      {initials || "DM"}
+    </div>
+  );
+}
 
 export function BlogPostGrid({ posts }: { posts: Post[] }) {
   if (posts.length === 0) {
@@ -76,47 +103,54 @@ export function BlogPostGrid({ posts }: { posts: Post[] }) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={stagger}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      className="max-w-[1392px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-14"
     >
       {posts.map((post) => (
-        <motion.div key={post._id} variants={fadeUp}>
+        <motion.div key={post._id} variants={fadeUp} className="h-full">
           <Link href={`/blog/${post.slug.current}`} className="group block h-full">
-            <article className="h-full flex flex-col bg-white border border-stone-200 rounded-2xl overflow-hidden hover:border-[#F26A10]/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              {post.coverImage ? (
-                <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
+            <article className="h-full flex flex-col bg-white border border-[#e4e4e4] rounded-2xl overflow-hidden hover:border-[#F26A10]/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
+                {post.coverImage ? (
                   <Image
-                    src={urlFor(post.coverImage).width(600).height(375).url()}
+                    src={urlFor(post.coverImage).width(900).height(560).url()}
                     alt={post.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                </div>
-              ) : (
-                <div className="aspect-[16/10] bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center">
-                  <Newspaper className="w-8 h-8 text-stone-300" />
-                </div>
-              )}
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center">
+                    <Newspaper className="w-8 h-8 text-stone-300" />
+                  </div>
+                )}
+                {post.category && (
+                  <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-[#F26A10] text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+                    {post.category}
+                  </span>
+                )}
+              </div>
 
               <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center gap-2 text-sm text-[#747474] mb-3">
-                  <span className="font-medium text-[#0D0D0D]">{post.author || "Dopmin Team"}</span>
-                  <span>•</span>
-                  <span>{formatPostDate(post.publishedAt)}</span>
-                </div>
-
                 <h2 className="text-xl font-semibold text-[#0D0D0D] mb-2 group-hover:text-[#F26A10] transition-colors leading-snug">
                   {post.title}
                 </h2>
 
                 {post.excerpt && (
-                  <p className="text-[#747474] text-sm leading-relaxed line-clamp-3 mb-4">
+                  <p className="text-[#747474] text-sm leading-relaxed line-clamp-3 mb-5">
                     {post.excerpt}
                   </p>
                 )}
 
-                <div className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-[#F26A10] opacity-0 group-hover:opacity-100 transition-opacity">
-                  Read article <ArrowRight className="w-3.5 h-3.5" />
+                <div className="mt-auto pt-4 border-t border-[#e4e4e4] flex items-center justify-between">
+                  <div className="flex items-center gap-2.5 text-sm text-[#747474]">
+                    <Avatar name={post.author || "Dopmin Team"} />
+                    <div className="flex flex-col leading-tight">
+                      <span className="font-medium text-[#0D0D0D] text-[13px]">{post.author || "Dopmin Team"}</span>
+                      <span className="text-xs">{formatPostDate(post.publishedAt)}</span>
+                    </div>
+                  </div>
+
+                  <ArrowRight className="w-4 h-4 text-[#F26A10] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                 </div>
               </div>
             </article>
