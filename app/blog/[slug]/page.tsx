@@ -19,7 +19,7 @@ interface Post {
   title: string;
   slug: { current: string };
   excerpt: string;
-  coverImage: unknown;
+  coverImage: unknown | null;
   publishedAt: string;
   author: string;
   body: PortableTextBlock[];
@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </section>
 
       <div className="max-w-3xl mx-auto pb-24 px-6 md:px-12 lg:px-24">
-        {post.coverImage && (
+        {post.coverImage ? (
           <div className="relative aspect-[16/9] rounded-2xl overflow-hidden my-12">
             <Image
               src={urlFor(post.coverImage).width(1200).height(675).url()}
@@ -128,7 +128,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               priority
             />
           </div>
-        )}
+        ) : null}
 
         <article className="prose prose-lg max-w-none prose-headings:text-[#0D0D0D] prose-headings:font-bold prose-p:text-[#747474] prose-p:leading-relaxed prose-a:text-[#F26A10] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#0D0D0D] prose-img:rounded-xl prose-blockquote:border-l-[#F26A10] prose-blockquote:text-[#747474]">
           <PortableText
