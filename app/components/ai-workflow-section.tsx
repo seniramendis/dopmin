@@ -155,7 +155,7 @@ export function AIWorkflowSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="max-w-2xl mb-16 md:mb-20"
+          className="max-w-2xl mx-auto mb-16 md:mb-20 text-center"
         >
           <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
             AI Agents
@@ -246,14 +246,14 @@ export function AIWorkflowSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mt-10 md:mt-14 grid grid-cols-3 gap-3 md:gap-6 max-w-3xl"
+          className="mt-10 md:mt-14 grid grid-cols-3 gap-3 md:gap-6 max-w-3xl mx-auto text-center"
         >
           {[
             { value: "24/7", label: "Always working" },
             { value: "0", label: "Manual handoffs" },
             { value: "Minutes", label: "To resolve, not days" },
           ].map(({ value, label }) => (
-            <div key={label} className="text-left">
+            <div key={label} className="text-center">
               <p className="text-2xl md:text-3xl font-bold text-[#0D0D0D]">{value}</p>
               <p className="text-[#a2a2a2] text-xs md:text-sm mt-1">{label}</p>
             </div>
