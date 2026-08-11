@@ -169,13 +169,9 @@ export function AIWorkflowSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 px-6 overflow-hidden bg-white"
+      className="relative py-16 md:py-24 lg:py-32 px-4 md:px-6 overflow-hidden bg-white"
     >
-      {/* ambient background glows, matching site language */}
-      <div
-        aria-hidden
-        className="absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full bg-[#F26A10]/10 blur-3xl pointer-events-none"
-      />
+      {/* ambient background glow, matching site language */}
       <div
         aria-hidden
         className="absolute -bottom-24 -right-24 w-[380px] h-[380px] rounded-full bg-[#90E060]/10 blur-3xl pointer-events-none"
@@ -188,7 +184,7 @@ export function AIWorkflowSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="max-w-2xl mx-auto mb-16 md:mb-20 text-center"
+          className="max-w-2xl mx-auto mb-12 md:mb-16 lg:mb-20 text-center"
         >
           <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
             AI Agents
@@ -208,29 +204,29 @@ export function AIWorkflowSection() {
         </motion.div>
 
         {/* ── workflow canvas mockup ── */}
-        <div className="relative rounded-[28px] md:rounded-[36px] border border-[#e4e4e4] bg-[#0a0a12] overflow-hidden shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)]">
+        <div className="relative">
           {/* dot-grid canvas background, like an automation editor */}
           <div
             aria-hidden
-            className="absolute inset-0"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(circle, rgba(13,13,13,0.14) 1px, transparent 1px)",
               backgroundSize: "22px 22px",
             }}
           />
-          <div
-            aria-hidden
-            className="absolute -top-24 -left-16 w-[300px] h-[300px] rounded-full bg-[#F26A10]/20 blur-3xl"
-          />
-          <div
-            aria-hidden
-            className="absolute -bottom-24 -right-10 w-[280px] h-[280px] rounded-full bg-[#90E060]/10 blur-3xl"
-          />
-
-          <div className="relative overflow-x-auto px-4 py-10 md:px-10 md:py-16">
+          <div className="relative overflow-x-auto px-4 py-10 md:px-6 md:py-14 lg:px-10 lg:py-16 [-webkit-overflow-scrolling:touch]">
+            {/* edge fades hint horizontal scroll on small screens */}
+            <div
+              aria-hidden
+              className="md:hidden absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"
+            />
+            <div
+              aria-hidden
+              className="md:hidden absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"
+            />
             <div
               ref={trackRef}
-              className="relative mx-auto min-w-[720px] max-w-[1140px]"
+              className="relative mx-auto min-w-[640px] sm:min-w-[720px] max-w-[1140px]"
               style={{ aspectRatio: `${VB_W} / ${VB_H}` }}
             >
               <svg
@@ -271,10 +267,10 @@ export function AIWorkflowSection() {
                 <div className="w-16 h-16 rounded-2xl bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <Zap className="w-6 h-6 text-[#e8b23a]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-3 text-[13px] font-semibold text-white text-center whitespace-nowrap">
+                <p className="mt-3 text-[13px] font-semibold text-black text-center whitespace-nowrap">
                   New request
                 </p>
-                <p className="text-[11px] text-[#75758a] text-center whitespace-nowrap">
+                <p className="text-[11px] text-black text-center whitespace-nowrap">
                   Form, email, or ticket
                 </p>
               </div>
@@ -296,11 +292,11 @@ export function AIWorkflowSection() {
                       <Bot className="w-5 h-5 text-white" strokeWidth={1.8} />
                     </div>
                     <p className="text-[14px] font-bold text-white leading-none">AI Agent</p>
-                    <p className="text-[11px] text-[#a2a2b4] leading-none">Decides &amp; acts</p>
+                    <p className="text-[11px] text-[#c7c7d6] leading-none">Decides &amp; acts</p>
                   </div>
                 </div>
                 {/* mini connector captions, sitting just under the box like in an editor */}
-                <div className="absolute top-full mt-1.5 left-0 right-0 flex justify-between px-2 text-[10px] text-[#5c5c6e] font-medium">
+                <div className="absolute top-full mt-1.5 left-0 right-0 flex justify-between px-2 text-[10px] text-black font-medium">
                   <span>Model</span>
                   <span>Memory</span>
                   <span>Tool</span>
@@ -316,7 +312,7 @@ export function AIWorkflowSection() {
                 <div className="w-14 h-14 rounded-full bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <Brain className="w-5 h-5 text-[#7aa2ff]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-2 text-[11px] font-semibold text-[#c7c7d6] text-center whitespace-nowrap">
+                <p className="mt-2 text-[11px] font-semibold text-black text-center whitespace-nowrap">
                   Knowledge base
                 </p>
               </div>
@@ -328,7 +324,7 @@ export function AIWorkflowSection() {
                 <div className="w-14 h-14 rounded-full bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <Database className="w-5 h-5 text-[#5ec9c0]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-2 text-[11px] font-semibold text-[#c7c7d6] text-center whitespace-nowrap">
+                <p className="mt-2 text-[11px] font-semibold text-black text-center whitespace-nowrap">
                   Memory
                 </p>
               </div>
@@ -340,7 +336,7 @@ export function AIWorkflowSection() {
                 <div className="w-14 h-14 rounded-full bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <Wrench className="w-5 h-5 text-[#90E060]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-2 text-[11px] font-semibold text-[#c7c7d6] text-center whitespace-nowrap">
+                <p className="mt-2 text-[11px] font-semibold text-black text-center whitespace-nowrap">
                   Tools
                 </p>
               </div>
@@ -354,7 +350,7 @@ export function AIWorkflowSection() {
                 <div className="w-16 h-16 rounded-2xl bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <Signpost className="w-6 h-6 text-[#e0e0ea]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-3 text-[13px] font-semibold text-white text-center whitespace-nowrap">
+                <p className="mt-3 text-[13px] font-semibold text-black text-center whitespace-nowrap">
                   Needs approval?
                 </p>
               </div>
@@ -381,10 +377,10 @@ export function AIWorkflowSection() {
                 <div className="w-16 h-16 rounded-2xl bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <Bell className="w-6 h-6 text-[#90E060]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-3 text-[13px] font-semibold text-white text-center whitespace-nowrap">
+                <p className="mt-3 text-[13px] font-semibold text-black text-center whitespace-nowrap">
                   Notify team
                 </p>
-                <p className="text-[11px] text-[#75758a] text-center whitespace-nowrap">
+                <p className="text-[11px] text-black text-center whitespace-nowrap">
                   message: manager
                 </p>
               </div>
@@ -405,10 +401,10 @@ export function AIWorkflowSection() {
                 <div className="w-16 h-16 rounded-2xl bg-[#15151f] border border-[#2c2c38] flex items-center justify-center">
                   <CheckCircle2 className="w-6 h-6 text-[#a5a5b6]" strokeWidth={1.8} />
                 </div>
-                <p className="mt-3 text-[13px] font-semibold text-white text-center whitespace-nowrap">
+                <p className="mt-3 text-[13px] font-semibold text-black text-center whitespace-nowrap">
                   Update record
                 </p>
-                <p className="text-[11px] text-[#75758a] text-center whitespace-nowrap">
+                <p className="text-[11px] text-black text-center whitespace-nowrap">
                   close: automatically
                 </p>
               </div>
