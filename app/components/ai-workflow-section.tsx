@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import gsap from "gsap";
@@ -79,9 +79,11 @@ const DOT_STYLE: Record<PathKey, { color: string; size: number; duration: number
 // ─── AI WORKFLOW SECTION (GSAP node-graph mockup) ─────────────────────────────
 export function AIWorkflowSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const outerRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const heroGlowRef = useRef<HTMLDivElement | null>(null);
   const nodeRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [scale, setScale] = useState(1);
   const refs = useRef<{
     paths: Partial<Record<PathKey, SVGPathElement | null>>;
     dots: Partial<Record<PathKey, SVGCircleElement | null>>;
@@ -96,6 +98,25 @@ export function AIWorkflowSection() {
   const setDotRef = (key: PathKey) => (el: SVGCircleElement | null) => {
     refs.current.dots[key] = el;
   };
+
+  // scale the fixed 1140x480 canvas down to whatever width is actually
+  // available, so the whole diagram always fits on screen with no
+  // horizontal scrolling, even on small phones.
+  useEffect(() => {
+    const el = outerRef.current;
+    if (!el) return;
+
+    const updateScale = () => {
+      const width = el.getBoundingClientRect().width;
+      if (width > 0) setScale(width / VB_W);
+    };
+
+    updateScale();
+
+    const observer = new ResizeObserver(updateScale);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
@@ -214,21 +235,22 @@ export function AIWorkflowSection() {
               backgroundSize: "22px 22px",
             }}
           />
-          <div className="relative overflow-x-auto px-4 py-10 md:px-6 md:py-14 lg:px-10 lg:py-16 [-webkit-overflow-scrolling:touch]">
-            {/* edge fades hint horizontal scroll on small screens */}
+          <div className="relative px-4 py-10 md:px-6 md:py-14 lg:px-10 lg:py-16">
             <div
-              aria-hidden
-              className="md:hidden absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"
-            />
-            <div
-              aria-hidden
-              className="md:hidden absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"
-            />
-            <div
-              ref={trackRef}
-              className="relative mx-auto min-w-[640px] sm:min-w-[720px] max-w-[1140px]"
+              ref={outerRef}
+              className="relative mx-auto w-full max-w-[1140px]"
               style={{ aspectRatio: `${VB_W} / ${VB_H}` }}
             >
+              <div
+                ref={trackRef}
+                className="absolute top-0 left-0"
+                style={{
+                  width: VB_W,
+                  height: VB_H,
+                  transform: `scale(${scale})`,
+                  transformOrigin: "top left",
+                }}
+              >
               <svg
                 viewBox={`0 0 ${VB_W} ${VB_H}`}
                 className="absolute inset-0 w-full h-full"
@@ -414,6 +436,7 @@ export function AIWorkflowSection() {
                 style={{ left: xPct(1030), top: yPct(355) }}
               >
                 <Plus className="w-4 h-4 text-[#5c5c6e]" strokeWidth={2} />
+              </div>
               </div>
             </div>
           </div>
