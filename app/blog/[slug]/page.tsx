@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { BlogNav } from "../../components/blog-nav";
+import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 
 interface PortableTextBlock {
@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <main className="min-h-screen bg-white antialiased">
-      <BlogNav />
+      <Header active="blog" />
 
       {/* ── HEADER BAND ── */}
       <section className="relative pt-36 pb-4 px-6 overflow-hidden">

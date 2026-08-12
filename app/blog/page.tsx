@@ -1,5 +1,5 @@
 import { safeSanityFetch } from "@/lib/sanity";
-import { BlogNav } from "../components/blog-nav";
+import { Header } from "../components/header";
 import { BlogHero } from "../components/blog-hero";
 import { BlogListing } from "../components/blog-listing";
 import { Footer } from "../components/footer";
@@ -42,7 +42,7 @@ export default async function BlogPage() {
 
   return (
     <main className="min-h-screen bg-white antialiased">
-      <BlogNav />
+      <Header active="blog" />
       <BlogHero />
 
       <div className="max-w-6xl mx-auto pb-24 px-6 md:px-12 lg:px-24">
