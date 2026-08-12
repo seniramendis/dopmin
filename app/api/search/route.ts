@@ -21,6 +21,7 @@ type ScoredResult = SearchResult & { score: number };
 
 const STATIC_PAGES: Omit<SearchResult, "category">[] = [
   { id: "home", title: "Home", description: "DopMin — software, design & AI studio", href: "/" },
+  { id: "about", title: "About Us", description: "Who Dopmin Technologies is and how we work", href: "/about" },
   { id: "solutions", title: "Solutions", description: "How we solve problems for our clients", href: "/solutions" },
   { id: "work", title: "Work", description: "Case studies and past projects", href: "/work" },
   { id: "blog", title: "Blog", description: "Insights, updates and stories from the team", href: "/blog" },

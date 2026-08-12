@@ -14,7 +14,7 @@ const SECTIONS = [
   {
     title: "1. Introduction",
     body: [
-      "Dopmin (\"we\", \"us\", or \"our\") provides design, engineering, and AI workflow services for our clients. This Privacy Policy explains what information we collect through our website, why we collect it, and how it is used and protected.",
+      "Dopmin Technologies (\"Dopmin\", \"we\", \"us\", or \"our\") provides design, engineering, and AI workflow services for our clients. This Privacy Policy explains what information we collect through our website, why we collect it, and how it is used and protected.",
       "By using our website or contacting us through it, you agree to the practices described in this policy.",
     ],
   },

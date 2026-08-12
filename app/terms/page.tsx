@@ -14,7 +14,7 @@ const SECTIONS = [
   {
     title: "1. Agreement to Terms",
     body: [
-      "These Terms of Service (\"Terms\") govern your use of the Dopmin website and any services you engage us for. By accessing our website or engaging our services, you agree to be bound by these Terms.",
+      "These Terms of Service (\"Terms\") govern your use of the Dopmin Technologies (\"Dopmin\") website and any services you engage us for. By accessing our website or engaging our services, you agree to be bound by these Terms.",
       "If you do not agree with any part of these Terms, please do not use our website or services.",
     ],
   },
@@ -34,7 +34,7 @@ const SECTIONS = [
   {
     title: "4. Intellectual Property",
     body: [
-      "All content on this website, including text, graphics, logos, and code, is the property of Dopmin or its licensors and is protected by applicable intellectual property laws unless otherwise stated.",
+      "All content on this website, including text, graphics, logos, and code, is the property of Dopmin Technologies or its licensors and is protected by applicable intellectual property laws unless otherwise stated.",
       "Ownership of deliverables produced for a client project is governed by the terms of the relevant project agreement, not by this general policy.",
     ],
   },

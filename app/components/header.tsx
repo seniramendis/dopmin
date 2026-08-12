@@ -57,7 +57,7 @@ const LINKS = [
   { label: "Team", href: "/team", key: "team" },
 ] as const;
 
-type ActiveKey = "expertise" | "solutions" | "work" | "blog" | "team" | "contact";
+type ActiveKey = "expertise" | "solutions" | "work" | "blog" | "team" | "contact" | "about";
 
 interface HeaderProps {
   /** Which nav item should render in the active/brand-orange state. */

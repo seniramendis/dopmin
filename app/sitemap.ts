@@ -3,7 +3,7 @@ import { SITE_URL } from "../lib/site-config";
 import { safeSanityFetch } from "@/lib/sanity";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const routes = ["", "/expertise", "/solutions", "/work", "/team", "/book", "/blog", "/privacy", "/terms"];
+  const routes = ["", "/about", "/expertise", "/solutions", "/work", "/team", "/book", "/blog", "/privacy", "/terms"];
 
   const staticPages = routes.map((route) => ({
     url: `${SITE_URL}${route}`,

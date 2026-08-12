@@ -74,7 +74,8 @@ export function Footer() {
 
           <div className="flex flex-col gap-3">
             <span className="text-white font-semibold mb-1">Company</span>
-            <Link href="/team" className="hover:text-white transition-colors">About Us</Link>
+            <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+            <Link href="/team" className="hover:text-white transition-colors">Team</Link>
             <Link href="/work" className="hover:text-white transition-colors">Work</Link>
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link href="/#contact" className="hover:text-white transition-colors">Contact</Link>
@@ -88,7 +89,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-white/10 text-[#747474] flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-          <p>© {new Date().getFullYear()} Dopmin. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Dopmin Technologies. All Rights Reserved.</p>
           <SocialIconRow variant="dark" />
         </div>
       </div>
