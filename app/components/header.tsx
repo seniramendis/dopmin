@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, ChevronDown, X, Menu } from "lucide-react";
+import { GlobalSearch } from "./global-search";
 
 // ─── SERVICES (mega-menu) ──────────────────────────────────────────────────────
 // Slugs must match the `slug` field in app/expertise/data.ts — that file is
@@ -179,23 +180,28 @@ export function Header({ active, ctaHref = "/book" }: HeaderProps) {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <Link
-            href={ctaHref}
-            className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm"
-          >
-            Book a Free Audit <ChevronRight className="w-4 h-4" />
-          </Link>
+          <div className="flex items-center gap-1 md:gap-3">
+            {/* Site-wide search — visible on mobile and desktop */}
+            <GlobalSearch />
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-stone-400 hover:text-stone-700 transition-colors p-1 rounded"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={open}
-          >
-            {open ? <X className="w-6 h-6 text-[#0D0D0D]" /> : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
-          </button>
+            {/* Desktop CTA */}
+            <Link
+              href={ctaHref}
+              className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold bg-[#F26A10] text-white px-5 py-2 rounded-xl hover:bg-[#D94030] transition-colors outline-none shadow-sm"
+            >
+              Book a Free Audit <ChevronRight className="w-4 h-4" />
+            </Link>
+
+            {/* Mobile hamburger */}
+            <button
+              className="md:hidden text-stone-400 hover:text-stone-700 transition-colors p-1 rounded"
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={open}
+            >
+              {open ? <X className="w-6 h-6 text-[#0D0D0D]" /> : <Menu className="w-6 h-6 text-[#0D0D0D]" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile drawer */}
