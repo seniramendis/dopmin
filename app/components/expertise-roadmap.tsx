@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export interface ExpertiseSkill {
   name: string;
@@ -11,6 +12,7 @@ export interface ExpertiseSkill {
 }
 
 export interface ExpertiseRoadmapItem {
+  slug: string;
   name: string;
   role: string;
   tagline: string;
@@ -198,6 +200,15 @@ export function ExpertiseRoadmap({ items }: { items: ExpertiseRoadmapItem[] }) {
                   <p className="text-xs text-stone-400 italic border-t border-stone-100 pt-3">
                     &ldquo;{item.funFact}&rdquo;
                   </p>
+
+                  <Link
+                    href={`/expertise/${item.slug}`}
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold group/link"
+                    style={{ color: item.accentColor }}
+                  >
+                    Explore {item.name}
+                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
             );

@@ -7,34 +7,40 @@ import Link from "next/link";
 import { ChevronRight, ChevronDown, X, Menu } from "lucide-react";
 
 // ─── SERVICES (mega-menu) ──────────────────────────────────────────────────────
-// Kept lightweight on purpose — the header renders on every page, so it only
-// carries what the dropdown needs (no icon imports from the expertise page).
+// Slugs must match the `slug` field in app/expertise/data.ts — that file is
+// the source of truth for the full service pages; this list just needs
+// enough to render the dropdown without pulling in that page's icon imports.
 const SERVICES = [
   {
+    slug: "custom-software",
     name: "Custom Software",
     tagline: "High-leverage software systems built for enterprise scale.",
     img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80&auto=format&fit=crop",
     accentColor: "#F26A10",
   },
   {
+    slug: "ui-ux-design",
     name: "UI/UX Design",
     tagline: "Structured wireframes prioritizing intuitive user experiences.",
     img: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200&q=80&auto=format&fit=crop",
     accentColor: "#F0E080",
   },
   {
+    slug: "ai-automation",
     name: "AI & Automation",
     tagline: "Eliminate manual tasks with autonomous AI agents.",
     img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80&auto=format&fit=crop",
     accentColor: "#D94030",
   },
   {
+    slug: "mobile-apps",
     name: "Mobile Apps",
     tagline: "Expert development for seamless mobile experiences.",
     img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80&auto=format&fit=crop",
     accentColor: "#90E060",
   },
   {
+    slug: "full-stack-web",
     name: "Full-Stack Web",
     tagline: "Custom web applications driven by modern frameworks.",
     img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop",
@@ -133,8 +139,8 @@ export function Header({ active, ctaHref = "/book" }: HeaderProps) {
                       <div className="grid grid-cols-2 gap-1">
                         {SERVICES.map((service) => (
                           <Link
-                            key={service.name}
-                            href="/expertise"
+                            key={service.slug}
+                            href={`/expertise/${service.slug}`}
                             onClick={() => setServicesOpen(false)}
                             className="group flex gap-3 p-2 rounded-xl hover:bg-stone-50 transition-colors"
                           >
@@ -225,8 +231,8 @@ export function Header({ active, ctaHref = "/book" }: HeaderProps) {
                         <div className="pt-3 flex flex-col gap-2">
                           {SERVICES.map((service) => (
                             <Link
-                              key={service.name}
-                              href="/expertise"
+                              key={service.slug}
+                              href={`/expertise/${service.slug}`}
                               onClick={() => {
                                 setOpen(false);
                                 setMobileServicesOpen(false);
