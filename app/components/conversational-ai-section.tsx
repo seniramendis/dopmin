@@ -205,12 +205,47 @@ function BotMascot() {
   );
 }
 
+function TypingCursor() {
+  return (
+    <motion.span
+      className="inline-block w-[2px] h-[14px] bg-[#F26A10] ml-0.5 align-middle"
+      animate={{ opacity: [1, 1, 0, 0] }}
+      transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+    />
+  );
+}
+
+// ─── TYPING AREA (bottom input) ─────────────────────────────────────────────
+// Mimics the customer actually typing: while a "user" step is in flight the
+// live text streams in here character by character, cursor blinking at the
+// end. Idle otherwise, showing a plain placeholder.
+function TypingArea({ liveText }: { liveText: string }) {
+  return (
+    <div className="mt-4 flex items-center gap-2 bg-[#f5f5f5] rounded-full pl-4 pr-1.5 py-1.5 border border-[#ececec]">
+      <div className="flex-1 min-w-0 text-[13px] leading-relaxed py-1">
+        {liveText ? (
+          <span className="text-[#0D0D0D] font-medium">
+            {liveText}
+            <TypingCursor />
+          </span>
+        ) : (
+          <span className="text-[#a2a2a2]">Type a message…</span>
+        )}
+      </div>
+      <div className="w-7 h-7 rounded-full bg-[#F26A10] flex items-center justify-center shrink-0">
+        <ArrowRight className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+      </div>
+    </div>
+  );
+}
+
 // ─── CHAT MOCKUP CARD ───────────────────────────────────────────────────────
 function ChatMockup() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inView = useInView(containerRef, { once: false, amount: 0.5 });
   const [messages, setMessages] = useState<{ id: number; step: Step }[]>([]);
   const [typing, setTyping] = useState<"user" | "bot" | null>(null);
+  const [liveText, setLiveText] = useState("");
   const indexRef = useRef(0);
   const idRef = useRef(0);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -230,29 +265,61 @@ function ChatMockup() {
     if (prefersReduced) {
       setMessages(SCRIPT.map((step, i) => ({ id: i, step })));
       setTyping(null);
+      setLiveText("");
       return;
     }
 
     let cancelled = false;
 
+    const pushMessage = (step: Step) => {
+      setMessages((prev) => {
+        const next = [...prev, { id: idRef.current++, step }];
+        return next.length > CHAT_WINDOW ? next.slice(next.length - CHAT_WINDOW) : next;
+      });
+    };
+
     const showNext = () => {
       if (cancelled) return;
       const step = SCRIPT[indexRef.current % SCRIPT.length];
       indexRef.current += 1;
-      const typeAs = step.kind === "user" ? "user" : "bot";
 
-      setTyping(typeAs);
-      timers.current.push(
-        setTimeout(() => {
+      if (step.kind === "user") {
+        // Stream the text into the typing area instead of showing dots,
+        // so it reads like the customer actually typing it out.
+        const text = step.text;
+        const charDelay = Math.max(16, Math.floor(TYPING_DURATION / text.length));
+        let i = 0;
+        setLiveText("");
+
+        const typeChar = () => {
           if (cancelled) return;
-          setTyping(null);
-          setMessages((prev) => {
-            const next = [...prev, { id: idRef.current++, step }];
-            return next.length > CHAT_WINDOW ? next.slice(next.length - CHAT_WINDOW) : next;
-          });
-          timers.current.push(setTimeout(showNext, STEP_GAP));
-        }, TYPING_DURATION)
-      );
+          i += 1;
+          setLiveText(text.slice(0, i));
+          if (i < text.length) {
+            timers.current.push(setTimeout(typeChar, charDelay));
+          } else {
+            timers.current.push(
+              setTimeout(() => {
+                if (cancelled) return;
+                setLiveText("");
+                pushMessage(step);
+                timers.current.push(setTimeout(showNext, STEP_GAP));
+              }, 400)
+            );
+          }
+        };
+        timers.current.push(setTimeout(typeChar, charDelay));
+      } else {
+        setTyping("bot");
+        timers.current.push(
+          setTimeout(() => {
+            if (cancelled) return;
+            setTyping(null);
+            pushMessage(step);
+            timers.current.push(setTimeout(showNext, STEP_GAP));
+          }, TYPING_DURATION)
+        );
+      }
     };
 
     timers.current.push(setTimeout(showNext, 300));
@@ -276,8 +343,11 @@ function ChatMockup() {
       </div>
 
       {/* chat card */}
-      <div className="relative z-10 bg-[#fdfdfd] border border-[#ececec] rounded-[28px] shadow-[0_30px_70px_-30px_rgba(13,13,13,0.25)] pt-6 pb-5 px-5 md:px-6 lg:ml-[140px]">
-        <div className="flex items-center justify-between mb-5 pl-1">
+      <div className="relative z-10 bg-[#fdfdfd] border border-[#ececec] rounded-[28px] shadow-[0_30px_70px_-30px_rgba(13,13,13,0.25)] pt-5 pb-5 px-5 md:px-6 lg:ml-[140px]">
+        {/* header — solid, layered above the message list so bubbles can
+            never render "through" it (framer-motion's popLayout briefly
+            takes exiting bubbles out of flow to animate them) */}
+        <div className="relative z-20 bg-[#fdfdfd] flex items-center justify-between pl-1 pb-4 mb-1 border-b border-[#ececec]">
           <div>
             <p className="text-[13px] font-bold text-[#0D0D0D] leading-none">AI Assistant</p>
             <p className="text-[11px] text-[#90E060] font-medium mt-1 flex items-center gap-1.5">
@@ -287,7 +357,7 @@ function ChatMockup() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 h-[280px] justify-end overflow-hidden">
+        <div className="relative z-0 flex flex-col gap-3 h-[280px] justify-end overflow-hidden">
           <AnimatePresence mode="popLayout" initial={false}>
             {messages.map(({ id, step }) => (
               <div key={id} className="flex flex-col">
@@ -299,6 +369,8 @@ function ChatMockup() {
             {typing && <TypingDots key="typing" align={typing === "user" ? "end" : "start"} />}
           </AnimatePresence>
         </div>
+
+        <TypingArea liveText={liveText} />
       </div>
     </div>
   );
