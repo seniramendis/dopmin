@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Nav } from "../components/nav";
+import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 
 export const metadata: Metadata = {
@@ -80,7 +80,7 @@ const SECTIONS = [
 export default function PrivacyPolicyPage() {
   return (
     <main className="bg-white min-h-screen antialiased">
-      <Nav />
+      <Header />
 
       {/* ── HERO ── */}
       <section className="pt-36 pb-16 px-6 border-b border-[#e4e4e4]">
