@@ -13,6 +13,14 @@ const svgMap = map.getSVG({
   backgroundColor: "white",
 });
 
+// Exposes the same lat/lng -> pixel projection the map uses internally
+// (as a fraction of the map image's width/height), so callers can align
+// other UI — like scroll position — to a specific point on the map.
+export function projectWorldPoint(lat: number, lng: number) {
+  const pin = map.getPin({ lat, lng });
+  return { xPct: pin.x / map.image.width, yPct: pin.y / map.image.height };
+}
+
 export interface WorldMapPoint {
   lat: number;
   lng: number;

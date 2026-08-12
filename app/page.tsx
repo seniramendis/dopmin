@@ -6,7 +6,7 @@ import type { Variants } from "framer-motion";
 import {
   WifiOff, Bot, CloudUpload, ShoppingBag,
   ArrowRight, ChevronRight, X, Check, Menu, ExternalLink,
-  TrendingUp, Clock, Shield, Code, Layout, Zap, Smartphone, Monitor
+  Code, Layout, Zap, Smartphone, Monitor
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -603,109 +603,6 @@ function Expertise() {
   );
 }
 
-// ─── WORK / CASE STUDIES ──────────────────────────────────────────────────────
-const caseStudies = [
-  {
-    tag: "Healthcare · PWA",
-    title: "Hospital Ward Management System",
-    outcome: "Reduced nurse response time by 60% in low-connectivity wards.",
-    metrics: [
-      { icon: TrendingUp, value: "60%",  label: "Faster response" },
-      { icon: WifiOff,    value: "100%", label: "Offline capable" },
-    ],
-    accent: "#D94030",
-  },
-  {
-    tag: "Logistics · AI Automation",
-    title: "AI Dispatch & Routing Agent",
-    outcome: "Automated 85% of manual dispatch decisions for a regional courier network.",
-    metrics: [
-      { icon: Bot,   value: "85%",   label: "Automation rate" },
-      { icon: Clock, value: "4 hrs", label: "Daily hours saved" },
-    ],
-    accent: "#F26A10",
-  },
-  {
-    tag: "Retail · Cloud Migration",
-    title: "Omnichannel Commerce Platform",
-    outcome: "Migrated 12-year-old monolith to cloud, cutting infrastructure cost by 40%.",
-    metrics: [
-      { icon: CloudUpload, value: "40%",   label: "Cost reduction" },
-      { icon: Shield,      value: "99.9%", label: "Uptime achieved" },
-    ],
-    accent: "#90E060",
-  },
-];
-
-function Work() {
-  const { ref, inView } = useScrollInView(0.1);
-  return (
-    <section id="work" className="py-28 px-6 bg-white">
-      <div className="max-w-[1920px] mx-auto md:px-12 xl:px-24">
-        <motion.div
-          ref={ref}
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mb-14"
-        >
-          <motion.p variants={fadeUp} className="text-xs font-bold text-[#F26A10] uppercase tracking-[0.12em] mb-3">
-            Selected Work
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            className="text-[clamp(32px,5vw,64px)] font-semibold text-[#0D0D0D] leading-[1.1] max-w-lg"
-          >
-            Results we&apos;ve
-            <br />
-            delivered.
-          </motion.h2>
-        </motion.div>
-
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-3 gap-6"
-        >
-          {caseStudies.map(({ tag, title, outcome, metrics, accent }) => (
-            <motion.div
-              key={title}
-              variants={fadeUp}
-              className="rounded-2xl border border-[#e4e4e4] p-8 bg-white hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col"
-            >
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.1em] mb-6 px-3 py-1.5 rounded-full w-fit"
-                style={{ color: accent, background: `${accent}14`, border: `1px solid ${accent}30` }}
-              >
-                {tag}
-              </p>
-              <h3 className="text-2xl font-semibold text-[#0D0D0D] mb-4 leading-snug">{title}</h3>
-              <p className="text-base text-[#747474] leading-relaxed mb-8 flex-1">{outcome}</p>
-              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-[#e4e4e4]">
-                {metrics.map(({ icon: Icon, value, label }) => (
-                  <div key={label} className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                      style={{ background: `${accent}12`, border: `1px solid ${accent}25` }}
-                    >
-                      <Icon className="w-4 h-4" style={{ color: accent }} />
-                    </div>
-                    <div>
-                      <div className="text-base font-bold text-[#0D0D0D] leading-none">{value}</div>
-                      <div className="text-xs text-[#747474] font-medium mt-1">{label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 // ─── CONTACT ──────────────────────────────────────────────────────────────────
 function Contact() {
   const { ref, inView } = useScrollInView(0.1);
@@ -938,7 +835,6 @@ export default function DopMinPage() {
       <AIWorkflowSection />
       <ConversationalAISection />
       <HeroScrollDemo />
-      <Work />
       <TeamTeaser />
       <WorldMapDemo />
       <Contact />

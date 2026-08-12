@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { WorldMap, type WorldMapPoint } from "@/components/ui/world-map";
+import { WorldMap, projectWorldPoint, type WorldMapPoint } from "@/components/ui/world-map";
 
 // Colombo, Sri Lanka — hub for every route
 const COLOMBO: WorldMapPoint = {
@@ -27,6 +28,27 @@ const DESTINATIONS: WorldMapPoint[] = [
 ];
 
 export function WorldMapDemo() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // On mobile the map is wider than its container (swipeable). Center the
+  // initial scroll position on Colombo — the hub — instead of the map's
+  // left edge, so it's visible without swiping first.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const centerOnColombo = () => {
+      const { xPct } = projectWorldPoint(COLOMBO.lat, COLOMBO.lng);
+      const target = xPct * el.scrollWidth - el.clientWidth / 2;
+      const max = el.scrollWidth - el.clientWidth;
+      el.scrollLeft = Math.min(Math.max(target, 0), max);
+    };
+
+    centerOnColombo();
+    window.addEventListener("resize", centerOnColombo);
+    return () => window.removeEventListener("resize", centerOnColombo);
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center py-16 md:py-24 px-6 bg-white relative w-full overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
@@ -52,14 +74,25 @@ export function WorldMapDemo() {
           </p>
         </motion.div>
 
-        <div className="mt-14 md:mt-20 px-2 md:px-6">
-          <WorldMap
-            lineColor="#F26A10"
-            dots={DESTINATIONS.map((destination) => ({
-              start: COLOMBO,
-              end: destination,
-            }))}
-          />
+        <div className="mt-14 md:mt-20">
+          <div className="md:hidden mb-3 flex items-center justify-center gap-1.5 text-[11px] font-medium text-[#a2a2a2]">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l-6-6 6-6" /><path d="M15 6l6 6-6 6" /></svg>
+            Swipe to explore
+          </div>
+          <div
+            ref={scrollRef}
+            className="-mx-6 px-6 md:mx-0 md:px-6 overflow-x-auto overscroll-x-contain [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            <div className="min-w-[720px] md:min-w-0">
+              <WorldMap
+                lineColor="#F26A10"
+                dots={DESTINATIONS.map((destination) => ({
+                  start: COLOMBO,
+                  end: destination,
+                }))}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
