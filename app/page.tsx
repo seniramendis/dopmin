@@ -16,6 +16,7 @@ import { WorldMapDemo } from "./components/world-map-demo";
 import { HowWeCompare } from "./components/how-we-compare";
 import { HomeExpertiseCarousel } from "./components/home-expertise-carousel";
 import { AIWorkflowSection } from "./components/ai-workflow-section";
+import { ConversationalAISection } from "./components/conversational-ai-section";
 import { Footer } from "./components/footer";
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
@@ -935,6 +936,7 @@ export default function DopMinPage() {
         <HowWeCompare />
       </div>
       <AIWorkflowSection />
+      <ConversationalAISection />
       <HeroScrollDemo />
       <Work />
       <TeamTeaser />
