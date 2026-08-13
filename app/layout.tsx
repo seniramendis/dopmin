@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Instrument_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { WhatsAppGate } from "./components/whatsapp-gate";
+import CookieBanner from "./components/cookie-banner";
 import { SITE_URL, SITE_NAME } from "../lib/site-config";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 
 // Surge uses Instrument Sans for body and Inter for Headings
 const instrumentSans = Instrument_Sans({ 
@@ -93,9 +96,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        {/* Set default consent to DENIED before the GA script loads */}
+        <Script id="google-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied'
+            });
+          `}
+        </Script>
+      </head>
       <body className={`${instrumentSans.variable} ${inter.variable} font-sans antialiased bg-white text-[#747474]`}>
         {children}
         <WhatsAppGate />
+        
+        {/* Display the consent banner at the bottom of the page */}
+        <CookieBanner />
+        
+        {/* Load Google Analytics with your specific property ID */}
+        <GoogleAnalytics gaId="G-NTCSHXNZEM" /> 
       </body>
     </html>
   );
