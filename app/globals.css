@@ -24,6 +24,14 @@
     0%   { transform: translateX(0%); }
     100% { transform: translateX(-50%); }
   }
+
+  /* Cookie banner entrance animation */
+  --animate-slide-up-fade: slide-up-fade 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes slide-up-fade {
+    0%   { transform: translateY(16px); opacity: 0; }
+    100% { transform: translateY(0);    opacity: 1; }
+  }
 }
 
 /* ─── CSS CUSTOM PROPERTIES ──────────────────────────────────────────────────
