@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Cookie } from 'lucide-react';
 
@@ -12,17 +12,11 @@ declare global {
 }
 
 export default function CookieBanner() {
-  const [showBanner, setShowBanner] = useState(true);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    // Check local storage to see if they've answered before
+  const [showBanner, setShowBanner] = useState(() => {
+    if (typeof window === 'undefined') return false;
     const consent = localStorage.getItem('dopmin_cookie_consent');
-    if (consent) {
-      setShowBanner(false);
-    }
-  }, []);
+    return !consent;
+  });
 
   const acceptCookies = () => {
     localStorage.setItem('dopmin_cookie_consent', 'granted');
@@ -42,7 +36,7 @@ export default function CookieBanner() {
     setShowBanner(false);
   };
 
-  if (!mounted || !showBanner) return null;
+  if (!showBanner) return null;
 
   return (
     <div
